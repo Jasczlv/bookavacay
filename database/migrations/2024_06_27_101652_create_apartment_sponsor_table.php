@@ -20,7 +20,9 @@ return new class extends Migration
             $table->unsignedBigInteger('sponsor_id');
             $table->foreign('sponsor_id')->references('id')->on('sponsors');
 
-            $table->dateTime('exp_date');
+            $table->dateTime('activation_date')->nullable();
+            $table->dateTime('exp_date')->nullable();
+            $table->boolean('activated')->default(false);
         });
     }
 

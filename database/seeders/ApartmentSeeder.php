@@ -36,15 +36,23 @@ class ApartmentSeeder extends Seeder
 
         $sponsor_ids = Sponsor::all()->pluck('id')->all();
 
+        $sponsors = Sponsor::all();
+
         $service_ids = Service::all()->pluck('id')->all();
+
+        //mi prendo le ore degli sponsor
+
+        //mi prendo la data d'inizio
+
+        //aggiungo alla data d'inizio le ore di sponsorizzazione
 
         for ($i = 0; $i < 10; $i++) {
 
             /* $starting_point_lat = 44.49428334;  N S 44,67874 - 44,32525
             $starting_point_lon = 11.34267581; W E 11,08579 - 11,61025 */
 
-            $random_lat = 44.12;
-            $random_lon = 11.12;
+            // $random_lat = 44.12;
+            // $random_lon = 11.12;
 
             $new_apartment = new Apartment();
 
@@ -71,11 +79,29 @@ class ApartmentSeeder extends Seeder
 
             //FARE IN MODO CHE IL SEEDER AGGIUNGA LE ORE A NOW() PER SETTARE EXP_DATE DI OGNI ELEMENTO DI APARTMENT_SPONSOR
 
-            $random_sponsor_id = $faker->randomElements($sponsor_ids);
-            $new_apartment->sponsors()->attach($random_sponsor_id, ['exp_date' => '2024-06-15 12:00:00']);
+            // $random_sponsor_ids = $faker->randomElements($sponsor_ids);
+            // $random_sponsor_id = $faker->randomElement($sponsor_ids, null);
+            // // $new_apartment->sponsors()->attach($random_sponsor_id, ['exp_date' => '2024-06-15 12:00:00']);
+            // $new_apartment->sponsors()->attach($random_sponsor_ids, ['exp_date' => now()->addHours($sponsors[$random_sponsor_id - 1]->hours)], ['activation_date' => now()]);
 
+            // Attach sponsors with activation and expiration dates
+            $random_sponsor_ids = $faker->randomElements($sponsors->pluck('id')->toArray());
+
+            foreach ($random_sponsor_ids as $sponsor_id) {
+                $sponsor = $sponsors->find($sponsor_id);
+                $activation_date = now();
+
+                // Extract hours from sponsor's time field
+                $sponsor_hours = (int) explode(':', $sponsor->hours)[0];
+
+                $exp_date = (clone $activation_date)->addHours($sponsor_hours);
+
+                $new_apartment->sponsors()->attach($sponsor_id, [
+                    'activation_date' => $activation_date,
+                    'exp_date' => $exp_date,
+                    'activated' => true
+                ]);
+            }
         }
-
-
     }
 }
