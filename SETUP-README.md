@@ -3,6 +3,7 @@
 npm i  
 composer i  
 cp .env.example .env //remember to go to .env file after this, to insert your data to connect to your database!
+php artisan key:generate
 
 ## Model if needed
 
