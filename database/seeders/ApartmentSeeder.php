@@ -92,6 +92,8 @@ class ApartmentSeeder extends Seeder
                 $activation_date = now();
 
                 // Extract hours from sponsor's time field
+
+                // sponsor_hours = the integer of the returned value by the exploded array at index 0 example: $sponsor->hours returns 24:00:00 explode transforms it into ["24", "00", "00"] so we get 24 from the index 0 and we transform it into an integer and assign it to $sponsor_hours
                 $sponsor_hours = (int) explode(':', $sponsor->hours)[0];
 
                 $exp_date = (clone $activation_date)->addHours($sponsor_hours);
