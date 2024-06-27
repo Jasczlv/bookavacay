@@ -69,6 +69,8 @@ class ApartmentSeeder extends Seeder
             $random_service_ids = $faker->randomElements($service_ids, $number_of_services);
             $new_apartment->services()->attach($random_service_ids);
 
+            //FARE IN MODO CHE IL SEEDER AGGIUNGA LE ORE A NOW() PER SETTARE EXP_DATE DI OGNI ELEMENTO DI APARTMENT_SPONSOR
+
             $random_sponsor_id = $faker->randomElements($sponsor_ids);
             $new_apartment->sponsors()->attach($random_sponsor_id, ['exp_date' => '2024-06-15 12:00:00']);
 
