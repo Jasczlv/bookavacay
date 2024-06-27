@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->timestamps();
             $table->string('tier', 50);
             $table->time('hours');
+            $table->float('price', 5, 2);
         });
     }
 
