@@ -21,7 +21,7 @@ return new class extends Migration
             $table->smallInteger('sqr_mt');
             $table->decimal('lat', 8, 5);
             $table->decimal('long', 9, 5);
-            $table->string('image');
+            $table->string('image')->nullable();
             $table->boolean('visible')->default(false);
             $table->string('address');
         });
