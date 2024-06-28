@@ -1,19 +1,19 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
-use App\Models\Apartment;
-use App\Http\Requests\StoreApartmentRequest;
-use App\Http\Requests\UpdateApartmentRequest;
+use App\Http\Controllers\Controller;
+use App\Models\Sponsor;
+use Illuminate\Http\Request;
 
-class ApartmentController extends Controller
+class SponsorController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        $ciao = 'saluta';
+        //
     }
 
     /**
@@ -27,7 +27,7 @@ class ApartmentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreApartmentRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -35,7 +35,7 @@ class ApartmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Apartment $apartment)
+    public function show(Sponsor $sponsor)
     {
         //
     }
@@ -43,7 +43,7 @@ class ApartmentController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Apartment $apartment)
+    public function edit(Sponsor $sponsor)
     {
         //
     }
@@ -51,7 +51,7 @@ class ApartmentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateApartmentRequest $request, Apartment $apartment)
+    public function update(Request $request, Sponsor $sponsor)
     {
         //
     }
@@ -59,7 +59,7 @@ class ApartmentController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Apartment $apartment)
+    public function destroy(Sponsor $sponsor)
     {
         //
     }
