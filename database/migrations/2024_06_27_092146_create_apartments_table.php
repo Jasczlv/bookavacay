@@ -14,7 +14,7 @@ return new class extends Migration {
             $table->id();
             $table->timestamps();
             $table->string('title');
-            $table->smallInteger('rooms');
+            $table->smallInteger('rooms');//Potrebbero anche essere tinyInt oppure unsignedSmallInteger
             $table->smallInteger('beds');
             $table->smallInteger('bathrooms');
             $table->smallInteger('sqr_mt');
