@@ -4,7 +4,7 @@
 
 <section>
     <div class="container">
-        <h1>Sponsors</h1>
+        <h1 class="mt-4">Sponsors</h1>
     </div>
     <div class="container">
         <table class="table">
@@ -27,6 +27,11 @@
                 @endforeach
             </tbody>
         </table>
+    </div>
+    <div class="container">
+        <button class="card mb-3 p-2">
+            <a href="{{ route('admin.sponsors.create') }}">Add a new sponsor</a>
+        </button>
     </div>
 </section>
 
