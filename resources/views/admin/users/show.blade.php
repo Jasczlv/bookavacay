@@ -39,7 +39,7 @@
                 @endif
             </div>
         </div>
-        <button class="btn btn-primary mt-4">Edit</button>
+        <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-primary mt-4">Edit</a>
 
     </div>
 @endsection

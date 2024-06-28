@@ -5,7 +5,7 @@
     <div class="container">
 
         <div class="d-flex justify-content-center align-items-center">
-            <p>Create a new user</p>
+            <p>Update user</p>
         </div>
 
         @if ($errors->any())
@@ -19,23 +19,25 @@
             </div>
         @endif
 
-        <form action="{{ route('admin.users.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('admin.users.update', $user) }}" method="POST" enctype="multipart/form-data">
 
             {{-- Cross Site Request Forgering --}}
             @csrf
             @method('PUT')
             <div class="mb-3">
                 <label for="name" class="form-label">Name*</label>
-                <input type="text" name="name" class="form-control" id="name" placeholder="David">
+                <input type="text" name="name" class="form-control" id="name" placeholder="David"
+                    value="{{ $user->name }}">
             </div>
             <div class="mb-3">
                 <label for="surname" class="form-label">Surname*</label>
-                <input type="text" name="surname" class="form-control" id="surname" placeholder="White">
+                <input type="text" name="surname" class="form-control" id="surname" placeholder="White"
+                    value="{{ $user->surname }}">
             </div>
             <div class="mb-3">
                 <label for="email" class="form-label">Email</label>
-                <input type="email" name="email" class="form-control" id="email"
-                    placeholder="david.white@email.com">
+                <input type="email" name="email" class="form-control" id="email" placeholder="david.white@email.com"
+                    value="{{ $user->email }}">
             </div>
             <div class="mb-3">
                 <label for="password" class="form-label">Password</label>
@@ -43,19 +45,15 @@
             </div>
             <div class="mb-3">
                 <label for="date_of_birth" class="form-label">Date of birth*</label>
-                <input type="date" name="date_of_birth" class="form-control" id="date_of_birth" placeholder="">
+                <input type="date" name="date_of_birth" class="form-control" id="date_of_birth" placeholder=""
+                    value="{{ $user->date_of_birth }}">
             </div>
 
             <div class="d-flex justify-content-center py-4">
-                <button class="btn my-btn-edit">Update</button>
+                <button class="btn btn-primary">Update</button>
+
             </div>
-            <form action="{{ route('admin.useres.destroy', $usere) }}" method="POST">
-                @method('DELETE')
-                @csrf
 
-                <button class="btn btn-link link-danger">Trash</button>
-
-            </form>
         </form>
     </div>
 @endsection
