@@ -20,17 +20,19 @@
                 @foreach ($sponsors as $sponsor)
                     <tr>
                         <th>{{ $sponsor->id }}</th>
-                        <th>{{ $sponsor->tier }}</th>
+                        <th>
+                            <a href="{{ route('admin.sponsors.show',$sponsor) }}">{{ $sponsor->tier }}</a>
+                        </th>
                         <th>{{ $sponsor->hours }}</th>
                         <th>{{ $sponsor->price }}</th>
                         <th>
-                            <a href="{{ route('admin.sponsors.edit',$sponsor) }}">Edit</a>
+                            <a type="button" class="btn btn-warning" href="{{ route('admin.sponsors.edit',$sponsor) }}">Edit</a>
                         </th>
                         <th>
                             <form class="delete-form" action="{{ route('admin.sponsors.destroy',$sponsor) }}" method="POST">
                                 @csrf
                                 @method('DELETE')
-                                <button class="ml-2 text-danger">Delete</button>
+                                <button type="button" class="btn btn-danger">Delete</button>
                             </form>
                         </th>
                     </tr>
@@ -39,9 +41,7 @@
         </table>
     </div>
     <div class="container">
-        <button class="card mb-3 p-2">
-            <a href="{{ route('admin.sponsors.create') }}">Add a new sponsor</a>
-        </button>
+        <a type="button" class="btn btn-primary mt-2"  href="{{ route('admin.sponsors.create') }}">Add a new sponsor</a>
     </div>
 </section>
 

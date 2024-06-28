@@ -4,6 +4,9 @@
 
 <section>
     <div class="container">
+        <a type="button" class="btn btn-primary mt-4 mb-3" href="{{ route('admin.sponsors.index') }}">&larr; Back to all sponsors</a>
+    </div>
+    <div class="container">
         <h2 class="mt-4">Create a new sponsor</h2>
     </div>
     <div class="container">
