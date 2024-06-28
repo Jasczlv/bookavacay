@@ -23,6 +23,8 @@ class UpdateServiceRequest extends FormRequest
     {
         return [
             //
+            'name' => 'required | max:200 | string',
+
         ];
     }
 }
