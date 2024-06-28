@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use App\Models\Apartment;
-use App\Http\Requests\StoreApartmentRequest;
-use App\Http\Requests\UpdateApartmentRequest;
+use Illuminate\Http\Request;
 
 class ApartmentController extends Controller
 {
@@ -13,7 +13,7 @@ class ApartmentController extends Controller
      */
     public function index()
     {
-        $ciao = 'saluta';
+        //
     }
 
     /**
@@ -27,7 +27,7 @@ class ApartmentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(StoreApartmentRequest $request)
+    public function store(Request $request)
     {
         //
     }
@@ -51,7 +51,7 @@ class ApartmentController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateApartmentRequest $request, Apartment $apartment)
+    public function update(Request $request, Apartment $apartment)
     {
         //
     }
