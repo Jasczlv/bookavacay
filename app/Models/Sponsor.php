@@ -13,4 +13,7 @@ class Sponsor extends Model
     {
         return $this->belongsToMany(Apartment::class);
     }
+    protected $fillable = [
+        'tier','hours','price'
+    ];
 }

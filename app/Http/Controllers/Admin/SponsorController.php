@@ -31,17 +31,26 @@ class SponsorController extends Controller
      */
     public function store(Request $request)
     {
-        $form_data = $request->validated();
-        $new_sponsor = Sponsor::create($form_data);
-        return to_route('admin.sponsors.show', $new_sponsor);
+        $data = $request->all();
+        $new_sponsor = Sponsor::create($data);
+        // $new_sponsor->tier = $data['tier'];
+        // $new_sponsor->hours = $data['hours'];
+        // $new_sponsor->price = $data['price'];
+        // $new_sponsor->save();
+
+        return to_route('admin.sponsors.show', $new_sponsor->id);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Sponsor $sponsor)
+    public function show($tier)
     {
-        //
+        $sponsor = Sponsor::find($tier);
+        if($sponsor === null) {
+            abort('404');
+        }
+        return view('admin.sponsors.show', compact('sponsor'));
     }
 
     /**
