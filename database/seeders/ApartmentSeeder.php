@@ -35,8 +35,6 @@ class ApartmentSeeder extends Seeder
 
         $user_ids = User::all()->pluck('id')->all();
 
-        /* $sponsor_ids = Sponsor::all()->pluck('id')->all(); */
-
         $sponsors = Sponsor::all();
 
         $service_ids = Service::all()->pluck('id')->all();
@@ -60,7 +58,7 @@ class ApartmentSeeder extends Seeder
             $new_apartment->sqr_mt = round($faker->numberBetween($random_rooms * 7, $random_rooms * 15));
             $new_apartment->lat = 44 + ($faker->numberBetween(32525, 67874)) / 100000;
             $new_apartment->lon = 11 + ($faker->numberBetween(10579, 61025)) / 100000;
-            $new_apartment->image = 'https://picsum.photos/200/300?random=' . $i;
+            $new_apartment->image = 'https://picsum.photos/300/200?random=' . $i;
             $new_apartment->visible = true;
             $new_apartment->address = $faker->address();
 
@@ -73,7 +71,6 @@ class ApartmentSeeder extends Seeder
             $new_apartment->services()->attach($random_service_ids);
 
             $sponsor = $sponsors->random();
-
             $exp_date = Carbon::now()->addHours($sponsor->hours);
 
             $new_apartment->sponsors()->attach($sponsor->id, ['exp_date' => $exp_date]);
