@@ -1,0 +1,18 @@
+.container-services{
+    width: 900px;
+    margin: 0 auto;
+
+}
+
+.row-services{
+    display: grid;
+    grid-template-columns: repeat(3 , 1fr);
+    gap: 5px 5px;
+}
+
+.card-services{
+    padding: 20px;
+    border: 2px solid black;
+
+}
+

@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Service;
 use Illuminate\Http\Request;
+use App\Http\Requests\StoreServiceRequest;
 
 class ServiceController extends Controller
 {
@@ -26,13 +27,13 @@ class ServiceController extends Controller
     public function create()
     {
         //
-        return view ('admin.services.create');
+        return view('admin.services.create');
     }
 
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreServiceRequest $request)
     {
         //
         $form_data = $request->all();
@@ -55,19 +56,19 @@ class ServiceController extends Controller
     public function edit(Service $service)
     {
         //
-        return view ('admin.services.edit', compact('service'));
+        return view('admin.services.edit', compact('service'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Service $service)
+    public function update(StoreServiceRequest $request, Service $service)
     {
         //
         $form_data = $request->all();
         $service->update($form_data);
-        
-        return to_route ('admin.services.show', $service);
+
+        return to_route('admin.services.show', $service);
     }
 
     /**
@@ -77,6 +78,6 @@ class ServiceController extends Controller
     {
         //
         $service->delete();
-        return to_route ('admin.services.show', $service);
+        return to_route('admin.services.index', $service);
     }
 }
