@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreApartmentRequest;
+use App\Http\Requests\UpdateApartmentRequest;
 use App\Models\Apartment;
 use App\Models\Service;
 use App\Models\User;
@@ -95,15 +96,32 @@ class ApartmentController extends Controller
      */
     public function edit(Apartment $apartment)
     {
-        //
+        $services = Service::orderBy('name', 'asc')->get();
+        $users = User::orderBy('id', 'asc')->get();
+
+        return view('admin.apartments.edit', compact('apartment', 'services', 'users'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Apartment $apartment)
+    public function update(UpdateApartmentRequest $request, Apartment $apartment)
     {
-        //
+        $form_data = $request->validated();
+        // dd($form_data);
+
+
+        if ($request->has('services')) {
+            // foreach ($form_data['services'] as $service_id) {
+
+            //     $apartment->services()->attach($service_id);
+            // }
+            $apartment->services()->sync($form_data['services']);
+        }
+
+        $apartment->update($form_data);
+
+        return to_route('admin.apartments.show', $apartment);
     }
 
     /**
@@ -111,6 +129,8 @@ class ApartmentController extends Controller
      */
     public function destroy(Apartment $apartment)
     {
-        //
+        $apartment->delete();
+
+        return redirect()->route('admin.apartments.index');
     }
 }
