@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\User;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class UserController extends Controller
@@ -13,7 +14,8 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+        return view('admin.users.index', compact('users'));
     }
 
     /**
@@ -22,6 +24,9 @@ class UserController extends Controller
     public function create()
     {
         //
+        $users = User::orderBy('email', 'asc')->get();
+
+        return view('admin.users.create', compact('users'));
     }
 
     /**
@@ -29,7 +34,27 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'surname' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email',
+            'password' => 'required|string|min:8',
+            'date_of_birth' => 'required|date',
+        ]);
+
+        // Convert date_of_birth to yyyy-mm-dd format
+        $dateOfBirth = Carbon::createFromFormat('Y-m-d', $request->input('date_of_birth'))->format('Y-m-d');
+
+        $user = new User();
+        $user->name = $request->input('name');
+        $user->surname = $request->input('surname');
+        $user->email = $request->input('email');
+        $user->password = $request->input('password');
+        $user->date_of_birth = $dateOfBirth;
+        $user->save();
+
+        return to_route('admin.users.show', $user);
     }
 
     /**
@@ -37,7 +62,7 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
-        //
+        return view('admin.users.show', compact('user'));
     }
 
     /**
@@ -45,7 +70,7 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {
-        //
+        return view('admin.users.edit', compact('user'));
     }
 
     /**
@@ -53,7 +78,21 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
-        //
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'surname' => 'required|string|max:255',
+            'email' => 'required|email|max:255|unique:users,email',
+            'password' => 'required|string|min:8',
+            'date_of_birth' => 'required|date',
+        ]);
+
+        $form_data = $request->all();
+
+
+
+        $user->update($form_data);
+
+        return to_route('admin.users.show', $user);
     }
 
     /**
@@ -61,6 +100,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
+        return to_route('admin.users.index');
     }
 }
