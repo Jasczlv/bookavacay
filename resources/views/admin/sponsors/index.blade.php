@@ -23,6 +23,9 @@
                         <th>{{ $sponsor->tier }}</th>
                         <th>{{ $sponsor->hours }}</th>
                         <th>{{ $sponsor->price }}</th>
+                        <th>
+                            <a href="{{ route('admin.sponsors.edit',$sponsor) }}">Edit</a>
+                        </th>
                     </tr>
                 @endforeach
             </tbody>

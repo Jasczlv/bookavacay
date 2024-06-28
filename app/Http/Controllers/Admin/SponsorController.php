@@ -58,7 +58,7 @@ class SponsorController extends Controller
      */
     public function edit(Sponsor $sponsor)
     {
-        //
+        return view('admin.sponsors.edit', compact('sponsor'));
     }
 
     /**
@@ -66,7 +66,9 @@ class SponsorController extends Controller
      */
     public function update(Request $request, Sponsor $sponsor)
     {
-        //
+        $data = $request->all();
+        $sponsor->update($data);
+        return to_route('admin.sponsors.show', $sponsor);
     }
 
     /**
