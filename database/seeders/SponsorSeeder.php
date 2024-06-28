@@ -18,17 +18,17 @@ class SponsorSeeder extends Seeder
             [
                 [
                     'tier' => 'standard',
-                    'hours' => '24:00:00',
+                    'hours' => 24,
                     'price' => 2.99
                 ],
                 [
                     'tier' => 'plus',
-                    'hours' => '72:00:00',
+                    'hours' => 72,
                     'price' => 5.99
                 ],
                 [
                     'tier' => 'premium',
-                    'hours' => '144:00:00',
+                    'hours' => 144,
                     'price' => 9.99
                 ]
             ];
