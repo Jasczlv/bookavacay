@@ -38,7 +38,47 @@ class ApartmentController extends Controller
     public function store(StoreApartmentRequest $request)
     {
         $form_data = $request->validated();
-        dd($form_data);
+        // dd($form_data);
+
+        $form_data['lat'] = 44;
+        $form_data['lon'] = 11;
+
+        $new_apartment = Apartment::create($form_data);
+
+        if ($request->has('services')) {
+            foreach ($form_data['services'] as $service_id) {
+
+                $new_apartment->services()->attach($service_id);
+            }
+        }
+
+        // $new_apartment = new Apartment();
+
+        // $new_apartment->title = $form_data['title'];
+        // $new_apartment->rooms = $form_data['rooms'];
+        // $new_apartment->beds = $form_data['beds'];
+        // $new_apartment->bathrooms = $form_data['bathrooms'];
+        // $new_apartment->sqr_mt = $form_data['sqr_mt'];
+        // $new_apartment->address = $form_data['address'];
+        // $new_apartment->user_id = $form_data['user_id'];
+        // $new_apartment->lat = 44;
+        // $new_apartment->lon = 11;
+
+
+
+
+        // if ($request->has('visible')) {
+        //     $new_apartment->visible = $form_data['visible'];
+        // };
+
+        // $new_apartment->save();
+
+        // if ($request->has('service_ids')) {
+        //     foreach ($form_data['service_ids'] as $service_id) {
+
+        //         $new_apartment->services()->attach($service_id);
+        //     }
+        // }
     }
 
     /**

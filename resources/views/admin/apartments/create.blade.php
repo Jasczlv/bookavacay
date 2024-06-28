@@ -28,6 +28,15 @@
                     </div>
 
                     <div class="mb-3">
+                        @foreach ($users as $user)
+                            <label for="user_id"
+                                class="form-label">{{ $user->name . ' ' . $user->surname . ' ' . $user->id }}</label>
+                            <input type="radio" name="user_id" id="user_{{ $user->id }}" placeholder="user_id"
+                                value="{{ $user->id }}">
+                        @endforeach
+                    </div>
+
+                    <div class="mb-3">
                         <label for="rooms" class="form-label">Number of rooms</label>
                         <input type="number" name="rooms" class="form-control" id="rooms" placeholder="4"
                             value="{{ old('rooms') }}">
@@ -54,9 +63,9 @@
                     {{-- TODO aggiungere mappa per indirizzo, lat e lon --}}
 
                     <div class="mb-3">
-                        <label for="Address" class="form-label">Apartment Address</label>
-                        <input type="text" name="Address" class="form-control" id="Address"
-                            placeholder="BookaVacay Avenue 1" value="{{ old('Address') }}">
+                        <label for="address" class="form-label">Apartment address</label>
+                        <input type="text" name="address" class="form-control" id="address"
+                            placeholder="BookaVacay Avenue 1" value="{{ old('address') }}">
                     </div>
 
                     <div class="mb-3">
@@ -87,13 +96,14 @@
                                     Apartment Services
                                 </button>
                             </h2>
-                            <div id="collapseTwo" class="accordion-collapse collapse" data-bs-parent="#servicesAccordion">
+                            <div id="collapseTwo" class="accordion-collapse collapse"
+                                data-bs-parent="#servicesAccordion">
                                 <div class="accordion-body">
                                     <div class="row">
                                         @foreach ($services as $service)
                                             <div class="col-2">
                                                 <label for="{{ $service->name }}">{{ $service->name }}</label>
-                                                <input type="checkbox" name="service_ids[]" id="{{ $service->name }}"
+                                                <input type="checkbox" name="services[]" id="{{ $service->name }}"
                                                     value="{{ $service->id }}">
                                             </div>
                                         @endforeach
