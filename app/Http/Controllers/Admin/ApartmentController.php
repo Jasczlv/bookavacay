@@ -79,6 +79,7 @@ class ApartmentController extends Controller
         //         $new_apartment->services()->attach($service_id);
         //     }
         // }
+        return redirect()->route('admin.apartments.show', $new_apartment);
     }
 
     /**
@@ -86,7 +87,7 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
-        //
+        return view('admin.apartments.show', compact('apartment'));
     }
 
     /**
