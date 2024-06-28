@@ -28,7 +28,9 @@ class StoreApartmentRequest extends FormRequest
             'bathrooms' => 'required|numeric|min:1|max:100|lte:rooms',
             'sqr_mt' => 'required|numeric|min:1',
             'address' => 'required|string',
-            'visible' => 'boolean'
+            'visible' => 'boolean',
+            'services' => 'nullable|exists:services,id',
+            'user_id' => 'required|exists:users,id'
         ];
     }
 }

@@ -15,16 +15,17 @@
 
         <div class="card">
             <div class="card-header">
-                <h2>New Apartment</h2>
+                <h2>Edit Apartment</h2>
             </div>
             <div class="card-body py-3">
-                <form action="{{ route('admin.apartments.store') }}" method="POST">
+                <form action="{{ route('admin.apartments.update', $apartment) }}" method="POST">
                     @csrf
+                    @method('PUT')
 
                     <div class="mb-3">
                         <label for="title" class="form-label">Apartment Title</label>
                         <input type="text" name="title" class="form-control" id="title" placeholder="Title"
-                            value="{{ old('title') }}">
+                            value="{{ old('title', $apartment->title) }}">
                     </div>
 
                     <div class="mb-3">
@@ -32,32 +33,32 @@
                             <label for="user_id"
                                 class="form-label">{{ $user->name . ' ' . $user->surname . ' ' . $user->id }}</label>
                             <input type="radio" name="user_id" id="user_{{ $user->id }}" placeholder="user_id"
-                                value="{{ $user->id }}">
+                                @checked($user->id == old('user_id', $apartment->user_id)) value="{{ $user->id }}">
                         @endforeach
                     </div>
 
                     <div class="mb-3">
                         <label for="rooms" class="form-label">Number of rooms</label>
                         <input type="number" name="rooms" class="form-control" id="rooms" placeholder="4"
-                            value="{{ old('rooms') }}">
+                            value="{{ old('rooms', $apartment->rooms) }}">
                     </div>
 
                     <div class="mb-3">
                         <label for="beds" class="form-label">Number of beds</label>
                         <input type="number" name="beds" class="form-control" id="beds" placeholder="2"
-                            value="{{ old('beds') }}">
+                            value="{{ old('beds', $apartment->beds) }}">
                     </div>
 
                     <div class="mb-3">
                         <label for="bathrooms" class="form-label">Number of bathrooms</label>
                         <input type="number" name="bathrooms" class="form-control" id="bathrooms" placeholder="1"
-                            value="{{ old('bathrooms') }}">
+                            value="{{ old('bathrooms', $apartment->bathrooms) }}">
                     </div>
 
                     <div class="mb-3">
                         <label for="sqr_mt" class="form-label">Square meters</label>
                         <input type="number" name="sqr_mt" class="form-control" id="sqr_mt" placeholder="60"
-                            value="{{ old('sqr_mt') }}">
+                            value="{{ old('sqr_mt', $apartment->sqr_mt) }}">
                     </div>
 
                     {{-- TODO aggiungere mappa per indirizzo, lat e lon --}}
@@ -65,7 +66,7 @@
                     <div class="mb-3">
                         <label for="address" class="form-label">Apartment address</label>
                         <input type="text" name="address" class="form-control" id="address"
-                            placeholder="BookaVacay Avenue 1" value="{{ old('address') }}">
+                            placeholder="BookaVacay Avenue 1" value="{{ old('address', $apartment->address) }}">
                     </div>
 
                     <div class="mb-3">
@@ -114,7 +115,7 @@
                     </div>
 
                     <div class="mb-3">
-                        <button class="btn btn-primary">Submit</button>
+                        <button class="btn btn-primary">Save</button>
                     </div>
 
                 </form>
