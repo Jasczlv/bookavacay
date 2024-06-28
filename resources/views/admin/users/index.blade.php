@@ -1,25 +1,72 @@
 @extends('layouts.app')
 
 @section('content')
-    <div class="container mt-5">
-        @foreach ($users as $user)
-            <div class="card p-3 my-2">
-                <label for="user" class="fw-bold">User ID {{ $user->id }}</label>
-                <div class="d-flex justify-content-between">
-                    <p name="user" id="user">{{ $user->email }}</p>
-                    <div class="d-flex gap-3">
 
-                        <a class="btn btn-primary" href="{{ route('admin.users.show', $user->id) }}">Show</a>
-                        <form action="{{ route('admin.users.destroy', $user) }}" method="POST">
-                            @method('DELETE')
-                            @csrf
-
-                            <button class="btn btn-danger">Trash</button>
-
-                        </form>
-                    </div>
-                </div>
-            </div>
-        @endforeach
+    {{-- TITOLO E CREATE --}}
+    <div class="container">
+        <h1 class="mt-4">Users</h1>
     </div>
+    <div class="container">
+        <a type="button" class="btn btn-primary mt-2 mb-3"  href="{{ route('admin.users.create') }}">Add a new user</a>
+    </div>
+
+
+    <div class="container">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>Mail</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach ($users as $user)
+                    <tr>
+                        <td>{{ $user->id }}</td>
+                        <td>
+                            <a class="btn-link" href="{{ route('admin.users.show',$user) }}">{{ $user->email }}</a>
+                        </td>
+
+                        {{-- EDIT --}}
+                        <td>
+                            <a type="button" class="btn btn-warning" href="{{ route('admin.users.edit',$user) }}">Edit</a>
+                        </td>
+                        {{-- DELETE --}}
+                        <td>
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                    Delete
+                            </button>
+                            {{-- MODAL --}}
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Delete user</h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                        </div>
+                                        <div class="modal-body">
+                                            Are you sure to delete this user?
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <form action="{{ route('admin.users.destroy', $user) }}" method="POST">
+                                                @method('DELETE')
+                                                @csrf
+
+                                                <button class="btn btn-link link-danger">Delete</button>
+
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                @endforeach
+            </tbody>
+        </table>
+    </div>
+
 @endsection
