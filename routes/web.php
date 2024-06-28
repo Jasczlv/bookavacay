@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\Admin\ApartmentController;
+use App\Http\Controllers\Admin\ServiceController;
+use App\Http\Controllers\Admin\SponsorController;
+use App\Http\Controllers\Admin\UserController;
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
 
@@ -29,7 +33,11 @@ Route::middleware(['auth', 'verified'])
 
         //register all other protected routes
         //CRUD POSTS
-    
+        Route::resource('apartments', ApartmentController::class);
+        Route::resource('users', UserController::class);
+        Route::resource('sponsors', SponsorController::class);
+        Route::resource('services', ServiceController::class);
+
     });
 
 Route::middleware('auth')->group(function () {
