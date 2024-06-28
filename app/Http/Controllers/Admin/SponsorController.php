@@ -76,6 +76,7 @@ class SponsorController extends Controller
      */
     public function destroy(Sponsor $sponsor)
     {
-        //
+        $sponsor->delete();
+        return to_route('admin.sponsors.index');
     }
 }

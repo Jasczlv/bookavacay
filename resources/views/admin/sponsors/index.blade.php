@@ -26,6 +26,13 @@
                         <th>
                             <a href="{{ route('admin.sponsors.edit',$sponsor) }}">Edit</a>
                         </th>
+                        <th>
+                            <form class="delete-form" action="{{ route('admin.sponsors.destroy',$sponsor) }}" method="POST">
+                                @csrf
+                                @method('DELETE')
+                                <button class="ml-2 text-danger">Delete</button>
+                            </form>
+                        </th>
                     </tr>
                 @endforeach
             </tbody>
