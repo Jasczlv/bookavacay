@@ -14,6 +14,10 @@ class ServiceController extends Controller
     public function index()
     {
         //
+        $services = Service::all();
+
+        return view('admin.services.index', compact('services'));
+
     }
 
     /**
@@ -22,6 +26,7 @@ class ServiceController extends Controller
     public function create()
     {
         //
+        return view ('admin.services.create');
     }
 
     /**
@@ -30,6 +35,9 @@ class ServiceController extends Controller
     public function store(Request $request)
     {
         //
+        $form_data = $request->all();
+        $new_service = Service::create($form_data);
+        return to_route('admin.services.show', $new_service);
     }
 
     /**
@@ -38,6 +46,7 @@ class ServiceController extends Controller
     public function show(Service $service)
     {
         //
+        return view('admin.services.show', compact('service'));
     }
 
     /**
@@ -46,6 +55,7 @@ class ServiceController extends Controller
     public function edit(Service $service)
     {
         //
+        return view ('admin.services.edit', compact('service'));
     }
 
     /**
@@ -54,6 +64,10 @@ class ServiceController extends Controller
     public function update(Request $request, Service $service)
     {
         //
+        $form_data = $request->all();
+        $service->update($form_data);
+        
+        return to_route ('admin.services.show', $service);
     }
 
     /**
@@ -62,5 +76,7 @@ class ServiceController extends Controller
     public function destroy(Service $service)
     {
         //
+        $service->delete();
+        return to_route ('admin.services.show', $service);
     }
 }
