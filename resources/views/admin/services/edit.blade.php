@@ -6,6 +6,7 @@
         @method('PUT')
         <label for="name">Name</label>
         <input type="text" name="name" id="name" value="{{$service->name}}">
+        <button>Sent</button>
     </form>
     
 @endsection

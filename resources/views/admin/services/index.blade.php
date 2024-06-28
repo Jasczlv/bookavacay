@@ -6,7 +6,7 @@
     {{-- <a href="{{route('admin.services.show')}}">Show</a> --}}
     @foreach ($services as $service)
         <a href="{{route('admin.services.show', $service->id)}}"><p>{{$service->name}}</p></a>
+        <a href="{{route('admin.services.edit', $service->id)}}">Edit</a>
     @endforeach
-    <a href="{{route('admin.services.edit')}}">Edit</a>
 @endsection
 
