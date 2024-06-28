@@ -23,6 +23,8 @@ class ServiceSeeder extends Seeder
                 'Reception desk',
                 'Pets friendly',
                 'LGBTQ+ friendly',
+                'LGBTQ+ unfriendly',
+                'LGBTQ+ pets friendly',
                 'Air conditioning',
                 'Close to transportation',
                 'Breakfast included',

@@ -9,6 +9,7 @@ use App\Models\User;
 use Faker\Generator as Faker;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use Carbon\Carbon;
 
 class ApartmentSeeder extends Seeder
 {
@@ -34,7 +35,9 @@ class ApartmentSeeder extends Seeder
 
         $user_ids = User::all()->pluck('id')->all();
 
-        $sponsor_ids = Sponsor::all()->pluck('id')->all();
+        /* $sponsor_ids = Sponsor::all()->pluck('id')->all(); */
+
+        $sponsors = Sponsor::all();
 
         $service_ids = Service::all()->pluck('id')->all();
 
@@ -69,10 +72,12 @@ class ApartmentSeeder extends Seeder
             $random_service_ids = $faker->randomElements($service_ids, $number_of_services);
             $new_apartment->services()->attach($random_service_ids);
 
-            //FARE IN MODO CHE IL SEEDER AGGIUNGA LE ORE A NOW() PER SETTARE EXP_DATE DI OGNI ELEMENTO DI APARTMENT_SPONSOR
+            $sponsor = $sponsors->random();
 
-            $random_sponsor_id = $faker->randomElements($sponsor_ids);
-            $new_apartment->sponsors()->attach($random_sponsor_id, ['exp_date' => '2024-06-15 12:00:00']);
+            $exp_date = Carbon::now()->addHours($sponsor->hours);
+
+            $new_apartment->sponsors()->attach($sponsor->id, ['exp_date' => $exp_date]);
+
 
         }
 
