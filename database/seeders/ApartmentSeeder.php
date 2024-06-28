@@ -77,8 +77,6 @@ class ApartmentSeeder extends Seeder
             $exp_date = Carbon::now()->addHours($sponsor->hours);
 
             $new_apartment->sponsors()->attach($sponsor->id, ['exp_date' => $exp_date]);
-
-
         }
 
 
