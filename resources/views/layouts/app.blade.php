@@ -50,6 +50,18 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin.users.index') }}">{{ __('Users') }}</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                    href="{{ route('admin.services.index') }}">{{ __('Services') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                    href="{{ route('admin.sponsors.index') }}">{{ __('Sponsors') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link"
+                                    href="{{ route('admin.apartments.index') }}">{{ __('Apartments') }}</a>
+                            </li>
                         </ul>
 
                         <!-- Right Side Of Navbar -->
