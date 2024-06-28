@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Http\Requests\StoreApartmentRequest;
 use App\Models\Apartment;
 use App\Models\Service;
 use App\Models\User;
@@ -34,7 +35,7 @@ class ApartmentController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+    public function store(StoreApartmentRequest $request)
     {
         $form_data = $request->validated();
         dd($form_data);
