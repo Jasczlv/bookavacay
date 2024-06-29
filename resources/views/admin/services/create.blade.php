@@ -1,12 +1,25 @@
 @extends('layouts.app')
 
 @section('content')
-    <form action="{{ route('admin.services.store') }}" method="POST">
-        @csrf
-        <label for="name">Name</label>
-        <input type="text" name="name" id="name">
-        <button>Invia</button>
-    </form>
+
+    <div class="container py-5">
+        <div class="card">
+            <div class="card-header">
+                <h2>New Service</h2>
+            </div>
+            <div class="card-body">
+                <form action="{{ route('admin.services.store') }}" method="POST">
+                    @csrf
+                    <label for="name" class="form-label">Name</label>
+                    <input type="text" class="form-control mb-3" name="name" id="name">
+                    <div class="mb-3 text-center">
+                        <button class="btn btn-primary">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
     @if ($errors->any())
         <div class="alert alert-danger mt-3">
             <ul>

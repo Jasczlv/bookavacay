@@ -113,8 +113,8 @@
                         </div>
                     </div>
 
-                    <div class="mb-3">
-                        <button class="btn btn-primary">Submit</button>
+                    <div class="mb-3 text-center">
+                        <button class="btn btn-primary">Create</button>
                     </div>
 
                 </form>
