@@ -2,7 +2,10 @@
 
 @section('content')
 
-    <div class="container my-5">
+    <div class="container">
+
+        <a type="button" class="btn btn-secondary mt-4 mb-3" href="{{ route('admin.users.index') }}">&larr; Back to
+            Users</a>
 
         <div class="card">
             <div class="card-header text-center">

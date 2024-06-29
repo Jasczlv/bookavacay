@@ -2,8 +2,8 @@
 
 @section('content')
     <div class="container">
-        <a type="button" class="btn btn-primary mt-4 mb-3" href="{{ route('admin.users.index') }}">&larr; Back to all
-            users</a>
+        <a type="button" class="btn btn-secondary mt-4 mb-3" href="{{ route('admin.users.index') }}">&larr; Back to
+            Users</a>
         <div class="row card mb-3">
 
             <div class="col-auto">
