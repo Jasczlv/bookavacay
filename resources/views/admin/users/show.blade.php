@@ -2,7 +2,7 @@
 
 @section('content')
     <div class="container my-5">
-        <div class="row card">
+        <div class="row card mb-3">
 
             <div class="col-auto">
                 <label for="email" class="fw-bold">Email:</label>
@@ -39,7 +39,16 @@
                 @endif
             </div>
         </div>
-        <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-primary mt-4">Edit</a>
+
+        {{-- Edit and delete buttons --}}
+        <div class="container d-flex justify-content-center align-items-center gap-2">
+            <a type="button" class="btn btn-warning" href="{{ route('admin.users.edit', $user) }}">Edit</a>
+            <form class="delete-form" action="{{ route('admin.users.destroy', $user) }}" method="POST">
+                @csrf
+                @method('DELETE')
+                <button type="button" class="btn btn-danger">Delete</button>
+            </form>
+        </div>
 
     </div>
 @endsection

@@ -4,7 +4,7 @@
     <div class="container py-5">
         <div class="row">
             <div class="col-9">
-                <div class="card">
+                <div class="card mb-3">
                     <div class="card-header">
                         <h2 class="text-center">{{ $apartment->title }}</h2>
                     </div>
@@ -25,6 +25,18 @@
                         </ul>
                     </div>
                 </div>
+
+                {{-- Edit and delete buttons --}}
+                <div class="container d-flex justify-content-center align-items-center gap-2">
+                    <a type="button" class="btn btn-warning"
+                        href="{{ route('admin.apartments.edit', $apartment) }}">Edit</a>
+                    <form class="delete-form" action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST">
+                        @csrf
+                        @method('DELETE')
+                        <button type="button" class="btn btn-danger">Delete</button>
+                    </form>
+                </div>
+
             </div>
         </div>
     </div>
