@@ -37,6 +37,9 @@ Route::middleware(['auth', 'verified'])
         Route::resource('users', UserController::class);
         Route::resource('sponsors', SponsorController::class);
         Route::resource('services', ServiceController::class);
+
+        // search request route 
+        Route::get('/users/search', [UserController::class, 'search'])->name('users.search');
     });
 
 Route::middleware('auth')->group(function () {

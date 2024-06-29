@@ -101,4 +101,17 @@ class UserController extends Controller
         $user->delete();
         return redirect()->route('admin.users.index');
     }
+
+    // Users filter method
+    public function search(Request $request)
+    {
+
+        $query = $request->input('query');
+
+        $users = User::where('name', 'LIKE', '%{$query}%')
+            ->orWhere('surname', 'LIKE', '%{$query}%')
+            ->get();
+
+        return view('admin.users.index', compact('users'));
+    }
 }

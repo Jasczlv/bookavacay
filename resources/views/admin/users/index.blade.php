@@ -1,13 +1,25 @@
 @extends('layouts.app')
 
 @section('content')
-
     {{-- TITOLO E CREATE --}}
     <div class="container">
         <h1 class="mt-4">Users</h1>
     </div>
     <div class="container">
-        <a type="button" class="btn btn-primary mt-2 mb-3"  href="{{ route('admin.users.create') }}">Add a new user</a>
+        <div class="d-flex justify-content-between align-items-center">
+            <a type="button" class="btn btn-primary mt-2 mb-3" href="{{ route('admin.users.create') }}">Add a new user</a>
+
+            {{-- Users search input --}}
+            <form action="{{ route('admin.users.search') }}" method="GET">
+                @csrf
+                <div class="input-group">
+                    <input type="text" name="query" class="form-control mx-2 rounded" placeholder="Search users">
+                    <span class="input-group-btn">
+                        <button type="submit" class="btn btn-primary">Search</button>
+                    </span>
+                </div>
+            </form>
+        </div>
     </div>
 
 
@@ -26,31 +38,35 @@
                     <tr>
                         <td>{{ $user->id }}</td>
                         <td>
-                            <a class="btn-link" href="{{ route('admin.users.show',$user) }}">{{ $user->email }}</a>
+                            <a class="btn-link" href="{{ route('admin.users.show', $user) }}">{{ $user->email }}</a>
                         </td>
 
                         {{-- EDIT --}}
                         <td>
-                            <a type="button" class="btn btn-warning" href="{{ route('admin.users.edit',$user) }}">Edit</a>
+                            <a type="button" class="btn btn-warning" href="{{ route('admin.users.edit', $user) }}">Edit</a>
                         </td>
                         {{-- DELETE --}}
                         <td>
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                    Delete
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#exampleModal">
+                                Delete
                             </button>
                             {{-- MODAL --}}
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+                                aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
                                             <h1 class="modal-title fs-5" id="exampleModalLabel">Delete user</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
                                             Are you sure to delete this user?
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
                                             <form action="{{ route('admin.users.destroy', $user) }}" method="POST">
                                                 @method('DELETE')
                                                 @csrf
@@ -68,5 +84,4 @@
             </tbody>
         </table>
     </div>
-
 @endsection
