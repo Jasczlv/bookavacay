@@ -14,7 +14,7 @@
         @endif
 
         <div class="card">
-            <div class="card-header">
+            <div class="card-header text-center">
                 <h2>Edit Apartment</h2>
             </div>
             <div class="card-body py-3">
@@ -114,8 +114,8 @@
                         </div>
                     </div>
 
-                    <div class="mb-3">
-                        <button class="btn btn-primary">Save</button>
+                    <div class="mb-3 d-flex justify-content-center">
+                        <button class="btn btn-primary">Update</button>
                     </div>
 
                 </form>
