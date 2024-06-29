@@ -105,12 +105,12 @@ class UserController extends Controller
     // Users filter method
     public function search(Request $request)
     {
-        dd($request);
 
         $query = $request->input('query');
 
         $users = User::where('name', 'LIKE', "%{$query}%")
             ->orWhere('surname', 'LIKE', "%{$query}%")
+            ->orWhere('email', 'LIKE', "%{$query}%")
             ->get();
 
         return view('admin.users.index', compact('users'));

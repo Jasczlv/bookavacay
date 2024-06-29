@@ -31,15 +31,15 @@ Route::middleware(['auth', 'verified'])
             return view('admin.dashboard');
         })->name('dashboard');
 
+        // search request route 
+        Route::get('users/search', [UserController::class, 'search'])->name('users.search');
+
         //register all other protected routes
         //CRUD POSTS
         Route::resource('apartments', ApartmentController::class);
         Route::resource('users', UserController::class);
         Route::resource('sponsors', SponsorController::class);
         Route::resource('services', ServiceController::class);
-
-        // search request route 
-        Route::get('/users/search', [UserController::class, 'search'])->name('users.search');
     });
 
 Route::middleware('auth')->group(function () {
