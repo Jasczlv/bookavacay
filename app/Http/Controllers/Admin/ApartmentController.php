@@ -133,4 +133,16 @@ class ApartmentController extends Controller
 
         return redirect()->route('admin.apartments.index');
     }
+
+    // Apartments filter method
+    public function search(Request $request)
+    {
+
+        $query = $request->input('query');
+
+        $apartments = Apartment::where('title', 'LIKE', "%{$query}%")
+            ->get();
+
+        return view('admin.apartments.index', compact('apartments'));
+    }
 }

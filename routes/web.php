@@ -31,8 +31,9 @@ Route::middleware(['auth', 'verified'])
             return view('admin.dashboard');
         })->name('dashboard');
 
-        // search request route 
+        // search request routes 
         Route::get('users/search', [UserController::class, 'search'])->name('users.search');
+        Route::get('apartments/search', [ApartmentController::class, 'search'])->name('apartments.search');
 
         //register all other protected routes
         //CRUD POSTS

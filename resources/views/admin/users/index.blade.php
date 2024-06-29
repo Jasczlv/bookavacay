@@ -13,10 +13,9 @@
             <form action="{{ route('admin.users.search') }}" method="GET">
                 @csrf
                 <div class="input-group">
-                    <input type="text" name="query" id="searchInput" class="form-control mx-2 rounded"
-                        placeholder="Search users">
+                    <input type="text" name="query" class="form-control mx-2 rounded" placeholder="Search users">
                     <span class="input-group-btn">
-                        <button type="submit" id=searchButton" class="btn btn-primary">Search</button>
+                        <button type="submit" class="btn btn-primary">Search</button>
                     </span>
                 </div>
             </form>
