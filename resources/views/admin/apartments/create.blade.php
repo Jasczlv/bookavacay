@@ -17,10 +17,11 @@
                 <h2>New Apartment</h2>
             </div>
             <div class="card-body py-3">
+
                 <section>
                     <div id="search-map">
                         <div id="searchbar">
-                            <input type="text" id="search-input" placeholder="Search for a location">
+                            {{-- <input type="text" id="search-input" placeholder="Search for a location"> --}}
                         </div>
                         <div id="map"></div>
                     </div>
@@ -38,40 +39,40 @@
                     <div class="mb-3">
                         <label for="title" class="form-label">Apartment Title</label>
                         <input type="text" name="title" class="form-control" id="title" placeholder="Title"
-                            value="{{ old('title') }}">
+                            value="{{ old('title', 'Test') }}">
                     </div>
 
                     <div class="mb-3">
                         @foreach ($users as $user)
                             <label for="user_id"
                                 class="form-label">{{ $user->name . ' ' . $user->surname . ' ' . $user->id }}</label>
-                            <input type="radio" name="user_id" id="user_{{ $user->id }}" placeholder="user_id"
-                                value="{{ $user->id }}">
+                            <input @checked($user->id == old('user_id', $user->id)) type="radio" name="user_id" id="user_{{ $user->id }}"
+                                placeholder="user_id" value="{{ $user->id }}">
                         @endforeach
                     </div>
 
                     <div class="mb-3">
                         <label for="rooms" class="form-label">Number of rooms</label>
                         <input type="number" name="rooms" class="form-control" id="rooms" placeholder="4"
-                            value="{{ old('rooms') }}">
+                            value="{{ old('rooms', 6) }}">
                     </div>
 
                     <div class="mb-3">
                         <label for="beds" class="form-label">Number of beds</label>
                         <input type="number" name="beds" class="form-control" id="beds" placeholder="2"
-                            value="{{ old('beds') }}">
+                            value="{{ old('beds', 2) }}">
                     </div>
 
                     <div class="mb-3">
                         <label for="bathrooms" class="form-label">Number of bathrooms</label>
                         <input type="number" name="bathrooms" class="form-control" id="bathrooms" placeholder="1"
-                            value="{{ old('bathrooms') }}">
+                            value="{{ old('bathrooms', 2) }}">
                     </div>
 
                     <div class="mb-3">
                         <label for="sqr_mt" class="form-label">Square meters</label>
                         <input type="number" name="sqr_mt" class="form-control" id="sqr_mt" placeholder="60"
-                            value="{{ old('sqr_mt') }}">
+                            value="{{ old('sqr_mt', 120) }}">
                     </div>
 
                     <div class="mb-3">
@@ -89,8 +90,10 @@
                     <div class="mb-3">
                         <div>
                             <label for="visible" class="form-label">Publish as visible?</label>
-                            <input @checked(old('visible') === true) type="checkbox" name="visible" id="visible"
-                                value="true">
+                            <select name="visible" id="visible">
+                                <option value="0" @selected(old('visible', 0) == 0)>Not visible</option>
+                                <option value="1" @selected(old('visible') == 1)>Visible</option>
+                            </select>
                         </div>
                     </div>
 
@@ -204,7 +207,7 @@
                         tt.services.reverseGeocode({
                             key: 'VtdGJcQDaomboK5S3kbxFvhtbupZjoK0',
                             position: userLocation
-                        }).go().then(function(response) {
+                        }).then(function(response) {
                             var address = response.addresses[0].address.freeformAddress;
                             document.getElementById('address').value = address;
                         }).catch(function(error) {
@@ -248,7 +251,7 @@
                         key: 'VtdGJcQDaomboK5S3kbxFvhtbupZjoK0',
                         query: query,
                         language: 'en-GB'
-                    }).go().then(function(response) {
+                    }).then(function(response) {
                         if (response.results && response.results.length > 0) {
                             var result = response.results[0];
                             var lngLat = result.position;
@@ -272,6 +275,7 @@
         function test() {
             console.log('tt:', tt);
             console.log('tt.services:', tt.services);
+            console.log('tt.plugins:', tt.plugins);
         }
     </script>
 @endsection

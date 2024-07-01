@@ -56,8 +56,8 @@ class ApartmentSeeder extends Seeder
             $new_apartment->beds = ceil($faker->numberBetween(1, $random_rooms / 2));
             $new_apartment->bathrooms = floor($faker->numberBetween(1, $random_rooms / 2));
             $new_apartment->sqr_mt = round($faker->numberBetween($random_rooms * 7, $random_rooms * 15));
-            $new_apartment->lat = 44 + ($faker->numberBetween(32525, 67874)) / 100000;
-            $new_apartment->lon = 11 + ($faker->numberBetween(10579, 61025)) / 100000;
+            $new_apartment->latitude = 44 + ($faker->numberBetween(32525, 67874)) / 100000;
+            $new_apartment->longitude = 11 + ($faker->numberBetween(10579, 61025)) / 100000;
             $new_apartment->image = 'https://picsum.photos/300/200?random=' . $i;
             $new_apartment->visible = true;
             $new_apartment->address = $faker->address();

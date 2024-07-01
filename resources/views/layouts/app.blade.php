@@ -21,9 +21,17 @@
 
     <link rel="stylesheet" type="text/css" href="https://api.tomtom.com/maps-sdk-for-web/6.x/6.17.0/maps/maps.css">
     <link rel="stylesheet" type="text/css" href="https://api.tomtom.com/maps-sdk-for-web/6.x/6.17.0/search/search.css">
+    <link rel="stylesheet" type="text/css"
+        href="https://api.tomtom.com/maps-sdk-for-web/cdn/plugins/SearchBox/3.1.3-public-preview.0/SearchBox.css" />
     <script src="https://api.tomtom.com/maps-sdk-for-web/6.x/6.17.0/maps/maps-web.min.js"></script>
     <script src="https://api.tomtom.com/maps-sdk-for-web/6.x/6.17.0/search/search-web.min.js"></script>
     <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/6.x/6.25.0/services/services-web.min.js"></script>
+    <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/plugins/SearchBox/3.1.3-public-preview.0/SearchBox-web.js">
+    </script>
+
+    {{-- Runtime asincrono --}}
+    <script src="https://cdn.jsdelivr.net/npm/regenerator-runtime/runtime.js"></script>
+
 
     <!-- Usando Vite -->
     @vite(['resources/js/app.js'])
