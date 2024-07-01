@@ -33,9 +33,9 @@
                     <a type="button" class="btn btn-warning"
                         href="{{ route('admin.apartments.edit', $apartment) }}">Edit</a>
                     <form class="delete-form" action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST">
-                        @csrf
                         @method('DELETE')
-                        <button type="button" class="btn btn-danger">Delete</button>
+                        @csrf
+                        <button type="submit" class="btn btn-danger">Delete</button>
                     </form>
                 </div>
 

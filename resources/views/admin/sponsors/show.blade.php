@@ -16,7 +16,7 @@
             <form class="delete-form" action="{{ route('admin.sponsors.destroy', $sponsor) }}" method="POST">
                 @csrf
                 @method('DELETE')
-                <button type="button" class="btn btn-danger">Delete</button>
+                <button type="submit" class="btn btn-danger">Delete</button>
             </form>
         </div>
     </section>
