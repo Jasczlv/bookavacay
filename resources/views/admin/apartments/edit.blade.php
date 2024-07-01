@@ -86,13 +86,6 @@
                     <div class="mb-3">
                         <div>
 
-                            {{-- checkbox --}}
-                            {{-- <label for="visible" class="form-label">Publish as visible?</label>
-                            <input @checked(old('visible', $apartment->visible) == 0) type="hidden" name="visible" id="" value="0">
-                            <input @checked(old('visible', $apartment->visible) == 1) type="checkbox" name="visible" id="visible"
-                                value="1"> --}}
-
-                            {{-- select --}}
                             <div class="mb-3">
                                 <div>
                                     <label for="visible" class="form-label">Publish as visible?</label>

@@ -19,8 +19,8 @@ return new class extends Migration {
             $table->smallInteger('bathrooms');
             $table->smallInteger('sqr_mt');
             $table->string('address');
-            $table->decimal('lat', 11, 8);
-            $table->decimal('lon', 11, 8);
+            $table->decimal('latitude', 11, 8);
+            $table->decimal('longitude', 11, 8);
             $table->string('image')->nullable();
             $table->boolean('visible')->default(false);
         });
