@@ -183,7 +183,7 @@
                     tt.services.reverseGeocode({
                         key: 'VtdGJcQDaomboK5S3kbxFvhtbupZjoK0',
                         position: lngLat
-                    }).go().then(function(response) {
+                    }).then(function(response) {
                         var address = response.addresses[0].address.freeformAddress;
                         document.getElementById('address').value = address;
                     }).catch(function(error) {
