@@ -1,5 +1,7 @@
+<?php
+$id = 0;
+?>
 @extends('layouts.app')
-
 @section('content')
     {{-- TITOLO E CREATE --}}
     <div class="container">
@@ -65,16 +67,17 @@
                         {{-- DELETE --}}
                         <th>
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                data-bs-target="#exampleModal">
+                                data-bs-target="#apartment{{ $apartment->id }}">
                                 Delete
                             </button>
                             {{-- MODAL --}}
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel"
-                                aria-hidden="true">
+                            <div class="modal fade" id="apartment{{ $apartment->id }}"
+                                aria-labelledby="apartmentLabel{{ $apartment->id }}" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Delete apartment</h1>
+                                            <h1 class="modal-title fs-5" id="apartmentLabel{{ $apartment->id }}">Delete
+                                                apartment</h1>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal"
                                                 aria-label="Close"></button>
                                         </div>

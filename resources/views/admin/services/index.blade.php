@@ -1,13 +1,12 @@
 @extends('layouts.app')
 
 @section('content')
-
     {{-- TITOLO E CREATE --}}
     <div class="container">
         <h1 class="mt-4">Services</h1>
     </div>
     <div class="container">
-        <a type="button" class="btn btn-primary mt-2 mb-3"  href="{{ route('admin.services.create') }}">Add a new service</a>
+        <a type="button" class="btn btn-primary mt-2 mb-3" href="{{ route('admin.services.create') }}">Add a new service</a>
     </div>
 
 
@@ -26,31 +25,37 @@
                     <tr>
                         <td>{{ $service->id }}</td>
                         <td>
-                            <a class="btn-link" href="{{ route('admin.services.show',$service) }}">{{ $service->name }}</a>
+                            <a class="btn-link" href="{{ route('admin.services.show', $service) }}">{{ $service->name }}</a>
                         </td>
 
                         {{-- EDIT --}}
                         <td>
-                            <a type="button" class="btn btn-warning" href="{{ route('admin.services.edit',$service) }}">Edit</a>
+                            <a type="button" class="btn btn-warning"
+                                href="{{ route('admin.services.edit', $service) }}">Edit</a>
                         </td>
                         {{-- DELETE --}}
                         <td>
-                            <button type="button" class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal">
-                                    Delete
+                            <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                data-bs-target="#service{{ $service->id }}">
+                                Delete
                             </button>
                             {{-- MODAL --}}
-                            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="service{{ $service->id }}"
+                                aria-labelledby="serviceLabel{{ $service->id }}" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="exampleModalLabel">Delete service</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                            <h1 class="modal-title fs-5" id="serviceLabel{{ $service->id }}">Delete service
+                                            </h1>
+                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                                aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
                                             Are you sure to delete this service?
                                         </div>
                                         <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                            <button type="button" class="btn btn-secondary"
+                                                data-bs-dismiss="modal">Close</button>
                                             <form action="{{ route('admin.services.destroy', $service) }}" method="POST">
                                                 @method('DELETE')
                                                 @csrf
@@ -68,11 +73,10 @@
             </tbody>
         </table>
     </div>
-
 @endsection
 
 
-    {{-- <div class="general-div-services">
+{{-- <div class="general-div-services">
         <div class="container-services">
             <div class="row-services">
 
