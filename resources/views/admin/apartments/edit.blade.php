@@ -85,14 +85,24 @@
 
                     <div class="mb-3">
                         <div>
-                            <label for="visible" class="form-label">Publish as visible?</label>
-                            <input type="hidden" name="visible" id="" value="0">
-                            <input @checked(old('visible') === true) type="checkbox" name="visible" id="visible"
-                                value="1">
-                            {{-- <select name="visible" id="" @selected(old('visible') === true)>
-                                <option value="1">Visible</option>
-                                <option value="0">Not visible</option>
-                            </select> --}}
+
+                            {{-- checkbox --}}
+                            {{-- <label for="visible" class="form-label">Publish as visible?</label>
+                            <input @checked(old('visible', $apartment->visible) == 0) type="hidden" name="visible" id="" value="0">
+                            <input @checked(old('visible', $apartment->visible) == 1) type="checkbox" name="visible" id="visible"
+                                value="1"> --}}
+
+                            {{-- select --}}
+                            <div class="mb-3">
+                                <div>
+                                    <label for="visible" class="form-label">Publish as visible?</label>
+                                    <select name="visible" id="visible">
+                                        <option value="0" @selected(old('visible', $apartment->visible) == 0)>Not visible</option>
+                                        <option value="1" @selected(old('visible', $apartment->visible) == 1)>Visible</option>
+                                    </select>
+                                </div>
+                            </div>
+
                         </div>
                     </div>
 
