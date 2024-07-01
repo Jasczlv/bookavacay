@@ -25,6 +25,11 @@
                                 <span>Sponsored? </span> {{-- TODO --}}
                             </li>
                         </ul>
+                        <section>
+                            <div id="search-map">
+                                <div id="map"></div>
+                            </div>
+                        </section>
                     </div>
                 </div>
 
@@ -42,4 +47,66 @@
             </div>
         </div>
     </div>
+
+    <!-- Stile mappa -->
+    <style>
+        #map {
+            width: 100%;
+            height: 500px;
+        }
+
+        #searchbar {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+            width: 80%;
+            max-width: 500px;
+        }
+
+        #search-map {
+            position: relative;
+        }
+    </style>
+
+
+    <!-- Script Mappa -->
+    <script>
+        // Function to initialize the map and search functionality
+        function initializeMap() {
+            // Check if TomTom SDK scripts are loaded
+            if (typeof tt !== 'undefined' && typeof tt.map !== 'undefined' && typeof tt.services !== 'undefined') {
+
+                var apartmentLat = {{ $apartment->latitude }};
+                var apartmentLng = {{ $apartment->longitude }};
+
+                // Initialize the map
+                var map = tt.map({
+                    key: 'VtdGJcQDaomboK5S3kbxFvhtbupZjoK0',
+                    container: 'map',
+                    center: [apartmentLng, apartmentLat],
+                    zoom: 15
+                });
+
+                // Add marker
+                var marker = new tt.Marker({
+                        draggable: true
+                    })
+                    .setLngLat([apartmentLng, apartmentLat])
+                    .addTo(map);
+
+            } else {
+                console.error('TomTom SDK not loaded properly.');
+            }
+        }
+
+        // Load the map after the page is fully loaded
+        document.addEventListener('DOMContentLoaded', initializeMap);
+
+        function test() {
+            console.log('tt:', tt);
+            console.log('tt.services:', tt.services);
+            console.log('tt.plugins:', tt.plugins);
+        }
+    </script>
 @endsection
