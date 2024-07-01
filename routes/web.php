@@ -35,10 +35,12 @@ Route::middleware(['auth', 'verified'])
         Route::get('users/search', [UserController::class, 'search'])->name('users.search');
         Route::get('apartments/search', [ApartmentController::class, 'search'])->name('apartments.search');
 
+
         //register all other protected routes
         //CRUD POSTS
         Route::resource('apartments', ApartmentController::class);
         Route::resource('users', UserController::class);
+
         Route::resource('sponsors', SponsorController::class);
         Route::resource('services', ServiceController::class);
     });
@@ -48,5 +50,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::post('register/user', [UserController::class, 'store'])->name('user.register.store');
 
 require __DIR__ . '/auth.php';
