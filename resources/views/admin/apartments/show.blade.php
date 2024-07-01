@@ -34,7 +34,7 @@
                 </div>
 
                 {{-- Edit and delete buttons --}}
-                <div class="container d-flex justify-content-center align-items-center gap-2">
+                <div class="container d-flex justify-content-center align-items-center gap-2 mb-5">
                     <a type="button" class="btn btn-warning"
                         href="{{ route('admin.apartments.edit', $apartment) }}">Edit</a>
                     <form class="delete-form" action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST">
