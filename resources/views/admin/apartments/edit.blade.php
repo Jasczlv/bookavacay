@@ -86,8 +86,13 @@
                     <div class="mb-3">
                         <div>
                             <label for="visible" class="form-label">Publish as visible?</label>
+                            <input type="hidden" name="visible" id="" value="0">
                             <input @checked(old('visible') === true) type="checkbox" name="visible" id="visible"
-                                value="true">
+                                value="1">
+                            {{-- <select name="visible" id="" @selected(old('visible') === true)>
+                                <option value="1">Visible</option>
+                                <option value="0">Not visible</option>
+                            </select> --}}
                         </div>
                     </div>
 
