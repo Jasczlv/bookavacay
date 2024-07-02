@@ -29,9 +29,9 @@
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password*</label>
-                        <input type="password" name="password" class="form-control" id="password" placeholder=""><br />
-                        <input type="text" id="confirm_password" name="confirm_password" />
-                        <input type="submit" value="submit" />
+                        <input type="password" name="password" class="form-control" id="password" placeholder=""><br>
+                        <label class="form-label" for="confirm_password">Confirm Password*</label>
+                        <input class="form-control" type="password" id="confirm_password" name="confirm_password" />
                     </div>
                     {{-- <div class="mb-3">
                         <label for="password" class="form-label">Password*</label>
