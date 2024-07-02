@@ -59,7 +59,17 @@ $id = 0;
                                 Hidden
                             @endif
                         </td>
-                        <td>placeholder</td>
+                        <td>
+                            @php
+                                $currentDate = now();
+                                $sponsorship = $apartment->sponsors()->where('exp_date', '>', $currentDate)->first();
+                            @endphp
+                            @if ($sponsorship)
+                                {{ $sponsorship->pivot->exp_date }}
+                            @else
+                                Not Sponsored
+                            @endif
+                        </td>
                         {{-- MESSAGES --}}
                         <td>
                             <a type="button" class="btn btn-success"
