@@ -59,7 +59,7 @@ class ApartmentController extends Controller
                 $new_apartment->services()->attach($service_id);
             }
         }
-        return redirect()->route('admin.apartments.show', $new_apartment);
+        return redirect()->route('admin.apartments.index', $new_apartment);
     }
 
     /**
@@ -100,7 +100,7 @@ class ApartmentController extends Controller
 
         $apartment->update($form_data);
 
-        return to_route('admin.apartments.show', $apartment);
+        return to_route('admin.apartments.index', $apartment);
     }
 
     /**
