@@ -6,8 +6,11 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreApartmentRequest;
 use App\Http\Requests\UpdateApartmentRequest;
 use App\Models\Apartment;
+use App\Models\Message;
 use App\Models\Service;
+use App\Models\Sponsor;
 use App\Models\User;
+use App\Models\View;
 use Illuminate\Http\Request;
 
 class ApartmentController extends Controller
@@ -124,5 +127,31 @@ class ApartmentController extends Controller
             ->get();
 
         return view('admin.apartments.index', compact('apartments'));
+    }
+
+    public function messages(Apartment $apartment, Message $message, Request $request)
+    {
+
+        $apartments = Apartment::where('user_id', $request->user()->id)->get();
+        $messages = Message::where('apartment_id', $apartment->id)->get();
+
+
+        return view('admin.apartments.messages', compact('message', 'apartment'));
+    }
+
+    public function statistics(Apartment $apartment, View $view, Request $request)
+    {
+        $apartments = Apartment::where('user_id', $request->user()->id)->get();
+        $views = View::where('apartment_id', $apartment->id)->get();
+
+        return view('admin.apartments.statistics', compact('view', 'apartment'));
+    }
+
+    public function sponsor(Apartment $apartment, Sponsor $sponsor, Request $request)
+    {
+        $apartments = Apartment::where('user_id', $request->user()->id)->get();
+        $sponsors = Sponsor::where('apartment_id', $apartment->id)->get();
+
+        return view('admin.apartments.sponsor', compact('sponsor', 'apartment'));
     }
 }
