@@ -38,7 +38,7 @@ Route::middleware(['auth', 'verified'])
         // custom pages routes
         Route::get('apartments/sponsors', [ApartmentController::class, 'sponsors'])->name('apartments.sponsors');
         Route::get('apartments/{apartment}/statistics', [ApartmentController::class, 'statistics'])->name('apartments.statistics');
-        Route::get('apartments/(apartment)/messages', [ApartmentController::class, 'messages'])->name('apartments.messages');
+        Route::get('apartments/{apartment}/messages', [ApartmentController::class, 'messages'])->name('apartments.messages');
 
         //register all other protected routes
         //CRUD POSTS

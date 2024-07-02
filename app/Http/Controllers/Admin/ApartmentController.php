@@ -131,20 +131,16 @@ class ApartmentController extends Controller
 
     public function messages(Apartment $apartment, Message $message, Request $request)
     {
-
-        $apartments = Apartment::where('user_id', $request->user()->id)->get();
         $messages = Message::where('apartment_id', $apartment->id)->get();
 
-
-        return view('admin.apartments.messages', compact('message', 'apartment'));
+        return view('admin.apartments.messages', compact('messages', 'apartment'));
     }
 
     public function statistics(Apartment $apartment, View $view, Request $request)
     {
-        $apartments = Apartment::where('user_id', $request->user()->id)->get();
         $views = View::where('apartment_id', $apartment->id)->get();
 
-        return view('admin.apartments.statistics', compact('view', 'apartment'));
+        return view('admin.apartments.statistics', compact('views', 'apartment'));
     }
 
     public function sponsors(Apartment $apartment, Sponsor $sponsor, Request $request)
