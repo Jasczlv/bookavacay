@@ -7,6 +7,7 @@ use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
 class UserController extends Controller
 {
@@ -48,6 +49,8 @@ class UserController extends Controller
         $user->password = Hash::make($request->input('password'));
         $user->date_of_birth = $request->input('date_of_birth');
         $user->save();
+
+        Auth::login($user);
 
         return redirect()->route('admin.apartments.index');
     }
