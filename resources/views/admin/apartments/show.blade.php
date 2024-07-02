@@ -90,7 +90,7 @@
 
                 // Add marker
                 var marker = new tt.Marker({
-                        draggable: true
+                        draggable: false
                     })
                     .setLngLat([apartmentLng, apartmentLat])
                     .addTo(map);
