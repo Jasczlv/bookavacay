@@ -11,6 +11,8 @@ $id = 0;
         <div class="d-flex justify-content-between align-items-center">
             <a type="button" class="btn btn-primary mt-2 mb-3" href="{{ route('admin.apartments.create') }}">Add a new
                 apartment</a>
+            <a type="button" class="btn btn-primary mt-2 mb-3" href="{{ route('admin.apartments.sponsor') }}">Sponsor an
+                apartment</a>
 
 
             {{-- Users search input --}}
@@ -31,16 +33,13 @@ $id = 0;
         <table class="table">
             <thead>
                 <tr>
-                    <th>ID</th>
+                    <th>Image</th>
                     <th>Title</th>
-                    <th>Rooms</th>
-                    <th>Beds</th>
-                    <th>Bathrooms</th>
-                    <th>m²</th>
                     <th>Address</th>
-                    <th>Lat</th>
-                    <th>Lon</th>
-                    <th>Visible</th>
+                    <th>Visibility</th>
+                    <th>Sponsor</th>
+                    <th>{{-- fill --}}</th>
+                    <th>{{-- fill --}}</th>
                     <th>{{-- fill --}}</th>
                     <th>{{-- fill --}}</th>
                 </tr>
@@ -48,24 +47,46 @@ $id = 0;
             <tbody>
                 @foreach ($apartments as $apartment)
                     <tr>
-                        <td>{{ $apartment->id }}</td>
+                        <td><img src="{{ Vite::asset('resources/img/' . $apartment->image) }}" alt=""
+                                style="max-width: 300px"></td>
                         <td><a class="btn-link"
                                 href="{{ route('admin.apartments.show', $apartment) }}">{{ $apartment->title }}</a></td>
-                        <td>{{ $apartment->rooms }}</td>
-                        <td>{{ $apartment->beds }}</td>
-                        <td>{{ $apartment->bathrooms }}</td>
-                        <td>{{ $apartment->sqr_mt }}</td>
                         <td>{{ $apartment->address }}</td>
-                        <td>{{ $apartment->lat }}</td>
-                        <td>{{ $apartment->lon }}</td>
-                        <td>{{ $apartment->visible }}</td>
+                        <td>
+                            @if ($apartment->visible == true)
+                                Visible
+                            @else
+                                Hidden
+                            @endif
+                        </td>
+                        <td>
+                            @php
+                                $currentDate = now();
+                                $sponsorship = $apartment->sponsors()->where('exp_date', '>', $currentDate)->first();
+                            @endphp
+                            @if ($sponsorship)
+                                {{ $sponsorship->pivot->exp_date }}
+                            @else
+                                Not Sponsored
+                            @endif
+                        </td>
+                        {{-- MESSAGES --}}
+                        <td>
+                            <a type="button" class="btn btn-success"
+                                href="{{ route('admin.apartments.messages', $apartment) }}">Messages</a>
+                        </td>
+                        {{-- STATISTICS --}}
+                        <td>
+                            <a type="button" class="btn btn-info"
+                                href="{{ route('admin.apartments.statistics', $apartment) }}">Statistics</a>
+                        </td>
                         {{-- EDIT --}}
-                        <th>
+                        <td>
                             <a type="button" class="btn btn-warning"
                                 href="{{ route('admin.apartments.edit', $apartment) }}">Edit</a>
-                        </th>
+                        </td>
                         {{-- DELETE --}}
-                        <th>
+                        <td>
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal"
                                 data-bs-target="#apartment{{ $apartment->id }}">
                                 Delete
@@ -99,7 +120,7 @@ $id = 0;
                                     </div>
                                 </div>
                             </div>
-                        </th>
+                        </td>
                     </tr>
                 @endforeach
             </tbody>
