@@ -30,6 +30,8 @@
                 <form action="{{ route('admin.apartments.store') }}" method="POST">
                     @csrf
 
+                    <input type="hidden" name="user_id" id="user_id" value="{{ Auth::id() }}">
+
                     <div>
                         <input type="text" name="latitude" id="latitude" readonly>
                         <input type="text" name="longitude" id="longitude" readonly>
@@ -42,14 +44,14 @@
                             value="{{ old('title', 'Test') }}">
                     </div>
 
-                    <div class="mb-3">
+                    {{-- <div class="mb-3">
                         @foreach ($users as $user)
                             <label for="user_id"
                                 class="form-label">{{ $user->name . ' ' . $user->surname . ' ' . $user->id }}</label>
                             <input @checked($user->id == old('user_id', $user->id)) type="radio" name="user_id" id="user_{{ $user->id }}"
                                 placeholder="user_id" value="{{ $user->id }}">
                         @endforeach
-                    </div>
+                    </div> --}}
 
                     <div class="mb-3">
                         <label for="rooms" class="form-label">Number of rooms</label>
