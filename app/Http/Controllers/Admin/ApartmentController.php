@@ -116,10 +116,11 @@ class ApartmentController extends Controller
     // Apartments filter method
     public function search(Request $request)
     {
+        $user_id = $request->user()->id;
 
         $query = $request->input('query');
 
-        $apartments = Apartment::where('title', 'LIKE', "%{$query}%")
+        $apartments = Apartment::where('title', 'LIKE', "%{$query}%")->where('user_id', '=', $user_id)
             ->get();
 
         return view('admin.apartments.index', compact('apartments'));
