@@ -27,7 +27,7 @@
                     </div>
                 </section>
 
-                <form action="{{ route('admin.apartments.store') }}" method="POST">
+                <form action="{{ route('admin.apartments.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
 
                     <input type="hidden" name="user_id" id="user_id" value="{{ Auth::id() }}" required>
@@ -68,17 +68,18 @@
                             value="{{ old('sqr_mt', 120) }}" required>
                     </div>
 
+                    {{-- IMAGE --}}
                     <div class="mb-3">
-                        <label for="image_file" class="form-label">Apartment Image</label>
-                        <input type="file" name="image_file" class="form-control" id="image_file"
-                            value="{{ old('image_file') }}">
+                        <label for="image" class="form-label">Apartment Image</label>
+                        <input type="file" class="form-control" name="image" id="image"
+                            value="{{ old('image') }}">
                     </div>
 
-                    <div class="mb-3">
+                    {{-- <div class="mb-3">
                         <label for="image_url" class="form-label">Apartment Image Url</label>
                         <input type="url" name="image_url" class="form-control" id="image_url"
                             placeholder="www.example.com/image.jpg" value="{{ old('image_url') }}">
-                    </div>
+                    </div> --}}
 
                     <div class="mb-3">
                         <div>
