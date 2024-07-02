@@ -30,7 +30,7 @@
                     <div class="mb-3">
                         <label for="password" class="form-label">Password*</label>
                         <input type="password" name="password" class="form-control" id="password" placeholder=""><br />
-                        Re-enter Password: <input type="text" id="confirm_password" name="confirm_password" />
+                        <input type="text" id="confirm_password" name="confirm_password" />
                         <input type="submit" value="submit" />
                     </div>
                     {{-- <div class="mb-3">
