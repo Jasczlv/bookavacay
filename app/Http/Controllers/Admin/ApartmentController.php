@@ -49,10 +49,11 @@ class ApartmentController extends Controller
 
         if ($request->hasFile('image')) {
             $file = $request->file('image');
-            \Log::info('Image file detected: ' . $file->getClientOriginalName());
             $path = $file->store('images', 'public');
-            \Log::info('Image stored at: ' . $path);
+            // Remove 'images/' from the beginning of the path
+            $path = str_replace('images/', '', $path);
             $new_apartment->image = $path;
+
         } else {
             \Log::info('No image file detected, using default image');
             $new_apartment->image = 'https://picsum.photos/300/200?random=' . $new_apartment->id;
@@ -73,7 +74,7 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
-        return view('admin.apartments.show', compact('apartment'));
+        return view('404');
     }
 
     /**

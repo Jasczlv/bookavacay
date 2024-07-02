@@ -47,7 +47,7 @@ $id = 0;
             <tbody>
                 @foreach ($apartments as $apartment)
                     <tr>
-                        <td><img src="{{ Vite::asset('resources/img/' . $apartment->image) }}" alt=""
+                        <td><img src="{{ Vite::asset('storage/app/public/images/' . $apartment->image) }}" alt=""
                                 style="max-width: 300px"></td>
                         <td><a class="btn-link"
                                 href="{{ route('admin.apartments.show', $apartment) }}">{{ $apartment->title }}</a></td>
