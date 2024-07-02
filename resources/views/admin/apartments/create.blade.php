@@ -30,51 +30,42 @@
                 <form action="{{ route('admin.apartments.store') }}" method="POST">
                     @csrf
 
-                    <input type="hidden" name="user_id" id="user_id" value="{{ Auth::id() }}">
+                    <input type="hidden" name="user_id" id="user_id" value="{{ Auth::id() }}" required>
 
                     <div>
-                        <input type="text" name="latitude" id="latitude" readonly>
-                        <input type="text" name="longitude" id="longitude" readonly>
-                        <input type="text" name="address" id="address" readonly>
+                        <input type="text" name="latitude" id="latitude" readonly required>
+                        <input type="text" name="longitude" id="longitude" readonly required>
+                        <input type="text" name="address" id="address" readonly required>
                     </div>
 
                     <div class="mb-3">
                         <label for="title" class="form-label">Apartment Title</label>
                         <input type="text" name="title" class="form-control" id="title" placeholder="Title"
-                            value="{{ old('title', 'Test') }}">
+                            value="{{ old('title', 'Test') }}" required>
                     </div>
-
-                    {{-- <div class="mb-3">
-                        @foreach ($users as $user)
-                            <label for="user_id"
-                                class="form-label">{{ $user->name . ' ' . $user->surname . ' ' . $user->id }}</label>
-                            <input @checked($user->id == old('user_id', $user->id)) type="radio" name="user_id" id="user_{{ $user->id }}"
-                                placeholder="user_id" value="{{ $user->id }}">
-                        @endforeach
-                    </div> --}}
 
                     <div class="mb-3">
                         <label for="rooms" class="form-label">Number of rooms</label>
                         <input type="number" name="rooms" class="form-control" id="rooms" placeholder="4"
-                            value="{{ old('rooms', 6) }}">
+                            value="{{ old('rooms', 6) }}" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="beds" class="form-label">Number of beds</label>
                         <input type="number" name="beds" class="form-control" id="beds" placeholder="2"
-                            value="{{ old('beds', 2) }}">
+                            value="{{ old('beds', 2) }}" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="bathrooms" class="form-label">Number of bathrooms</label>
                         <input type="number" name="bathrooms" class="form-control" id="bathrooms" placeholder="1"
-                            value="{{ old('bathrooms', 2) }}">
+                            value="{{ old('bathrooms', 2) }}" required>
                     </div>
 
                     <div class="mb-3">
                         <label for="sqr_mt" class="form-label">Square meters</label>
                         <input type="number" name="sqr_mt" class="form-control" id="sqr_mt" placeholder="60"
-                            value="{{ old('sqr_mt', 120) }}">
+                            value="{{ old('sqr_mt', 120) }}" required>
                     </div>
 
                     <div class="mb-3">
@@ -92,13 +83,15 @@
                     <div class="mb-3">
                         <div>
                             <label for="visible" class="form-label">Publish as visible?</label>
-                            <select name="visible" id="visible">
+                            <select required name="visible" id="visible">
                                 <option value="0" @selected(old('visible', 0) == 0)>Not visible</option>
                                 <option value="1" @selected(old('visible') == 1)>Visible</option>
                             </select>
                         </div>
                     </div>
 
+                    <p id="error-msg" style="color:red; display:none;">Please select at least one
+                        service.</p>
                     <div class="accordion mb-3" id="servicesAccordion">
                         <div class="accordion-item">
                             <h2 class="accordion-header">
@@ -125,8 +118,9 @@
                     </div>
 
                     <div class="mb-3 text-center">
-                        <button class="btn btn-primary">Create</button>
+                        <button id="submit-btn" class="btn btn-primary">Create</button>
                     </div>
+
                 </form>
             </div>
         </div>
@@ -275,5 +269,18 @@
             console.log('tt.services:', tt.services);
             console.log('tt.plugins:', tt.plugins);
         }
+
+        // Client side form validation
+        document.getElementById('submit-btn').addEventListener('click', function(event) {
+            let checkboxes = document.querySelectorAll('input[name="services[]"]');
+            let isChecked = Array.from(checkboxes).some(checkbox => checkbox.checked);
+
+            if (!isChecked) {
+                event.preventDefault();
+                document.getElementById('error-msg').style.display = 'block';
+            } else {
+                document.getElementById('error-msg').style.display = 'none';
+            }
+        });
     </script>
 @endsection
