@@ -9,7 +9,8 @@
                 <h2>Register</h2>
             </div>
             <div class="card-body">
-                <form action="{{ route('user.register.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('user.register.store') }}" method="POST" enctype="multipart/form-data"
+                    onSubmit="return validate();">
 
                     {{-- Cross Site Request Forgering --}}
                     @csrf
@@ -28,8 +29,13 @@
                     </div>
                     <div class="mb-3">
                         <label for="password" class="form-label">Password*</label>
-                        <input type="password" name="password" class="form-control" id="password" placeholder="">
+                        <input type="password" name="password" class="form-control" id="password" placeholder=""><br />
+                        Re-enter Password: <input type="text" id="confirm_password" name="confirm_password" />
                     </div>
+                    {{-- <div class="mb-3">
+                        <label for="password" class="form-label">Password*</label>
+                        <input type="password" name="password" class="form-control" id="password" placeholder="">
+                    </div> --}}
                     <div class="mb-3">
                         <label for="date_of_birth" class="form-label">Date of birth</label>
                         <input type="date" name="date_of_birth" class="form-control" id="date_of_birth" placeholder="">
@@ -56,3 +62,15 @@
 
     </div>
 @endsection
+
+<script>
+    function validate() {
+
+        let a = document.getElementById("password").value;
+        let b = document.getElementById("confirm_password").value;
+        if (a != b) {
+            alert("Passwords do no match");
+            return false;
+        }
+    }
+</script>

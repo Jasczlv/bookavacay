@@ -27,32 +27,40 @@
                             placeholder="david.white@email.com">
                     </div>
                     <div class="mb-3">
+                        <form onSubmit="return validate();" ">
+                            <label for="password" class="form-label">Password*</label>
+                            <input type="password" name="password" class="form-control" id="password" placeholder=""><br/>
+                            Re-enter Password: <input type="text" id="confirm_password" name="confirm_password" />
+                            <input type="submit" value="submit"/>
+                        </form>
+                    </div>
+                        {{-- <div class="mb-3">
                         <label for="password" class="form-label">Password*</label>
                         <input type="password" name="password" class="form-control" id="password" placeholder="">
-                    </div>
-                    <div class="mb-3">
-                        <label for="date_of_birth" class="form-label">Date of birth</label>
-                        <input type="date" name="date_of_birth" class="form-control" id="date_of_birth" placeholder="">
-                    </div>
+                    </div> --}}
+                        <div class="mb-3">
+                            <label for="date_of_birth" class="form-label">Date of birth</label>
+                            <input type="date" name="date_of_birth" class="form-control" id="date_of_birth" placeholder="">
+                        </div>
 
-                    <div class="mb-3 text-center">
-                        <button class="btn btn-primary">Create</button>
-                    </div>
-                </form>
+                        <div class="mb-3 text-center">
+                            <button class="btn btn-primary">Create</button>
+                        </div>
+                    </form>
+                </div>
             </div>
-        </div>
 
-        @if ($errors->any())
-            <div class="alert
+             @if ($errors->any())
+                            <div class="alert
                                     alert-danger mt-3">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                            @endif
 
 
-    </div>
-@endsection
+                    </div>
+                @endsection
