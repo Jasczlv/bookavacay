@@ -129,7 +129,7 @@ class ApartmentController extends Controller
         return view('admin.apartments.index', compact('apartments'));
     }
 
-    public function message(Apartment $apartment, Message $message, Request $request)
+    public function messages(Apartment $apartment, Message $message, Request $request)
     {
 
         $apartments = Apartment::where('user_id', $request->user()->id)->get();
@@ -139,7 +139,7 @@ class ApartmentController extends Controller
         return view('admin.apartments.messages', compact('message', 'apartment'));
     }
 
-    public function statistic(Apartment $apartment, View $view, Request $request)
+    public function statistics(Apartment $apartment, View $view, Request $request)
     {
         $apartments = Apartment::where('user_id', $request->user()->id)->get();
         $views = View::where('apartment_id', $apartment->id)->get();
@@ -152,6 +152,6 @@ class ApartmentController extends Controller
         $apartments = Apartment::where('user_id', $request->user()->id)->get();
         $sponsors = Sponsor::where('apartment_id', $apartment->id)->get();
 
-        return view('admin.apartments.sponsors', compact('sponsor', 'apartment'));
+        return view('admin.apartments.sponsor', compact('sponsor', 'apartment'));
     }
 }
