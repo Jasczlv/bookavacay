@@ -4,47 +4,92 @@
     <div class="container">
         <a type="button" class="btn btn-secondary mt-4 mb-3" href="{{ route('admin.apartments.index') }}">&larr; Back to
             Apartments</a>
-        <div class="row justify-content-center">
-            <div class="col-9">
-                <div class="card mb-3">
-                    <div class="card-header">
-                        <h2 class="text-center">{{ $apartment->title }}</h2>
-                    </div>
-                    <div class="card-body py-3">
-                        <div class="text-center mb-3">
-                            <img src="{{ $apartment->image }}" alt="">
-                            <p>{{ $apartment->address }}</p>
-                        </div>
-                        <ul class="list-group list-group-flush">
-                            <li class="list-group-item">
-                                <span>Rooms: {{ $apartment->rooms }}</span>
-                                <span>Square meters: {{ $apartment->sqr_mt }}</span>
-                                <span>Beds: {{ $apartment->beds }}</span>
-                                <span>Bathrooms: {{ $apartment->bathrooms }}</span>
-                                <span>Visible?: {{ $apartment->visible ? 'yes' : 'no' }}</span>
-                                <span>Sponsored? </span> {{-- TODO --}}
-                            </li>
-                        </ul>
-                        <section>
-                            <div id="search-map">
-                                <div id="map"></div>
-                            </div>
-                        </section>
-                    </div>
-                </div>
+        <div class="row card">
 
-                {{-- Edit and delete buttons --}}
-                <div class="container d-flex justify-content-center align-items-center gap-2 mb-5">
-                    <a type="button" class="btn btn-warning"
-                        href="{{ route('admin.apartments.edit', $apartment) }}">Edit</a>
-                    <form class="delete-form" action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST">
-                        @method('DELETE')
-                        @csrf
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    </form>
-                </div>
 
+            <div class="card-header">
+                <h2 class="text-center">{{ $apartment->title }}</h2>
             </div>
+            <div class="card-body py-3 mb-3">
+                <div class="text-center mb-3">
+                    <img src="{{ $apartment->image }}" alt="">
+                    <p>{{ $apartment->address }}</p>
+                </div>
+                <div>
+                    <div id="search-map">
+                        <div id="map"></div>
+                    </div>
+                </div>
+                <div class="row flex-column mb-3">
+
+                    <div class="col-auto">
+                        <label for="title" class="fw-bold">Title:</label>
+                        @if ($apartment->title !== null)
+                            <p id="title">
+                                {{ $apartment->title }}
+                            </p>
+                        @else
+                            <p id="title">Not Set</p>
+                        @endif
+                    </div>
+                    <div class="col-auto">
+                        <label for="sqr_mt" class="fw-bold">Square meters:</label>
+                        @if ($apartment->sqr_mt !== null)
+                            <p id="sqr_mt">
+                                {{ $apartment->sqr_mt }}
+                            </p>
+                        @else
+                            <p id="sqr_mt">Not Set</p>
+                        @endif
+                    </div>
+                    <div class="col-auto">
+                        <label for="rooms" class="fw-bold">Rooms:</label>
+                        <p id="rooms">{{ $apartment->rooms }}, {{ $apartment->bathrooms }}
+                            @if ($apartment->bathrooms === 1)
+                                bathroom.
+                            @else
+                                bathrooms.
+                            @endif
+                        </p>
+                    </div>
+                    <div class="col-auto">
+                        <label for="beds" class="fw-bold">Beds:</label>
+                        @if ($apartment->beds !== null)
+                            <p id="beds">
+                                {{ $apartment->beds }}
+                            </p>
+                        @else
+                            <p id="beds">Not Set</p>
+                        @endif
+                    </div>
+                    <div class="col-auto">
+                        <label for="visible" class="fw-bold">Visibility:</label>
+                        @if ($apartment->visible == true)
+                            <p id="visible">
+                                Visible
+                            </p>
+                        @else
+                            <p id="visible">Hidden</p>
+                        @endif
+                    </div>
+
+                    {{-- TODO aggiungere sponsor e user proprietario --}}
+
+                </div>
+            </div>
+
+
+            {{-- Edit and delete buttons --}}
+            <div class="container d-flex justify-content-center align-items-center gap-2 mb-5">
+                <a type="button" class="btn btn-warning" href="{{ route('admin.apartments.edit', $apartment) }}">Edit</a>
+                <form class="delete-form" action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST">
+                    @method('DELETE')
+                    @csrf
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </div>
+
+
         </div>
     </div>
 
