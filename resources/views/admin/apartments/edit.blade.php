@@ -84,15 +84,21 @@
 
                     <div class="mb-3">
                         <label for="image_file" class="form-label">Apartment Image</label>
-                        <input type="file" name="image_file" class="form-control" id="image_file"
-                            value="{{ old('image_file') }}">
+                        <input type="file" name="image_file" class="form-control" id="image_file">
+
+                        @if ($apartment->image)
+                            <p>Current Image:</p>
+                            <img src="{{ Storage::url($apartment->image) }}" alt="{{ $apartment->title }}">
+                        @else
+                            <p>No image uploaded</p>
+                        @endif
                     </div>
 
-                    <div class="mb-3">
+                    {{-- <div class="mb-3">
                         <label for="image_url" class="form-label">Apartment Image Url</label>
                         <input type="url" name="image_url" class="form-control" id="image_url"
                             placeholder="www.example.com/image.jpg" value="{{ old('image_url') }}">
-                    </div>
+                    </div> --}}
 
                     <div class="mb-3">
                         <div>

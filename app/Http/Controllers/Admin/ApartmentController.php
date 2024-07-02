@@ -41,24 +41,27 @@ class ApartmentController extends Controller
      */
     public function store(StoreApartmentRequest $request)
     {
-        $form_data = $request->validated();
-        //dd($form_data);
+        \Log::info('Request data: ' . json_encode($request->all()));
+        \Log::info('Has file image: ' . ($request->hasFile('image') ? 'yes' : 'no'));
 
+        $form_data = $request->validated();
         $new_apartment = Apartment::create($form_data);
 
-        /* TODO aggiungere modo di caricare immagini */
-        if ($request->image_file) {
-            $new_apartment->image = $form_data['image_file'];
-        } else if ($request->image_url) {
-            $new_apartment->image = $form_data['image_url'];
+        if ($request->hasFile('image')) {
+            $file = $request->file('image');
+            \Log::info('Image file detected: ' . $file->getClientOriginalName());
+            $path = $file->store('images', 'public');
+            \Log::info('Image stored at: ' . $path);
+            $new_apartment->image = $path;
         } else {
+            \Log::info('No image file detected, using default image');
             $new_apartment->image = 'https://picsum.photos/300/200?random=' . $new_apartment->id;
         }
+
         $new_apartment->save();
 
         if ($request->has('services')) {
             foreach ($form_data['services'] as $service_id) {
-
                 $new_apartment->services()->attach($service_id);
             }
         }
@@ -70,8 +73,7 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
-        return view('error.404');
-    }
+        return view('admin.apartments.show', compact('apartment'));    }
 
     /**
      * Show the form for editing the specified resource.

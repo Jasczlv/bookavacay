@@ -33,8 +33,8 @@ class StoreApartmentRequest extends FormRequest
             'user_id' => 'required|exists:users,id',
             'latitude' => 'required|numeric|min:-90|max:90',
             'longitude' => 'required|numeric|min:-180|max:180',
-            'image_url' => 'nullable|url',
-            'image_file' => 'nullable|image'
+            'image_url' => 'nullable|url|mimes:jpeg,png,jpg',
+            'image_file' => 'nullable|image|mimes:jpeg,png,jpg'
         ];
     }
 }
