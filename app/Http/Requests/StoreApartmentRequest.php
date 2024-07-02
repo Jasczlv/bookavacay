@@ -29,7 +29,7 @@ class StoreApartmentRequest extends FormRequest
             'sqr_mt' => 'required|numeric|min:1',
             'address' => 'required|string',
             'visible' => 'boolean',
-            'services' => 'nullable|exists:services,id',
+            'services' => 'required|exists:services,id',
             'user_id' => 'required|exists:users,id',
             'latitude' => 'required|numeric|min:-90|max:90',
             'longitude' => 'required|numeric|min:-180|max:180',

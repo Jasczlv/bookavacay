@@ -83,12 +83,6 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="address" class="form-label">Apartment address</label>
-                        <input type="text" name="address" class="form-control" id="address"
-                            placeholder="BookaVacay Avenue 1" value="{{ old('address', $apartment->address) }}">
-                    </div>
-
-                    <div class="mb-3">
                         <label for="image_file" class="form-label">Apartment Image</label>
                         <input type="file" name="image_file" class="form-control" id="image_file"
                             value="{{ old('image_file') }}">
@@ -124,7 +118,7 @@
                                     Apartment Services
                                 </button>
                             </h2>
-                            <div id="collapseTwo" class="accordion-collapse collapse"
+                            <div id="collapseTwo" class="accordion-collapse collapse show"
                                 data-bs-parent="#servicesAccordion">
                                 <div class="accordion-body">
                                     <div class="row">

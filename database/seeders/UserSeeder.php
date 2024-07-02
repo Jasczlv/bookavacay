@@ -16,19 +16,57 @@ class UserSeeder extends Seeder
     public function run(Faker $faker): void
     {
 
-        for ($i = 0; $i < 5; $i++) {
+        $users = [
+            [
+                'email' => 'robertorossi@gmail.com',
+                'password' => Hash::make('robertorossi'),
+                'name' => 'Roberto',
+                'surname' => 'Rossi',
+                'date_of_birth' => '1960-10-15'
+            ],
+            [
+                'email' => 'vincenzoverdi@gmail.com',
+                'password' => Hash::make('vincenzoverdi'),
+                'name' => 'Vincenzo',
+                'surname' => 'Verdi',
+                'date_of_birth' => '1961-10-15'
+            ],
+            [
+                'email' => 'null@gmail.com',
+                'password' => Hash::make('null'),
+                'name' => null,
+                'surname' => null,
+                'date_of_birth' => null
+            ],
+            [
+                'email' => 'empty@gmail.com',
+                'password' => Hash::make('empty'),
+                'name' => '',
+                'surname' => '',
+                'date_of_birth' => null
+            ],
+            [
+                'email' => '1234@gmail.com',
+                'password' => Hash::make('1234'),
+                'name' => 1234,
+                'surname' => 1234,
+                'date_of_birth' => '1-2-3'
+            ],
+        ];
+
+        foreach ($users as $user) {
+            # code...
 
             $new_user = new User();
 
-            $new_user->email = $faker->unique()->email();
-            $random_password = $faker->password();//variable
-            $new_user->password = Hash::make($random_password);
-            $new_user->name = $faker->optional()->firstName();
-            $new_user->surname = $faker->optional()->lastName();
-            $new_user->date_of_birth = $faker->optional()->dateTimeBetween('-80 years', '-18 years');
-
+            $new_user->email = $user['email'];
+            $new_user->password = $user['password'];
+            $new_user->name = $user['name'];
+            $new_user->surname = $user['surname'];
+            $new_user->date_of_birth = $user['date_of_birth'];
             $new_user->save();
         }
+
 
         $admin = new User();
         $admin->email = 'admin@gmail.com';
