@@ -9,7 +9,8 @@
                 <h2>Create User</h2>
             </div>
             <div class="card-body">
-                <form action="{{ route('admin.users.store') }}" method="POST" enctype="multipart/form-data">
+                <form action="{{ route('admin.users.store') }}" method="POST" enctype="multipart/form-data"
+                    onSubmit="return validate();">
 
                     {{-- Cross Site Request Forgering --}}
                     @csrf
@@ -27,40 +28,38 @@
                             placeholder="david.white@email.com">
                     </div>
                     <div class="mb-3">
-                        <form onSubmit="return validate();" ">
-                            <label for="password" class="form-label">Password*</label>
-                            <input type="password" name="password" class="form-control" id="password" placeholder=""><br/>
-                            Re-enter Password: <input type="text" id="confirm_password" name="confirm_password" />
-                            <input type="submit" value="submit"/>
-                        </form>
+                        <label for="password" class="form-label">Password*</label>
+                        <input type="password" name="password" class="form-control" id="password" placeholder=""><br />
+                        Re-enter Password: <input type="text" id="confirm_password" name="confirm_password" />
+                        <input type="submit" value="submit" />
                     </div>
-                        {{-- <div class="mb-3">
+                    {{-- <div class="mb-3">
                         <label for="password" class="form-label">Password*</label>
                         <input type="password" name="password" class="form-control" id="password" placeholder="">
                     </div> --}}
-                        <div class="mb-3">
-                            <label for="date_of_birth" class="form-label">Date of birth</label>
-                            <input type="date" name="date_of_birth" class="form-control" id="date_of_birth" placeholder="">
-                        </div>
-
-                        <div class="mb-3 text-center">
-                            <button class="btn btn-primary">Create</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
-
-             @if ($errors->any())
-                            <div class="alert
-                                    alert-danger mt-3">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                            @endif
-
-
+                    <div class="mb-3">
+                        <label for="date_of_birth" class="form-label">Date of birth</label>
+                        <input type="date" name="date_of_birth" class="form-control" id="date_of_birth" placeholder="">
                     </div>
-                @endsection
+
+                    <div class="mb-3 text-center">
+                        <button class="btn btn-primary">Create</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        @if ($errors->any())
+            <div class="alert
+                                    alert-danger mt-3">
+                <ul>
+                    @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                    @endforeach
+                </ul>
+            </div>
+        @endif
+
+
+    </div>
+@endsection
