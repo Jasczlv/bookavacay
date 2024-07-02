@@ -105,7 +105,7 @@
                                     Apartment Services
                                 </button>
                             </h2>
-                            <div id="collapseTwo" class="accordion-collapse collapse"
+                            <div id="collapseTwo" class="accordion-collapse collapse show"
                                 data-bs-parent="#servicesAccordion">
                                 <div class="accordion-body">
                                     <div class="row">

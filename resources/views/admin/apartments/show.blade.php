@@ -12,7 +12,7 @@
             </div>
             <div class="card-body py-3 mb-3">
                 <div class="text-center mb-3">
-                    <img src="{{ $apartment->image }}" alt="">
+                    <img src="{{ Vite::asset('resources/img/' . $apartment->image) }}" alt="">
                     <p>{{ $apartment->address }}</p>
                 </div>
                 <div>
