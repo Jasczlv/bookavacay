@@ -36,7 +36,7 @@ Route::middleware(['auth', 'verified'])
         Route::get('apartments/search', [ApartmentController::class, 'search'])->name('apartments.search');
 
         // custom pages routes
-        Route::get('apartments/sponsor', [ApartmentController::class, 'sponsor'])->name('apartments.sponsor');
+        Route::get('apartments/sponsors', [ApartmentController::class, 'sponsors'])->name('apartments.sponsors');
         Route::get('apartments/{apartment}/statistics', [ApartmentController::class, 'statistics'])->name('apartments.statistics');
         Route::get('apartments/(apartment)/messages', [ApartmentController::class, 'messages'])->name('apartments.messages');
 

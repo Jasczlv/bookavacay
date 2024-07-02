@@ -147,11 +147,11 @@ class ApartmentController extends Controller
         return view('admin.apartments.statistics', compact('view', 'apartment'));
     }
 
-    public function sponsor(Apartment $apartment, Sponsor $sponsor, Request $request)
+    public function sponsors(Apartment $apartment, Sponsor $sponsor, Request $request)
     {
         $apartments = Apartment::where('user_id', $request->user()->id)->get();
-        $sponsors = Sponsor::where('apartment_id', $apartment->id)->get();
+        $sponsors = Sponsor::all();
 
-        return view('admin.apartments.sponsor', compact('sponsor', 'apartment'));
+        return view('admin.apartments.sponsors', compact('sponsors', 'apartment'));
     }
 }
