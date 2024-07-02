@@ -15,9 +15,9 @@ class ApartmentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $apartments = Apartment::all();
+        $apartments = Apartment::where('user_id', $request->user()->id)->get();
 
         return view('admin.apartments.index', compact('apartments'));
     }

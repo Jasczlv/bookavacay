@@ -49,7 +49,7 @@ class UserController extends Controller
         $user->date_of_birth = $request->input('date_of_birth');
         $user->save();
 
-        return redirect()->route('admin.users.show', $user);
+        return redirect()->route('admin.apartments.index');
     }
 
     /**
