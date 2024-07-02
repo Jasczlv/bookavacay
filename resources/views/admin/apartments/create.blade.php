@@ -130,10 +130,6 @@
         </div>
     </div>
 
-    <div class="container">
-        <button class="btn btn-primary" onclick="test()">Test</button>
-    </div>
-
     <!-- Stile mappa -->
     <style>
         #map {
