@@ -35,6 +35,10 @@ Route::middleware(['auth', 'verified'])
         Route::get('users/search', [UserController::class, 'search'])->name('users.search');
         Route::get('apartments/search', [ApartmentController::class, 'search'])->name('apartments.search');
 
+        // custom pages routes
+        Route::get('apartments/sponsor', [ApartmentController::class, 'sponsor'])->name('apartments.sponsor');
+        Route::get('apartments/{apartment}/statistics', [ApartmentController::class, 'statistics'])->name('apartments.statistics');
+        Route::get('apartments/(apartment)/messages', [ApartmentController::class, 'messages'])->name('apartments.messages');
 
         //register all other protected routes
         //CRUD POSTS
