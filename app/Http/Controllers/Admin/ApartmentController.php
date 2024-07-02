@@ -73,7 +73,8 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
-        return view('admin.apartments.show', compact('apartment'));    }
+        return view('admin.apartments.show', compact('apartment'));
+    }
 
     /**
      * Show the form for editing the specified resource.
@@ -140,9 +141,9 @@ class ApartmentController extends Controller
 
     public function statistics(Apartment $apartment, View $view, Request $request)
     {
-        $views = View::where('apartment_id', $apartment->id)->get();
+        $statistics = View::where('apartment_id', $apartment->id)->get();
 
-        return view('admin.apartments.statistics', compact('views', 'apartment'));
+        return view('admin.apartments.statistics', compact('statistics', 'apartment'));
     }
 
     public function sponsors(Apartment $apartment, Sponsor $sponsor, Request $request)
@@ -150,6 +151,6 @@ class ApartmentController extends Controller
         $apartments = Apartment::where('user_id', $request->user()->id)->get();
         $sponsors = Sponsor::all();
 
-        return view('admin.apartments.sponsors', compact('sponsors', 'apartment'));
+        return view('admin.apartments.sponsors', compact('sponsors', 'apartments'));
     }
 }
