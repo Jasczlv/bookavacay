@@ -63,3 +63,15 @@
 
     </div>
 @endsection
+
+<script>
+    function validate() {
+
+        let a = document.getElementById("password").value;
+        let b = document.getElementById("confirm_password").value;
+        if (a != b) {
+            alert("Passwords do no match");
+            return false;
+        }
+    }
+</script>
