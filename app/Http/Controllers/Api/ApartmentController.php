@@ -6,17 +6,22 @@ use App\Http\Controllers\Controller;
 use App\Models\Apartment;
 use App\Http\Requests\StoreApartmentRequest;
 use App\Http\Requests\UpdateApartmentRequest;
+use Illuminate\Http\Request;
 
 class ApartmentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         //
-        $apartments = Apartment::all();
-        return response()->json($apartments);
+        $per_page = $request->perPage ?? 6;
+        $apartments = Apartment::paginate($per_page);
+        return response()->json([
+            'success' => true,
+            'apartments' => $apartments
+        ]);
     }
 
     /**
