@@ -17,7 +17,10 @@ class ApartmentController extends Controller
     {
         //
         $per_page = $request->perPage ?? 6;
-        $apartments = Apartment::paginate($per_page);
+        //Recuperare appartamenti che hanno uno sponsor
+        /* $apartments = Apartment::paginate($per_page); */
+        //Il suo id deve essere presente sulla tabella apartment_sponsors, ma solo se l'exp_date e' > di now()
+        $apartments = Apartment::where('id', '=', )
         return response()->json([
             'success' => true,
             'apartments' => $apartments
