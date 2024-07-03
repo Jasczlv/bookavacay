@@ -22,6 +22,11 @@ class ApartmentController extends Controller
     {
         $apartments = Apartment::where('user_id', $request->user()->id)->get();
 
+        //api json response
+        if ($request->wantsJson()) {
+            $apartments = Apartment::all();
+            return response()->json($apartments);
+        }
         return view('admin.apartments.index', compact('apartments'));
     }
 
@@ -41,8 +46,6 @@ class ApartmentController extends Controller
      */
     public function store(StoreApartmentRequest $request)
     {
-        \Log::info('Request data: ' . json_encode($request->all()));
-        \Log::info('Has file image: ' . ($request->hasFile('image') ? 'yes' : 'no'));
 
         $form_data = $request->validated();
         $new_apartment = Apartment::create($form_data);
@@ -53,9 +56,7 @@ class ApartmentController extends Controller
             // Remove 'images/' from the beginning of the path
             $path = str_replace('images/', '', $path);
             $new_apartment->image = $path;
-
         } else {
-            \Log::info('No image file detected, using default image');
             $new_apartment->image = 'https://picsum.photos/300/200?random=' . $new_apartment->id;
         }
 
