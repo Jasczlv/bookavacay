@@ -41,7 +41,6 @@ Route::middleware(['auth', 'verified'])
         Route::get('apartments/{apartment}/messages', [ApartmentController::class, 'messages'])->name('apartments.messages');
 
         //register all other protected routes
-        //CRUD POSTS
         Route::resource('apartments', ApartmentController::class);
         /* 
                 Route::resource('users', UserController::class);

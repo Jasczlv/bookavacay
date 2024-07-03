@@ -5,15 +5,18 @@ namespace App\Http\Controllers;
 use App\Models\Apartment;
 use App\Http\Requests\StoreApartmentRequest;
 use App\Http\Requests\UpdateApartmentRequest;
+use Illuminate\Http\Request;
 
 class ApartmentController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        $ciao = 'saluta';
+        //
+        $apartments = Apartment::all();
+        return response()->json($apartments);
     }
 
     /**
