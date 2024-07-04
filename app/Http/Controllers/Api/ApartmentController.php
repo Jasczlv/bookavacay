@@ -112,7 +112,6 @@ class ApartmentController extends Controller
         }
 
         $filteredApartments = [];
-
         $testResults = [];
 
         // Define the API key
@@ -121,8 +120,6 @@ class ApartmentController extends Controller
         foreach ($apartments as $apartment) {
             $lat2 = $apartment->latitude;
             $lon2 = $apartment->longitude;
-            $testResults[] = $lat2;
-            $testResults[] = $lon2;
 
             // Build the API URL
             $url = "https://api.tomtom.com/routing/1/calculateRoute/{$user_lat},{$user_lon}:{$lat2},{$lon2}/json?key={$apiKey}";
@@ -137,6 +134,7 @@ class ApartmentController extends Controller
 
             // Execute the request
             $output = curl_exec($ch);
+            $testResults[] = $output; // Collect the raw output for debugging
 
             // Check for cURL errors
             if (curl_errno($ch)) {
@@ -168,14 +166,11 @@ class ApartmentController extends Controller
             }
         }
 
-        /* return response()->json([
-            'success' => true,
-            'apartments' => $filteredApartments,
-        ]); */
-
+        // Return raw API responses for debugging
         return response()->json([
             'success' => true,
-            'apartments' => $testResults,
+            'api_responses' => $testResults,
+            'filtered_apartments' => $filteredApartments,
         ]);
     }
 }
