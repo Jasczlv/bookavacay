@@ -20,5 +20,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 });
 
 
-Route::apiResource('apartments', ApartmentController::class);
 Route::get('apartments/search', [ApartmentController::class, 'search']);
+Route::apiResource('apartments', ApartmentController::class);
