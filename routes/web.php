@@ -31,13 +31,21 @@ Route::middleware(['auth', 'verified'])
             return view('admin.dashboard');
         })->name('dashboard');
 
-        //register all other protected routes
-        //CRUD POSTS
-        Route::resource('apartments', ApartmentController::class);
-        Route::resource('users', UserController::class);
-        Route::resource('sponsors', SponsorController::class);
-        Route::resource('services', ServiceController::class);
+        // search request routes 
+        Route::get('users/search', [UserController::class, 'search'])->name('users.search');
+        Route::get('apartments/search', [ApartmentController::class, 'search'])->name('apartments.search');
 
+        // custom pages routes
+        Route::get('apartments/sponsors', [ApartmentController::class, 'sponsors'])->name('apartments.sponsors');
+        Route::get('apartments/{apartment}/statistics', [ApartmentController::class, 'statistics'])->name('apartments.statistics');
+        Route::get('apartments/{apartment}/messages', [ApartmentController::class, 'messages'])->name('apartments.messages');
+
+        //register all other protected routes
+        Route::resource('apartments', ApartmentController::class);
+        /* 
+                Route::resource('users', UserController::class);
+                Route::resource('sponsors', SponsorController::class);
+                Route::resource('services', ServiceController::class); */
     });
 
 Route::middleware('auth')->group(function () {
@@ -45,5 +53,7 @@ Route::middleware('auth')->group(function () {
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
+
+Route::post('register/user', [UserController::class, 'store'])->name('user.register.store');
 
 require __DIR__ . '/auth.php';

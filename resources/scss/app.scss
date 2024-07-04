@@ -1,1 +1,8 @@
-@import '~bootstrap/scss/bootstrap'
+@import "~bootstrap/scss/bootstrap";
+
+@import "./general.scss";
+
+@import "./servicesStyle/indexServices.scss";
+.home-logo {
+    width: 100px;
+}

@@ -13,7 +13,9 @@ class SponsorController extends Controller
      */
     public function index()
     {
-        //
+        $sponsors = Sponsor::all();
+
+        return view('admin.sponsors.index', compact('sponsors'));
     }
 
     /**
@@ -21,7 +23,7 @@ class SponsorController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.sponsors.create');
     }
 
     /**
@@ -29,15 +31,26 @@ class SponsorController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $data = $request->all();
+        $new_sponsor = Sponsor::create($data);
+        // $new_sponsor->tier = $data['tier'];
+        // $new_sponsor->hours = $data['hours'];
+        // $new_sponsor->price = $data['price'];
+        // $new_sponsor->save();
+
+        return to_route('admin.sponsors.show', $new_sponsor->id);
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(Sponsor $sponsor)
+    public function show($tier)
     {
-        //
+        $sponsor = Sponsor::find($tier);
+        if($sponsor === null) {
+            abort('404');
+        }
+        return view('admin.sponsors.show', compact('sponsor'));
     }
 
     /**
@@ -45,7 +58,7 @@ class SponsorController extends Controller
      */
     public function edit(Sponsor $sponsor)
     {
-        //
+        return view('admin.sponsors.edit', compact('sponsor'));
     }
 
     /**
@@ -53,7 +66,9 @@ class SponsorController extends Controller
      */
     public function update(Request $request, Sponsor $sponsor)
     {
-        //
+        $data = $request->all();
+        $sponsor->update($data);
+        return to_route('admin.sponsors.show', $sponsor);
     }
 
     /**
@@ -61,6 +76,7 @@ class SponsorController extends Controller
      */
     public function destroy(Sponsor $sponsor)
     {
-        //
+        $sponsor->delete();
+        return to_route('admin.sponsors.index');
     }
 }
