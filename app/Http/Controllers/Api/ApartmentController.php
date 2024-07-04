@@ -92,8 +92,16 @@ class ApartmentController extends Controller
         Log::info('Latitude: ' . $user_lat);
         Log::info('Longitude: ' . $user_lon);
 
+        // Check if latitude and longitude are provided
+        if (is_null($user_lat) || is_null($user_lon)) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Latitude and Longitude are required',
+            ]);
+        }
+
         // Get all apartments
-        $apartments = Apartment::all();
+        $apartments = Apartment::with('sponsors', 'services')->get();
 
         // Check if apartments are being retrieved
         if ($apartments->isEmpty()) {
@@ -105,12 +113,16 @@ class ApartmentController extends Controller
 
         $filteredApartments = [];
 
+        $testResults = [];
+
         // Define the API key
         $apiKey = 'VtdGJcQDaomboK5S3kbxFvhtbupZjoK0';
 
         foreach ($apartments as $apartment) {
             $lat2 = $apartment->latitude;
             $lon2 = $apartment->longitude;
+            $testResults[] = $lat2;
+            $testResults[] = $lon2;
 
             // Build the API URL
             $url = "https://api.tomtom.com/routing/1/calculateRoute/{$user_lat},{$user_lon}:{$lat2},{$lon2}/json?key={$apiKey}";
@@ -145,16 +157,25 @@ class ApartmentController extends Controller
 
             if (isset($data['routes'][0]['summary']['lengthInMeters'])) {
                 $distance = floor($data['routes'][0]['summary']['lengthInMeters'] / 1000); // Convert meters to kilometers
-                $apartment->distance = $distance;
-                $filteredApartments[] = $apartment;
+                Log::info("Distance for Apartment ID {$apartment->id}: {$distance} km");
+
+                if ($distance <= 20) {
+                    $apartment->distance = $distance;
+                    $filteredApartments[] = $apartment;
+                }
             } else {
                 Log::error('Unexpected API response: ' . $output);
             }
         }
 
-        return response()->json([
+        /* return response()->json([
             'success' => true,
             'apartments' => $filteredApartments,
+        ]); */
+
+        return response()->json([
+            'success' => true,
+            'apartments' => $testResults,
         ]);
     }
 }
