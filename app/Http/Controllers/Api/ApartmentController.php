@@ -195,15 +195,33 @@ class ApartmentController extends Controller
         }
 
         if ($request->services) {
-            $service_id = $request->services;
 
-            // Filter apartments
-            $filteredApartments = array_filter($filteredApartments, function ($apartment) use ($service_id) {
-                // Extract service IDs from apartment services collection
-                $apartment_services_ids = $apartment->services->pluck('id')->toArray();
+            if (is_array($request->services)) {
+                $service_ids = $request->services;
 
-                return in_array($service_id, $apartment_services_ids);
-            });
+                // Filter apartments
+                foreach ($service_ids as $service_id) {
+                    $filteredApartments = array_filter($filteredApartments, function ($apartment) use ($service_id) {
+                        // Extract service IDs from apartment services collection
+                        $apartment_services_ids = $apartment->services->pluck('id')->toArray();
+
+                        return in_array($service_id, $apartment_services_ids);
+                    });
+                }
+
+            } else {
+
+                $service_ids = $request->services;
+
+                // Filter apartments
+                $filteredApartments = array_filter($filteredApartments, function ($apartment) use ($service_ids) {
+                    // Extract service IDs from apartment services collection
+                    $apartment_services_ids = $apartment->services->pluck('id')->toArray();
+
+                    return in_array($service_ids, $apartment_services_ids);
+                });
+            }
+
         }
 
         return response()->json([
