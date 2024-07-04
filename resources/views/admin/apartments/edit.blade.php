@@ -179,8 +179,8 @@
             // Check if TomTom SDK scripts are loaded
             if (typeof tt !== 'undefined' && typeof tt.map !== 'undefined' && typeof tt.services !== 'undefined') {
 
-                var apartmentLat = {{ $apartment->latitude }};
-                var apartmentLng = {{ $apartment->longitude }};
+                var apartmentLat;
+                var apartmentLng;
 
                 // Initialize the map
                 var map = tt.map({

@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Apartment;
 use App\Http\Requests\StoreApartmentRequest;
 use App\Http\Requests\UpdateApartmentRequest;
+use Carbon\Carbon;
 use Illuminate\Http\Request;
 
 class ApartmentController extends Controller
@@ -15,15 +16,19 @@ class ApartmentController extends Controller
      */
     public function index(Request $request)
     {
-        //
         $per_page = $request->perPage ?? 6;
-        //Recuperare appartamenti che hanno uno sponsor
-        /* $apartments = Apartment::paginate($per_page); */
-        //Il suo id deve essere presente sulla tabella apartment_sponsors, ma solo se l'exp_date e' > di now()
-        $apartments = Apartment::where('id', '=', )
+        $now = Carbon::now();
+
+        $apartments = Apartment::with('sponsors', 'services')
+            ->whereHas('sponsors', function ($query) use ($now) {
+                $query->where('exp_date', '>', $now);
+            })
+            ->paginate($per_page);
+
+
         return response()->json([
             'success' => true,
-            'apartments' => $apartments
+            'apartments' => $apartments,
         ]);
     }
 
@@ -73,5 +78,17 @@ class ApartmentController extends Controller
     public function destroy(Apartment $apartment)
     {
         //
+    }
+
+    /**
+     * Ricerca di appartamenti entro 20km
+     */
+    public function search(Request $request)
+    {
+        $user_lat = $request->latitude;
+        $user_lon = $request->longitude;
+        $user_address = $request->address;
+
+
     }
 }
