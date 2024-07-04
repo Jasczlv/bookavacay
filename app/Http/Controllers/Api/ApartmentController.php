@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateApartmentRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use GuzzleHttp\Client;
 
 class ApartmentController extends Controller
 {
@@ -112,64 +113,51 @@ class ApartmentController extends Controller
         }
 
         $filteredApartments = [];
-        $testResults = [];
 
         // Define the API key
         $apiKey = 'VtdGJcQDaomboK5S3kbxFvhtbupZjoK0';
+
+        // Initialize Guzzle client
+        $client = new Client([
+            'base_uri' => 'https://api.tomtom.com',
+            'verify' => 'C:\phpLauncher\ssl\cacert.pem', // Path to your cacert.pem
+        ]);
 
         foreach ($apartments as $apartment) {
             $lat2 = $apartment->latitude;
             $lon2 = $apartment->longitude;
 
-            // Build the API URL
-            $url = "https://api.tomtom.com/routing/1/calculateRoute/{$user_lat},{$user_lon}:{$lat2},{$lon2}/json?key={$apiKey}";
-            Log::info('API URL: ' . $url);
+            try {
+                // Make request using Guzzle
+                $response = $client->request('GET', "/routing/1/calculateRoute/{$user_lat},{$user_lon}:{$lat2},{$lon2}/json", [
+                    'query' => ['key' => $apiKey],
+                ]);
 
-            // Initialize cURL
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true); // Verify SSL certificate
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);   // Verify SSL hostname
+                $output = $response->getBody()->getContents();
 
-            // Execute the request
-            $output = curl_exec($ch);
-            $testResults[] = $output; // Collect the raw output for debugging
+                // Decode the JSON response
+                $data = json_decode($output, true);
 
-            // Check for cURL errors
-            if (curl_errno($ch)) {
-                Log::error('cURL Error: ' . curl_error($ch));
-                curl_close($ch);
-                continue; // Skip this apartment if there's an error
-            }
+                if (isset($data['routes'][0]['summary']['lengthInMeters'])) {
+                    $distance = floor($data['routes'][0]['summary']['lengthInMeters'] / 1000); // Convert meters to kilometers
+                    Log::info("Distance for Apartment ID {$apartment->id}: {$distance} km");
 
-            curl_close($ch);
-
-            // Decode the JSON response
-            $data = json_decode($output, true);
-
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                Log::error('JSON Decode Error: ' . json_last_error_msg());
-                continue; // Skip this apartment if JSON decoding fails
-            }
-
-            if (isset($data['routes'][0]['summary']['lengthInMeters'])) {
-                $distance = floor($data['routes'][0]['summary']['lengthInMeters'] / 1000); // Convert meters to kilometers
-                Log::info("Distance for Apartment ID {$apartment->id}: {$distance} km");
-
-                if ($distance <= 20) {
-                    $apartment->distance = $distance;
-                    $filteredApartments[] = $apartment;
+                    if ($distance <= 20) {
+                        $apartment->distance = $distance;
+                        $filteredApartments[] = $apartment;
+                    }
+                } else {
+                    Log::error('Unexpected API response: ' . $output);
                 }
-            } else {
-                Log::error('Unexpected API response: ' . $output);
+            } catch (\Exception $e) {
+                Log::error('Guzzle HTTP Error: ' . $e->getMessage());
+                continue; // Skip this apartment if there's an error
             }
         }
 
         // Return raw API responses for debugging
         return response()->json([
             'success' => true,
-            'api_responses' => $testResults,
             'filtered_apartments' => $filteredApartments,
         ]);
     }
