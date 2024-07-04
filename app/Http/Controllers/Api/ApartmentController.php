@@ -9,7 +9,6 @@ use App\Http\Requests\UpdateApartmentRequest;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
-use GuzzleHttp\Client;
 
 class ApartmentController extends Controller
 {
@@ -87,9 +86,15 @@ class ApartmentController extends Controller
      */
     public function search(Request $request)
     {
+
+        $request->validate([
+            'latitude' => 'required|numeric',
+            'longitude' => 'required|numeric',
+        ]);
+
         // Get user latitude and longitude from the request
-        $user_lat = $request->query('latitude');
-        $user_lon = $request->query('longitude');
+        $user_lat = $request->input('latitude');
+        $user_lon = $request->input('longitude');
         Log::info('Latitude: ' . $user_lat);
         Log::info('Longitude: ' . $user_lon);
 
@@ -102,7 +107,7 @@ class ApartmentController extends Controller
         }
 
         // Get all apartments
-        $apartments = Apartment::with('sponsors', 'services')->get();
+        $apartments = Apartment::all();
 
         // Check if apartments are being retrieved
         if ($apartments->isEmpty()) {
@@ -114,51 +119,61 @@ class ApartmentController extends Controller
 
         $filteredApartments = [];
 
+
         // Define the API key
         $apiKey = 'VtdGJcQDaomboK5S3kbxFvhtbupZjoK0';
-
-        // Initialize Guzzle client
-        $client = new Client([
-            'base_uri' => 'https://api.tomtom.com',
-            'verify' => 'C:\phpLauncher\ssl\cacert.pem', // Path to your cacert.pem
-        ]);
 
         foreach ($apartments as $apartment) {
             $lat2 = $apartment->latitude;
             $lon2 = $apartment->longitude;
 
-            try {
-                // Make request using Guzzle
-                $response = $client->request('GET', "/routing/1/calculateRoute/{$user_lat},{$user_lon}:{$lat2},{$lon2}/json", [
-                    'query' => ['key' => $apiKey],
-                ]);
+            // Build the API URL
+            $url = "https://api.tomtom.com/routing/1/calculateRoute/{$user_lat},{$user_lon}:{$lat2},{$lon2}/json?key={$apiKey}";
+            Log::info('API URL: ' . $url);
 
-                $output = $response->getBody()->getContents();
+            // Initialize cURL
+            $ch = curl_init();
+            curl_setopt($ch, CURLOPT_URL, $url);
+            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true); // Verify SSL certificate
+            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);   // Verify SSL hostname
 
-                // Decode the JSON response
-                $data = json_decode($output, true);
+            // Execute the request
+            $output = curl_exec($ch);
 
-                if (isset($data['routes'][0]['summary']['lengthInMeters'])) {
-                    $distance = floor($data['routes'][0]['summary']['lengthInMeters'] / 1000); // Convert meters to kilometers
-                    Log::info("Distance for Apartment ID {$apartment->id}: {$distance} km");
-
-                    if ($distance <= 20) {
-                        $apartment->distance = $distance;
-                        $filteredApartments[] = $apartment;
-                    }
-                } else {
-                    Log::error('Unexpected API response: ' . $output);
-                }
-            } catch (\Exception $e) {
-                Log::error('Guzzle HTTP Error: ' . $e->getMessage());
+            // Check for cURL errors
+            if (curl_errno($ch)) {
+                Log::error('cURL Error: ' . curl_error($ch));
+                curl_close($ch);
                 continue; // Skip this apartment if there's an error
+            }
+
+            curl_close($ch);
+
+            // Decode the JSON response
+            $data = json_decode($output, true);
+
+            if (json_last_error() !== JSON_ERROR_NONE) {
+                Log::error('JSON Decode Error: ' . json_last_error_msg());
+                continue; // Skip this apartment if JSON decoding fails
+            }
+
+            if (isset($data['routes'][0]['summary']['lengthInMeters'])) {
+                $distance = floor($data['routes'][0]['summary']['lengthInMeters'] / 1000); // Convert meters to kilometers
+                Log::info("Distance for Apartment ID {$apartment->id}: {$distance} km");
+
+                if ($distance <= 20) {
+                    $apartment->distance = $distance;
+                    $filteredApartments[] = $apartment;
+                }
+            } else {
+                Log::error('Unexpected API response: ' . $output);
             }
         }
 
-        // Return raw API responses for debugging
         return response()->json([
             'success' => true,
-            'filtered_apartments' => $filteredApartments,
+            'apartments' => $filteredApartments,
         ]);
     }
 }
