@@ -87,18 +87,17 @@ class ApartmentController extends Controller
     public function search(Request $request)
     {
 
+        //Validazione latitude e longitudine
         $request->validate([
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
         ]);
 
-        // Get user latitude and longitude from the request
+        // Recuperare dati dalla richiesta
         $user_lat = $request->input('latitude');
         $user_lon = $request->input('longitude');
-        Log::info('Latitude: ' . $user_lat);
-        Log::info('Longitude: ' . $user_lon);
 
-        // Check if latitude and longitude are provided
+        // Controllo per vedere se latitudine e longitudine esistono
         if (is_null($user_lat) || is_null($user_lon)) {
             return response()->json([
                 'success' => false,
@@ -106,10 +105,10 @@ class ApartmentController extends Controller
             ]);
         }
 
-        // Get all apartments
-        $apartments = Apartment::all();
+        // Recuperare tutti gli appartamenti con le loro relazioni
+        $apartments = Apartment::with('services', 'sponsors')->get();
 
-        // Check if apartments are being retrieved
+        // Se non trova nessun appartamento da questa risposta
         if ($apartments->isEmpty()) {
             return response()->json([
                 'success' => false,
@@ -117,19 +116,20 @@ class ApartmentController extends Controller
             ]);
         }
 
+        // Dichiarazione array di appartamenti filtrati
         $filteredApartments = [];
 
 
-        // Define the API key
+        // Chiave API da usare per le richieste
         $apiKey = 'VtdGJcQDaomboK5S3kbxFvhtbupZjoK0';
 
+        //Ciclo gli appartamenti per controllare se aggiungerli all'array di filtrati
         foreach ($apartments as $apartment) {
             $lat2 = $apartment->latitude;
             $lon2 = $apartment->longitude;
 
             // Build the API URL
             $url = "https://api.tomtom.com/routing/1/calculateRoute/{$user_lat},{$user_lon}:{$lat2},{$lon2}/json?key={$apiKey}";
-            Log::info('API URL: ' . $url);
 
             // Initialize cURL
             $ch = curl_init();
@@ -160,15 +160,50 @@ class ApartmentController extends Controller
 
             if (isset($data['routes'][0]['summary']['lengthInMeters'])) {
                 $distance = floor($data['routes'][0]['summary']['lengthInMeters'] / 1000); // Convert meters to kilometers
-                Log::info("Distance for Apartment ID {$apartment->id}: {$distance} km");
 
-                if ($distance <= 20) {
-                    $apartment->distance = $distance;
-                    $filteredApartments[] = $apartment;
+                //Controllare se nella richiesta e' stato inviato il campo distance
+                if ($request->distance) {
+                    $request_distance = $request->distance;
+                    if ($distance <= $request_distance) {
+                        $apartment->distance = $distance;
+                        $filteredApartments[] = $apartment;
+                    }
+                } else {
+                    if ($distance <= 20) {
+                        $apartment->distance = $distance;
+                        $filteredApartments[] = $apartment;
+                    }
                 }
+
             } else {
                 Log::error('Unexpected API response: ' . $output);
             }
+        }
+
+        //Se nella richiesta ci sono letti, allora filteredApartments lo cicliamo, e ogni appartamento che NON supera il controllo viene tolto dall'array
+
+        if ($request->beds) {
+            $filteredApartments = array_filter($filteredApartments, function ($apartment) use ($request) {
+                return $apartment->beds >= $request->beds;
+            });
+        }
+
+        if ($request->rooms) {
+            $filteredApartments = array_filter($filteredApartments, function ($apartment) use ($request) {
+                return $apartment->rooms >= $request->rooms;
+            });
+        }
+
+        if ($request->services) {
+            $service_id = $request->services;
+
+            // Filter apartments
+            $filteredApartments = array_filter($filteredApartments, function ($apartment) use ($service_id) {
+                // Extract service IDs from apartment services collection
+                $apartment_services_ids = $apartment->services->pluck('id')->toArray();
+
+                return in_array($service_id, $apartment_services_ids);
+            });
         }
 
         return response()->json([
