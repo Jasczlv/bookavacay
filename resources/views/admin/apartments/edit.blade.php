@@ -18,12 +18,29 @@
             </div>
             <div class="card-body py-3">
 
-                <section>
+                <div class="row justify-content-center mb-3">
+                    <div class="col-auto text-center">
+                        <div>
+                            @if ($apartment->image)
+                                <div>
+                                    <p>Current Image:</p>
+                                </div>
+                                <img src="{{ Vite::asset('storage/app/public/images/' . $apartment->image) }}">
+                            @else
+                                <p>No image uploaded</p>
+                            @endif
+                        </div>
+                    </div>
+                </div>
+
+                <section class="mb-3">
                     <div id="search-map">
                         <div id="searchbar"></div>
                         <div id="map"></div>
                     </div>
                 </section>
+
+
 
                 <form action="{{ route('admin.apartments.update', $apartment) }}" method="POST"
                     enctype="multipart/form-data">
@@ -92,14 +109,8 @@
 
 
                         {{-- NON chiedetemi perché, ma se aggiungi questo si rompono gli alert della validazione --}}
-                        {{-- <div class="mb-3">
-                            @if ($apartment->image)
-                            <p>Current Image:</p>
-                            <img src="{{ Vite::asset('storage/app/public/images/' . $apartment->image) }}">
-                            @else
-                            <p>No image uploaded</p>
-                            @endif
-                        </div> --}}
+
+
 
 
                     </div>
@@ -143,7 +154,9 @@
                         <button id="submit-btn" class="btn btn-primary">Update</button>
                     </div>
 
+
                 </form>
+
 
                 <span>(*) required field; (**) at least one required</span>
             </div>

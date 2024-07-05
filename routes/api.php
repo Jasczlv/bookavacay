@@ -2,7 +2,9 @@
 
 use App\Http\Controllers\Api\ApartmentController;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -23,4 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('apartments/search', [ApartmentController::class, 'search']);
 Route::post('/apartments/search', [ApartmentController::class, 'search']);
 Route::get('apartments/services', [ApartmentController::class, 'services']);
+Route::get('/check-login', function () {
+    return response()->json(['loggedIn' => Auth::check()]);
+});
 Route::apiResource('apartments', ApartmentController::class);
