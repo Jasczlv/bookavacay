@@ -44,37 +44,37 @@
                             value="{{ old('address', $apartment->address) }}" readonly>
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3 form-edit">
                         <label for="title" class="form-label">Apartment Title</label>
                         <input type="text" name="title" class="form-control" id="title" placeholder="Title"
                             value="{{ old('title', $apartment->title) }}">
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3 form-edit">
                         <label for="rooms" class="form-label">Number of rooms</label>
                         <input type="number" name="rooms" class="form-control" id="rooms" placeholder="4"
                             value="{{ old('rooms', $apartment->rooms) }}">
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3 form-edit">
                         <label for="beds" class="form-label">Number of beds</label>
                         <input type="number" name="beds" class="form-control" id="beds" placeholder="2"
                             value="{{ old('beds', $apartment->beds) }}">
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3 form-edit">
                         <label for="bathrooms" class="form-label">Number of bathrooms</label>
                         <input type="number" name="bathrooms" class="form-control" id="bathrooms" placeholder="1"
                             value="{{ old('bathrooms', $apartment->bathrooms) }}">
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3 form-edit">
                         <label for="sqr_mt" class="form-label">Square meters</label>
                         <input type="number" name="sqr_mt" class="form-control" id="sqr_mt" placeholder="60"
                             value="{{ old('sqr_mt', $apartment->sqr_mt) }}">
                     </div>
 
-                    <div class="mb-3">
+                    <div class="mb-3 form-edit">
                         <label for="image_file" class="form-label">Apartment Image</label>
                         <input type="file" name="image_file" class="form-control" id="image_file">
 
