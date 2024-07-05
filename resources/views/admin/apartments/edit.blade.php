@@ -33,6 +33,8 @@
                     @csrf
                     @method('PUT')
 
+                    <input type="hidden" name="user_id" id="user_id" value="{{ $apartment->user_id }}">
+
                     <div>
                         <input type="text" name="latitude" id="latitude"
                             value="{{ old('latitude', $apartment->latitude) }}" readonly>
