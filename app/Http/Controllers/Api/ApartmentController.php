@@ -87,6 +87,25 @@ class ApartmentController extends Controller
     public function search(Request $request)
     {
 
+
+        function getDistanceBetweenPointsNew($latitude1, $longitude1, $latitude2, $longitude2, $unit = 'miles')
+        {
+            $theta = $longitude1 - $longitude2;
+            $distance = (sin(deg2rad($latitude1)) * sin(deg2rad($latitude2))) + (cos(deg2rad($latitude1)) * cos(deg2rad($latitude2)) * cos(deg2rad($theta)));
+            $distance = acos($distance);
+            $distance = rad2deg($distance);
+            $distance = $distance * 60 * 1.1515;
+            switch ($unit) {
+                case 'miles':
+                    break;
+                case 'kilometers':
+                    $distance = $distance * 1.609344;
+            }
+            return (round($distance, 2));
+        }
+
+
+
         //Validazione latitude e longitudine
         $request->validate([
             'latitude' => 'required|numeric',
@@ -174,7 +193,6 @@ class ApartmentController extends Controller
                         $filteredApartments[] = $apartment;
                     }
                 }
-
             } else {
                 Log::error('Unexpected API response: ' . $output);
             }
@@ -208,7 +226,6 @@ class ApartmentController extends Controller
                         return in_array($service_id, $apartment_services_ids);
                     });
                 }
-
             } else {
 
                 $service_ids = $request->services;
@@ -221,7 +238,6 @@ class ApartmentController extends Controller
                     return in_array($service_ids, $apartment_services_ids);
                 });
             }
-
         }
         usort($filteredApartments, function ($a, $b) {
             return $a->distance - $b->distance;
