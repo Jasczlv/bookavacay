@@ -39,31 +39,31 @@
                     </div>
 
                     <div class="mb-3">
-                        <label for="title" class="form-label">Apartment Title</label>
+                        <label for="title" class="form-label">Apartment Title*</label>
                         <input type="text" name="title" class="form-control" id="title" placeholder="Title"
                             value="{{ old('title', 'Test') }}" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="rooms" class="form-label">Number of rooms</label>
+                        <label for="rooms" class="form-label">Number of rooms*</label>
                         <input type="number" name="rooms" class="form-control" id="rooms" placeholder="4"
                             value="{{ old('rooms', 6) }}" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="beds" class="form-label">Number of beds</label>
+                        <label for="beds" class="form-label">Number of beds*</label>
                         <input type="number" name="beds" class="form-control" id="beds" placeholder="2"
                             value="{{ old('beds', 2) }}" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="bathrooms" class="form-label">Number of bathrooms</label>
+                        <label for="bathrooms" class="form-label">Number of bathrooms*</label>
                         <input type="number" name="bathrooms" class="form-control" id="bathrooms" placeholder="1"
                             value="{{ old('bathrooms', 2) }}" required>
                     </div>
 
                     <div class="mb-3">
-                        <label for="sqr_mt" class="form-label">Square meters</label>
+                        <label for="sqr_mt" class="form-label">Square meters*</label>
                         <input type="number" name="sqr_mt" class="form-control" id="sqr_mt" placeholder="60"
                             value="{{ old('sqr_mt', 120) }}" required>
                     </div>
@@ -74,12 +74,6 @@
                         <input type="file" class="form-control" name="image" id="image"
                             value="{{ old('image') }}">
                     </div>
-
-                    {{-- <div class="mb-3">
-                        <label for="image_url" class="form-label">Apartment Image Url</label>
-                        <input type="url" name="image_url" class="form-control" id="image_url"
-                            placeholder="www.example.com/image.jpg" value="{{ old('image_url') }}">
-                    </div> --}}
 
                     <div class="mb-3">
                         <div>
@@ -98,7 +92,7 @@
                             <h2 class="accordion-header">
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
                                     data-bs-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                                    Apartment Services
+                                    Apartment Services**
                                 </button>
                             </h2>
                             <div id="collapseTwo" class="accordion-collapse collapse show"
@@ -123,6 +117,8 @@
                     </div>
 
                 </form>
+
+                <span>(*) required field; (**) at least one required</span>
             </div>
         </div>
     </div>
