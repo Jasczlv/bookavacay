@@ -24,7 +24,6 @@
                 <section>
                     <div id="search-map">
                         <div id="searchbar">
-                            {{-- <input type="text" id="search-input" placeholder="Search for a location"> --}}
                         </div>
                         <div id="map"></div>
                     </div>
@@ -47,15 +46,6 @@
                         <label for="title" class="form-label">Apartment Title</label>
                         <input type="text" name="title" class="form-control" id="title" placeholder="Title"
                             value="{{ old('title', $apartment->title) }}">
-                    </div>
-
-                    <div class="mb-3">
-                        @foreach ($users as $user)
-                            <label for="user_id"
-                                class="form-label">{{ $user->name . ' ' . $user->surname . ' ' . $user->id }}</label>
-                            <input type="radio" name="user_id" id="user_{{ $user->id }}" placeholder="user_id"
-                                @checked($user->id == old('user_id', $apartment->user_id)) value="{{ $user->id }}">
-                        @endforeach
                     </div>
 
                     <div class="mb-3">
@@ -88,17 +78,11 @@
 
                         @if ($apartment->image)
                             <p>Current Image:</p>
-                            <img src="{{ Storage::url($apartment->image) }}" alt="{{ $apartment->title }}">
+                            <img src="{{ Vite::asset('storage/app/public/images/' . $apartment->image) }}">
                         @else
                             <p>No image uploaded</p>
                         @endif
                     </div>
-
-                    {{-- <div class="mb-3">
-                        <label for="image_url" class="form-label">Apartment Image Url</label>
-                        <input type="url" name="image_url" class="form-control" id="image_url"
-                            placeholder="www.example.com/image.jpg" value="{{ old('image_url') }}">
-                    </div> --}}
 
                     <div class="mb-3">
                         <div>
