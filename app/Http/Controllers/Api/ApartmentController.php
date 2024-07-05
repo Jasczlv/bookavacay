@@ -222,7 +222,20 @@ class ApartmentController extends Controller
             }
         }
         usort($filteredApartments, function ($a, $b) {
-            return $a->distance - $b->distance;
+            // Controllo se A ha uno sponsors
+            $aHasActiveSponsor = $a->sponsors()->wherePivot('exp_date', '>', now())->exists();
+            // Controllo se B ha uno sponsor attivo
+            $bHasActiveSponsor = $b->sponsors()->wherePivot('exp_date', '>', now())->exists();
+
+            // Se a ha lo sponsor attivo va messo prima di b e viceversa
+            if ($aHasActiveSponsor && !$bHasActiveSponsor) {
+                return -1;
+            } elseif (!$aHasActiveSponsor && $bHasActiveSponsor) {
+                return 1;
+            } else {
+                //Altrimenti mettili in ordine di distanza
+                return $a->distance - $b->distance;
+            }
         });
 
         return response()->json([
