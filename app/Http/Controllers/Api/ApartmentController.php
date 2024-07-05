@@ -88,7 +88,7 @@ class ApartmentController extends Controller
     {
 
 
-        function getDistanceBetweenPointsNew($latitude1, $longitude1, $latitude2, $longitude2, $unit = 'miles')
+        function getDistanceBetweenPointsNew($latitude1, $longitude1, $latitude2, $longitude2, $unit = 'kilometers')
         {
             $theta = $longitude1 - $longitude2;
             $distance = (sin(deg2rad($latitude1)) * sin(deg2rad($latitude2))) + (cos(deg2rad($latitude1)) * cos(deg2rad($latitude2)) * cos(deg2rad($theta)));
@@ -102,7 +102,7 @@ class ApartmentController extends Controller
                     $distance = $distance * 1.609344;
             }
             return (round($distance, 2));
-        }
+        };
 
 
 
@@ -139,64 +139,30 @@ class ApartmentController extends Controller
         $filteredApartments = [];
 
 
-        // Chiave API da usare per le richieste
-        $apiKey = 'VtdGJcQDaomboK5S3kbxFvhtbupZjoK0';
+
 
         //Ciclo gli appartamenti per controllare se aggiungerli all'array di filtrati
         foreach ($apartments as $apartment) {
             $lat2 = $apartment->latitude;
             $lon2 = $apartment->longitude;
 
-            // Build the API URL
-            $url = "https://api.tomtom.com/routing/1/calculateRoute/{$user_lat},{$user_lon}:{$lat2},{$lon2}/json?key={$apiKey}";
+            $distance = getDistanceBetweenPointsNew($user_lat, $user_lon, $lat2, $lon2, $unit = 'kilometers');
 
-            // Initialize cURL
-            $ch = curl_init();
-            curl_setopt($ch, CURLOPT_URL, $url);
-            curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-            curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, true); // Verify SSL certificate
-            curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, 2);   // Verify SSL hostname
-
-            // Execute the request
-            $output = curl_exec($ch);
-
-            // Check for cURL errors
-            if (curl_errno($ch)) {
-                Log::error('cURL Error: ' . curl_error($ch));
-                curl_close($ch);
-                continue; // Skip this apartment if there's an error
-            }
-
-            curl_close($ch);
-
-            // Decode the JSON response
-            $data = json_decode($output, true);
-
-            if (json_last_error() !== JSON_ERROR_NONE) {
-                Log::error('JSON Decode Error: ' . json_last_error_msg());
-                continue; // Skip this apartment if JSON decoding fails
-            }
-
-            if (isset($data['routes'][0]['summary']['lengthInMeters'])) {
-                $distance = floor($data['routes'][0]['summary']['lengthInMeters'] / 1000); // Convert meters to kilometers
-
-                //Controllare se nella richiesta e' stato inviato il campo distance
-                if ($request->distance) {
-                    $request_distance = $request->distance;
-                    if ($distance <= $request_distance) {
-                        $apartment->distance = $distance;
-                        $filteredApartments[] = $apartment;
-                    }
-                } else {
-                    if ($distance <= 20) {
-                        $apartment->distance = $distance;
-                        $filteredApartments[] = $apartment;
-                    }
+            //Controllare se nella richiesta e' stato inviato il campo distance
+            if ($request->distance) {
+                $request_distance = $request->distance;
+                if ($distance <= $request_distance) {
+                    $apartment->distance = $distance;
+                    $filteredApartments[] = $apartment;
                 }
             } else {
-                Log::error('Unexpected API response: ' . $output);
+                if ($distance <= 20) {
+                    $apartment->distance = $distance;
+                    $filteredApartments[] = $apartment;
+                }
             }
         }
+
 
         //Se nella richiesta ci sono letti, allora filteredApartments lo cicliamo, e ogni appartamento che NON supera il controllo viene tolto dall'array
 
