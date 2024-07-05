@@ -9,6 +9,7 @@ use App\Http\Requests\UpdateApartmentRequest;
 use App\Models\Service;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
 
 class ApartmentController extends Controller
@@ -255,5 +256,14 @@ class ApartmentController extends Controller
             'services' => $services,
         ]);
 
+    }
+
+    public function checkLogin(Request $request)
+    {
+        if (Auth::check()) {
+            return response()->json(['loggedIn' => true]);
+        } else {
+            return response()->json(['loggedIn' => false]);
+        }
     }
 }

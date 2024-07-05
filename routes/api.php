@@ -25,7 +25,7 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('apartments/search', [ApartmentController::class, 'search']);
 Route::post('/apartments/search', [ApartmentController::class, 'search']);
 Route::get('apartments/services', [ApartmentController::class, 'services']);
-Route::get('/check-login', function () {
-    return response()->json(['loggedIn' => Auth::check()]);
+Route::middleware('cors')->group(function () {
+    Route::get('/check-login', [ApartmentController::class, 'checkLogin']);
 });
 Route::apiResource('apartments', ApartmentController::class);
