@@ -204,8 +204,10 @@
                 // Reverse geocode to get address
                 tt.services.reverseGeocode({
                     key: 'VtdGJcQDaomboK5S3kbxFvhtbupZjoK0',
-                    position: apartmentLat,
-                    apartmentLng
+                    position: {
+                        lat: apartmentLat,
+                        lng: apartmentLng
+                    }
                 }).then(function(response) {
                     let address = response.addresses[0].address.freeformAddress;
                     document.getElementById('address').value = address;
@@ -239,27 +241,30 @@
                     document.getElementById('latitude').value = lngLat.lat;
                     document.getElementById('longitude').value = lngLat.lng;
                     document.getElementById('address').value = result.address.freeformAddress;
-                });
 
-                // Add the search box input handler
-                document.getElementById('search-input').addEventListener('input', function(event) {
-                    let query = event.target.value;
-                    tt.services.fuzzySearch({
-                        key: 'VtdGJcQDaomboK5S3kbxFvhtbupZjoK0',
-                        query: query,
-                        language: 'en-GB'
-                    }).then(function(response) {
-                        if (response.results && response.results.length > 0) {
-                            let result = response.results[0];
-                            let lngLat = result.position;
-                            map.setCenter(lngLat);
-                            marker.setLngLat(lngLat);
-                            document.getElementById('latitude').value = lngLat.lat;
-                            document.getElementById('longitude').value = lngLat.lng;
-                            document.getElementById('address').value = result.address.freeformAddress;
-                        }
+                    // Add the search box input handler here
+                    let searchBoxInput = document.querySelector('.tt-search-box-input');
+                    searchBoxInput.addEventListener('input', function(event) {
+                        let query = event.target.value;
+                        tt.services.fuzzySearch({
+                            key: 'VtdGJcQDaomboK5S3kbxFvhtbupZjoK0',
+                            query: query,
+                            language: 'en-GB'
+                        }).then(function(response) {
+                            if (response.results && response.results.length > 0) {
+                                let result = response.results[0];
+                                let lngLat = result.position;
+                                map.setCenter(lngLat);
+                                marker.setLngLat(lngLat);
+                                document.getElementById('latitude').value = lngLat.lat;
+                                document.getElementById('longitude').value = lngLat.lng;
+                                document.getElementById('address').value = result.address
+                                    .freeformAddress;
+                            }
+                        });
                     });
                 });
+
 
             } else {
                 console.error('TomTom SDK not loaded properly.');
