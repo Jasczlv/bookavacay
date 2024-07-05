@@ -13,7 +13,7 @@
         @endif
 
         <div class="card">
-            <div class="card-header">
+            <div class="card-header text-center">
                 <h2>Edit Apartment</h2>
             </div>
             <div class="card-body py-3">
@@ -32,61 +32,77 @@
 
                     <input type="hidden" name="user_id" id="user_id" value="{{ Auth::id() }}" required>
 
-                    <div>
-                        <input type="text" name="latitude" id="latitude" readonly required
-                            value="{{ old('latitude', $apartment->latitude) }}">
-                        <input type="text" name="longitude" id="longitude" readonly required
-                            value="{{ old('longitude', $apartment->longitude) }}">
-                        <input type="text" name="address" id="address" readonly required
-                            value="{{ old('address', $apartment->address) }}">
+                    <div class="py-4 w-100">
+                        <div class="row w-100 justify-content-center">
+                            <div class="col-auto">
+                                <label for="latitude">Latitude: </label>
+                                <input type="text" name="latitude" id="latitude" readonly required
+                                    value="{{ old('latitude', $apartment->latitude) }}">
+                            </div>
+                            <div class="col-auto">
+                                <label for="longitude">Longitude: </label>
+                                <input type="text" name="longitude" id="longitude" readonly required
+                                    value="{{ old('longitude', $apartment->longitude) }}">
+                            </div>
+                            <div class="col-auto">
+                                <label for="address">Address: </label>
+                                <input type="text" name="address" id="address" readonly required
+                                    value="{{ old('address', $apartment->address) }}">
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="title" class="form-label">Apartment Title*</label>
-                        <input type="text" name="title" class="form-control" id="title" placeholder="Title"
-                            value="{{ old('title', $apartment->title) }}" required>
-                    </div>
+                    <div class="row w-100">
 
-                    <div class="mb-3">
-                        <label for="rooms" class="form-label">Number of rooms*</label>
-                        <input type="number" name="rooms" class="form-control" id="rooms" placeholder="4"
-                            value="{{ old('rooms', $apartment->rooms) }}" required>
-                    </div>
-
-                    <div class="mb-3 form-edit">
-                        <label for="beds" class="form-label">Number of beds</label>
-                        <input type="number" name="beds" class="form-control" id="beds" placeholder="2"
-                            value="{{ old('beds', $apartment->beds) }}" required>
-                    </div>
-
-                    <div class="mb-3 form-edit">
-                        <label for="bathrooms" class="form-label">Number of bathrooms</label>
-                        <input type="number" name="bathrooms" class="form-control" id="bathrooms" placeholder="1"
-                            value="{{ old('bathrooms', $apartment->bathrooms) }}" required>
-                    </div>
-
-                    <div class="mb-3 form-edit">
-                        <label for="sqr_mt" class="form-label">Square meters</label>
-                        <input type="number" name="sqr_mt" class="form-control" id="sqr_mt" placeholder="60"
-                            value="{{ old('sqr_mt', $apartment->sqr_mt) }}" required>
-                    </div>
-
-                    <div class="mb-3 form-edit">
-                        <label for="image_file" class="form-label">Apartment Image</label>
-                        <input type="file" name="image_file" class="form-control" id="image_file">
-
-                    </div>
+                        <div class="mb-3 col-4 p-2">
+                            <label for="title" class="form-label">Apartment Title*</label>
+                            <input type="text" name="title" class="form-control" id="title" placeholder="Title"
+                                value="{{ old('title', $apartment->title) }}" required>
+                        </div>
 
 
-                    {{-- NON chiedetemi perché, ma se aggiungi questo si rompono gli alert della validazione --}}
-                    {{-- <div class="mb-3">
-                        @if ($apartment->image)
+                        <div class="mb-3 col-4 p-2">
+                            <label for="rooms" class="form-label">Number of rooms*</label>
+                            <input type="number" name="rooms" class="form-control" id="rooms" placeholder="4"
+                                value="{{ old('rooms', $apartment->rooms) }}" required>
+                        </div>
+
+                        <div class="mb-3 form-edit col-4 p-2">
+                            <label for="beds" class="form-label">Number of beds</label>
+                            <input type="number" name="beds" class="form-control" id="beds" placeholder="2"
+                                value="{{ old('beds', $apartment->beds) }}" required>
+                        </div>
+
+                        <div class="mb-3 form-edit col-4 p-2">
+                            <label for="bathrooms" class="form-label">Number of bathrooms</label>
+                            <input type="number" name="bathrooms" class="form-control" id="bathrooms" placeholder="1"
+                                value="{{ old('bathrooms', $apartment->bathrooms) }}" required>
+                        </div>
+
+                        <div class="mb-3 form-edit col-4 p-2">
+                            <label for="sqr_mt" class="form-label">Square meters</label>
+                            <input type="number" name="sqr_mt" class="form-control" id="sqr_mt" placeholder="40"
+                                value="{{ old('sqr_mt', $apartment->sqr_mt) }}" required>
+                        </div>
+
+                        <div class="mb-3 form-edit col-4 p-2">
+                            <label for="image_file" class="form-label">Apartment Image</label>
+                            <input type="file" name="image_file" class="form-control" id="image_file">
+                        </div>
+
+
+                        {{-- NON chiedetemi perché, ma se aggiungi questo si rompono gli alert della validazione --}}
+                        {{-- <div class="mb-3">
+                            @if ($apartment->image)
                             <p>Current Image:</p>
                             <img src="{{ Vite::asset('storage/app/public/images/' . $apartment->image) }}">
-                        @else
+                            @else
                             <p>No image uploaded</p>
-                        @endif
-                    </div> --}}
+                            @endif
+                        </div> --}}
+
+
+                    </div>
 
                     <div class="mb-3">
                         <label for="visible" class="form-label">Publish as visible?</label>

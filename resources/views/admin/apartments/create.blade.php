@@ -13,7 +13,7 @@
         @endif
 
         <div class="card">
-            <div class="card-header">
+            <div class="card-header text-center">
                 <h2>New Apartment</h2>
             </div>
             <div class="card-body py-3">
@@ -31,47 +31,66 @@
 
                     <input type="hidden" name="user_id" id="user_id" value="{{ Auth::id() }}" required>
 
-                    <div>
-                        <input type="text" name="latitude" id="latitude" readonly required>
-                        <input type="text" name="longitude" id="longitude" readonly required>
-                        <input type="text" name="address" id="address" readonly required>
+                    <div class="py-4 w-100">
+                        <div class="row w-100 justify-content-center">
+                            <div class="col-auto">
+                                <label for="latitude">Latitude: </label>
+                                <input type="text" name="latitude" id="latitude" readonly required>
+                            </div>
+                            <div class="col-auto">
+                                <label for="longitude">Longitude: </label>
+                                <input type="text" name="longitude" id="longitude" readonly required>
+                            </div>
+                            <div class="col-auto">
+                                <label for="address">Address: </label>
+                                <input type="text" name="address" id="address" readonly required>
+                            </div>
+                        </div>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="title" class="form-label">Apartment Title*</label>
-                        <input type="text" name="title" class="form-control" id="title" placeholder="Title"
-                            value="{{ old('title', 'Test') }}" required>
-                    </div>
 
-                    <div class="mb-3">
-                        <label for="rooms" class="form-label">Number of rooms*</label>
-                        <input type="number" name="rooms" class="form-control" id="rooms" placeholder="4"
-                            value="{{ old('rooms', 6) }}" required>
-                    </div>
+                    <div class="row w-100">
 
-                    <div class="mb-3">
-                        <label for="beds" class="form-label">Number of beds*</label>
-                        <input type="number" name="beds" class="form-control" id="beds" placeholder="2"
-                            value="{{ old('beds', 2) }}" required>
-                    </div>
 
-                    <div class="mb-3">
-                        <label for="bathrooms" class="form-label">Number of bathrooms*</label>
-                        <input type="number" name="bathrooms" class="form-control" id="bathrooms" placeholder="1"
-                            value="{{ old('bathrooms', 2) }}" required>
-                    </div>
 
-                    <div class="mb-3">
-                        <label for="sqr_mt" class="form-label">Square meters*</label>
-                        <input type="number" name="sqr_mt" class="form-control" id="sqr_mt" placeholder="60"
-                            value="{{ old('sqr_mt', 120) }}" required>
-                    </div>
 
-                    {{-- IMAGE --}}
-                    <div class="mb-3">
-                        <label for="image" class="form-label">Apartment Image</label>
-                        <input type="file" class="form-control" name="image" id="image"
-                            value="{{ old('image') }}">
+                        <div class="mb-3 col-4 p-2">
+                            <label for="title" class="form-label">Apartment Title*</label>
+                            <input type="text" name="title" class="form-control" id="title" placeholder="Title"
+                                value="{{ old('title', 'Test') }}" required>
+                        </div>
+
+                        <div class="mb-3 col-4 p-2">
+                            <label for="rooms" class="form-label">Number of rooms*</label>
+                            <input type="number" name="rooms" class="form-control" id="rooms" placeholder="4"
+                                value="{{ old('rooms', 6) }}" required>
+                        </div>
+
+                        <div class="mb-3 col-4 p-2">
+                            <label for="beds" class="form-label">Number of beds*</label>
+                            <input type="number" name="beds" class="form-control" id="beds" placeholder="2"
+                                value="{{ old('beds', 2) }}" required>
+                        </div>
+
+                        <div class="mb-3 col-4 p-2">
+                            <label for="bathrooms" class="form-label">Number of bathrooms*</label>
+                            <input type="number" name="bathrooms" class="form-control" id="bathrooms" placeholder="1"
+                                value="{{ old('bathrooms', 2) }}" required>
+                        </div>
+
+                        <div class="mb-3 col-4 p-2">
+                            <label for="sqr_mt" class="form-label">Square meters*</label>
+                            <input type="number" name="sqr_mt" class="form-control" id="sqr_mt" placeholder="60"
+                                value="{{ old('sqr_mt', 120) }}" required>
+                        </div>
+
+                        {{-- IMAGE --}}
+                        <div class="mb-3 col-4 p-2">
+                            <label for="image" class="form-label">Apartment Image</label>
+                            <input type="file" class="form-control" name="image" id="image"
+                                value="{{ old('image') }}">
+                        </div>
+
                     </div>
 
                     <div class="mb-3">
