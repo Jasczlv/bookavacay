@@ -55,7 +55,7 @@ class ApartmentController extends Controller
      */
     public function show(Apartment $apartment)
     {
-        //
+
     }
 
     /**
