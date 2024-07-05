@@ -131,7 +131,8 @@
         @yield('content')
     </main>
     </div>
-    <script src="{{ asset('js/app.js') }}" defer></script>
+    {{-- Questo dava errori e non so perché quindi ho provato a disabilitarlo --}}
+    {{--     <script src="{{ asset('js/app.js') }}" defer></script> --}}
 </body>
 
 </html>
