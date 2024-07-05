@@ -4,13 +4,9 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-
-    <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>{{ config('BookaVacay', 'BookaVacay') }}</title>
-
-
+    <title>{{ config('app.name', 'BookaVacay') }}</title>
 
     <!-- Fonts -->
     <link rel="dns-prefetch" href="//fonts.gstatic.com">
@@ -18,7 +14,6 @@
     <link rel="icon" href="{{ Vite::asset('resources/img/BookaVacay_02.png') }}" type="image/png">
 
     {{-- TomTom --}}
-
     <link rel="stylesheet" type="text/css" href="https://api.tomtom.com/maps-sdk-for-web/6.x/6.17.0/maps/maps.css">
     <link rel="stylesheet" type="text/css" href="https://api.tomtom.com/maps-sdk-for-web/6.x/6.17.0/search/search.css">
     <link rel="stylesheet" type="text/css"
@@ -32,16 +27,12 @@
     {{-- Runtime asincrono --}}
     <script src="https://cdn.jsdelivr.net/npm/regenerator-runtime/runtime.js"></script>
 
-
     <!-- Usando Vite -->
-    @vite(['resources/js/app.js'])
-    @vite(['resources/scss/app.scss'])
+    @vite(['resources/js/app.js', 'resources/scss/app.scss'])
 </head>
 
 <body>
     <div id="app">
-
-
         <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
             <div class="container">
                 <a class="navbar-brand d-flex align-items-center" href="{{ url('/') }}">
@@ -49,40 +40,24 @@
                         <img class="home-logo" src="{{ Vite::asset('resources/img/BookaVacay_01.png') }}"
                             alt="">
                     </div>
-                    {{-- config('app.name', 'Laravel') --}}
                 </a>
-
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                     data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
                     <span class="navbar-toggler-icon"></span>
                 </button>
-
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
                         <li class="nav-item">
                             <a class="nav-link" href="{{ url('/') }}">{{ __('Home') }}</a>
                         </li>
-                        {{-- <li class="nav-item">
-                                <a class="nav-link" href="{{ route('admin.users.index') }}">{{ __('Users') }}</a>
-                            </li> --}}
                         <li class="nav-item">
                             <a class="nav-link" href="{{ route('admin.apartments.index') }}">{{ __('Apartments') }}</a>
                         </li>
-                        {{-- <li class="nav-item">
-                                <a class="nav-link"
-                                    href="{{ route('admin.services.index') }}">{{ __('Services') }}</a>
-                            </li> --}}
-                        {{-- <li class="nav-item">
-                                <a class="nav-link"
-                                    href="{{ route('admin.sponsors.index') }}">{{ __('Sponsors') }}</a>
-                            </li> --}}
                     </ul>
-
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-                        <!-- Authentication Links -->
                         @guest
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
@@ -114,7 +89,6 @@
                                                      document.getElementById('logout-form').submit();">
                                         {{ __('Logout') }}
                                     </a>
-
                                     <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                         @csrf
                                     </form>
@@ -124,15 +98,11 @@
                     </ul>
                 </div>
             </div>
+        </nav>
+        <main class="">
+            @yield('content')
+        </main>
     </div>
-    </nav>
-
-    <main class="">
-        @yield('content')
-    </main>
-    </div>
-    {{-- Questo dava errori e non so perché quindi ho provato a disabilitarlo --}}
-    {{--     <script src="{{ asset('js/app.js') }}" defer></script> --}}
 </body>
 
 </html>
