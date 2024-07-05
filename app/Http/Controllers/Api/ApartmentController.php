@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Apartment;
 use App\Http\Requests\StoreApartmentRequest;
 use App\Http\Requests\UpdateApartmentRequest;
+use App\Models\Service;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -102,7 +103,8 @@ class ApartmentController extends Controller
                     $distance = $distance * 1.609344;
             }
             return (round($distance, 2));
-        };
+        }
+        ;
 
 
 
@@ -213,5 +215,18 @@ class ApartmentController extends Controller
             'success' => true,
             'apartments' => $filteredApartments,
         ]);
+    }
+
+    //Recupero dei servizi nella pagina di ricerca avanzata
+    public function services(Request $request)
+    {
+        $services = Service::all();
+
+
+        return response()->json([
+            'success' => true,
+            'services' => $services,
+        ]);
+
     }
 }
