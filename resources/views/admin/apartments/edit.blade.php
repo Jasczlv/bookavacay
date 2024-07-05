@@ -53,27 +53,26 @@
                             value="{{ old('rooms', $apartment->rooms) }}" required>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="beds" class="form-label">Number of beds*</label>
+                    <div class="mb-3 form-edit">
+                        <label for="beds" class="form-label">Number of beds</label>
                         <input type="number" name="beds" class="form-control" id="beds" placeholder="2"
                             value="{{ old('beds', $apartment->beds) }}" required>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="bathrooms" class="form-label">Number of bathrooms*</label>
+                    <div class="mb-3 form-edit">
+                        <label for="bathrooms" class="form-label">Number of bathrooms</label>
                         <input type="number" name="bathrooms" class="form-control" id="bathrooms" placeholder="1"
                             value="{{ old('bathrooms', $apartment->bathrooms) }}" required>
                     </div>
 
-                    <div class="mb-3">
-                        <label for="sqr_mt" class="form-label">Square meters*</label>
+                    <div class="mb-3 form-edit">
+                        <label for="sqr_mt" class="form-label">Square meters</label>
                         <input type="number" name="sqr_mt" class="form-control" id="sqr_mt" placeholder="60"
                             value="{{ old('sqr_mt', $apartment->sqr_mt) }}" required>
                     </div>
 
-                    {{-- IMAGE --}}
-                    <div class="mb-3">
-                        <label for="image_file" class="form-label">Upload new apartment image</label>
+                    <div class="mb-3 form-edit">
+                        <label for="image_file" class="form-label">Apartment Image</label>
                         <input type="file" name="image_file" class="form-control" id="image_file">
 
                     </div>
