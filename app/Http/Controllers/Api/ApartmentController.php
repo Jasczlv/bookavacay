@@ -223,6 +223,9 @@ class ApartmentController extends Controller
             }
 
         }
+        usort($filteredApartments, function ($a, $b) {
+            return $a->distance - $b->distance;
+        });
 
         return response()->json([
             'success' => true,
