@@ -53,9 +53,23 @@ class ApartmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(Apartment $apartment)
+    public function show($id)
     {
-        //
+
+        $apartment = Apartment::with('services', 'sponsors')->find($id);
+
+        if (!$apartment) {
+            return response()->json([
+                'success' => false,
+                'message' => 'Apartment not found',
+            ], 404);
+        }
+
+        return response()->json([
+            'success' => true,
+            'apartment' => $apartment,
+        ]);
+
     }
 
     /**
