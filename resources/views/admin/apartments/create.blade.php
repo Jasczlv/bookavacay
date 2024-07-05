@@ -21,7 +21,6 @@
                 <section>
                     <div id="search-map">
                         <div id="searchbar">
-                            {{-- <input type="text" id="search-input" placeholder="Search for a location"> --}}
                         </div>
                         <div id="map"></div>
                     </div>
