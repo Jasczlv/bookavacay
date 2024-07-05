@@ -25,7 +25,7 @@
                                 <div>
                                     <p>Current Image:</p>
                                 </div>
-                                <img src="{{ Vite::asset('storage/app/public/images/' . $apartment->image) }}">
+                                <img class="w-50" src="{{ Vite::asset('storage/app/public/images/' . $apartment->image) }}">
                             @else
                                 <p>No image uploaded</p>
                             @endif
