@@ -23,4 +23,5 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 Route::get('apartments/search', [ApartmentController::class, 'search']);
 Route::post('/apartments/search', [ApartmentController::class, 'search']);
 Route::get('apartments/services', [ApartmentController::class, 'services']);
+Route::post('apartments/message', [ApartmentController::class, 'message']);
 Route::apiResource('apartments', ApartmentController::class);

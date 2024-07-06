@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Apartment;
 use App\Http\Requests\StoreApartmentRequest;
 use App\Http\Requests\UpdateApartmentRequest;
+use App\Models\Message;
 use App\Models\Service;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
@@ -256,4 +257,40 @@ class ApartmentController extends Controller
         ]);
 
     }
+
+    public function message(Request $request)
+    {
+        // Log the incoming request data for debugging
+        Log::info('Incoming request data:', $request->all());
+
+        // Validate the request data
+        $validatedData = $request->validate([
+            'apartment_id' => 'required|exists:apartments,id',
+            'sender_email' => 'required|email',
+            'sender_name' => 'required|string|max:255',
+            'content' => 'required|string',
+        ]);
+
+        try {
+            // Log the validated data
+            Log::info('Validated data:', $validatedData);
+
+            // Create a new message
+            $new_message = Message::create($validatedData);
+
+            return response()->json([
+                'success' => true
+            ]);
+        } catch (\Exception $e) {
+            // Log the error
+            Log::error('Error creating message:', ['error' => $e->getMessage()]);
+
+            return response()->json([
+                'success' => false,
+                'message' => 'Error creating message'
+            ], 500);
+        }
+    }
+
+
 }
