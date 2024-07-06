@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Admin;
 
+use Illuminate\Support\Facades\Storage;
+
 use App\Http\Controllers\Controller;
 use App\Http\Requests\StoreApartmentRequest;
 use App\Http\Requests\UpdateApartmentRequest;
@@ -97,19 +99,29 @@ class ApartmentController extends Controller
         $form_data = $request->validated();
         // dd($form_data);
 
-
         if ($request->has('services')) {
-            // foreach ($form_data['services'] as $service_id) {
-
-            //     $apartment->services()->attach($service_id);
-            // }
             $apartment->services()->sync($form_data['services']);
+        }
+
+        if ($request->hasFile('image_file')) {
+            // Optionally delete the old image if it exists
+            if ($apartment->image) {
+                Storage::disk('public')->delete('images/' . $apartment->image);
+            }
+
+            $file = $request->file('image_file');
+            $path = $file->store('images', 'public');
+            // Remove 'images/' from the beginning of the path
+            $path = str_replace('images/', '', $path);
+            $form_data['image'] = $path;
         }
 
         $apartment->update($form_data);
 
-        return to_route('admin.apartments.index', $apartment);
+        return redirect()->route('admin.apartments.index')->with('success', 'Apartment updated successfully!');
     }
+
+
 
     /**
      * Remove the specified resource from storage.

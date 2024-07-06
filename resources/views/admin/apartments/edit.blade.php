@@ -108,11 +108,6 @@
                         </div>
 
 
-                        {{-- NON chiedetemi perché, ma se aggiungi questo si rompono gli alert della validazione --}}
-
-
-
-
                     </div>
 
                     <div class="mb-3">
