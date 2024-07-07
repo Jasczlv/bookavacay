@@ -19,7 +19,7 @@
                 {{-- Apartment selection --}}
                 <div class="col-auto">
                     <h3 class="text-center mb-5">Select an apartment</h3>
-                    <div class="row justify-content-start align-items-center">
+                    <div class="row justify-content-start align-items-center px-3">
                         @foreach ($apartments as $apartment)
                             <div class="col-4 mb-4 px-3 apartment-col" data-apartment-id="{{ $apartment->id }}"
                                 onclick="selectApartment(this)">
@@ -46,7 +46,7 @@
                 </div>
 
                 {{-- Sponsor selection --}}
-                <div class="col-auto">
+                <div class="col-auto mb-3">
                     <h3 class="text-center mb-5">Select a sponsor tier</h3>
                     <div class="row justify-content-center align-items-center">
                         @foreach ($sponsors as $sponsor)
@@ -59,6 +59,14 @@
                             </div>
                         @endforeach
                     </div>
+                </div>
+
+                <div class="col-auto text-center mb-5">
+                    <h3>Placeholder pagamento</h3>
+                </div>
+
+                <div class="col-auto text-center mb-3">
+                    <button class="btn btn-warning">Submit</button>
                 </div>
 
             </form>
