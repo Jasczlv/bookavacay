@@ -274,7 +274,6 @@ class ApartmentController extends Controller
         $validatedData = $request->validate([
             'apartment_id' => 'required|exists:apartments,id',
             'sender_email' => 'required|email',
-            'sender_name' => 'required|string|max:255',
             'content' => 'required|string',
         ]);
 
