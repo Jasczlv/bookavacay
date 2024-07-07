@@ -11,6 +11,7 @@ use App\Models\Service;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ApartmentController extends Controller
 {
@@ -238,9 +239,16 @@ class ApartmentController extends Controller
             }
         });
 
+        $page = $request->query('page', 1); // Get the current page from the query string, default to page 1 if not provided
+
+        $paginatedApartments = new LengthAwarePaginator($filteredApartments, count($filteredApartments), 6, $page, [
+            'path' => $request->url(),
+            'query' => $request->query(),
+        ]);
+
         return response()->json([
             'success' => true,
-            'apartments' => $filteredApartments,
+            'apartments' => $paginatedApartments,
         ]);
     }
 
