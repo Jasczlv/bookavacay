@@ -239,9 +239,15 @@ class ApartmentController extends Controller
             }
         });
 
-        $page = $request->query('page', 1); // Get the current page from the query string, default to page 1 if not provided
+        $page = $request->page; // Get the current page from the query string, default to page 1 if not provided
+        $perPage = 6; // Number of items per page
 
-        $paginatedApartments = new LengthAwarePaginator($filteredApartments, count($filteredApartments), 6, $page, [
+        // Calculate the items for the current page
+        $offset = ($page - 1) * $perPage;
+        $paginatedItems = array_slice($filteredApartments, $offset, $perPage);
+
+        // Create the paginator
+        $paginatedApartments = new LengthAwarePaginator($paginatedItems, count($filteredApartments), $perPage, $page, [
             'path' => $request->url(),
             'query' => $request->query(),
         ]);
