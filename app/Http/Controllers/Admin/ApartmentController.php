@@ -23,6 +23,7 @@ class ApartmentController extends Controller
      */
     public function index(Request $request)
     {
+        $user = $request->user();
         $apartments = Apartment::where('user_id', $request->user()->id)->get();
 
         //api json response
@@ -30,7 +31,7 @@ class ApartmentController extends Controller
             $apartments = Apartment::all();
             return response()->json($apartments);
         }
-        return view('admin.apartments.index', compact('apartments'));
+        return view('admin.apartments.index', compact('apartments', 'user'));
     }
 
     /**
