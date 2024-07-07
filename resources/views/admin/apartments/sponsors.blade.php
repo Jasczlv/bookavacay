@@ -81,8 +81,12 @@
     </div>
 
     <style>
-        .apartment-col.selected {
-            background-color: #cce5ff;
+        .apartment-col.selected .card-header {
+            background-color: #FFB440;
+        }
+
+        .apartment-col.selected .card-body {
+            background-color: #F7851D
         }
     </style>
 
