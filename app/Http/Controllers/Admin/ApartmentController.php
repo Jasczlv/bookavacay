@@ -122,9 +122,6 @@ class ApartmentController extends Controller
 
         return redirect()->route('admin.apartments.index')->with('success', 'Apartment updated successfully!');
     }
-
-
-
     /**
      * Remove the specified resource from storage.
      */
@@ -134,7 +131,6 @@ class ApartmentController extends Controller
 
         return redirect()->route('admin.apartments.index');
     }
-
     // Apartments filter method
     public function search(Request $request)
     {
@@ -196,5 +192,32 @@ class ApartmentController extends Controller
         }
 
         return view('admin.apartments.sponsors', compact('sponsors', 'apartments'));
+    }
+    public function new_sponsor(Request $request)
+    {
+        //recupero tutti i parametri passati dal form
+        $apartmentId = $request->input('selected_apartment');
+        $apartmentSponsorExpiration = $request->input('apartment_sponsor_expiration');
+        $selectedSponsorId = $request->input('selected_sponsor');
+        $selectedSponsorHours = (int) $request->input('sponsor_hours');
+
+        //trovo l'appartamento con l'id
+        $apartment = Apartment::where('id', $apartmentId)->with('sponsors')->first();//Se usi get ti da' un array
+
+        //calcoliamo la nuova data di scadenza
+        if ($apartmentSponsorExpiration) {
+            //Se ne ha una aggiungiamo le ore all'ultima scadenza
+            $newExpirationDate = Carbon::parse($apartmentSponsorExpiration)->addHours($selectedSponsorHours);
+        } else {
+            //Oppure le aggiungiamo ad adesso
+            $newExpirationDate = now()->addHours($selectedSponsorHours);
+        }
+
+        // Attacchiamo lo sponsor con la scadenza
+        $apartment->sponsors()->attach($selectedSponsorId, [
+            'exp_date' => $newExpirationDate,
+        ]);
+
+        return redirect()->route('admin.apartments.index')->with('success', 'Sponsor added successfully.');
     }
 }

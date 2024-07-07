@@ -11,10 +11,14 @@
             </div>
 
             {{-- Inizio form --}}
-            <form action="">
+            <form action="{{ route('admin.apartments.new_sponsor') }}" method="POST">
+                @csrf
+                @method('PUT')
 
-                {{-- Input hidden di appartamento --}}
+                {{-- Input nascosti --}}
                 <input type="hidden" name="selected_apartment" id="selected_apartment" value="">
+                <input type="hidden" name="apartment_sponsor_expiration" id="apartment_sponsor_expiration" value="">
+                <input type="hidden" name="sponsor_hours" id="sponsor_hours" value="">
 
                 {{-- Apartment selection --}}
                 <div class="col-auto">
@@ -22,6 +26,7 @@
                     <div class="row justify-content-start align-items-center px-3">
                         @foreach ($apartments as $apartment)
                             <div class="col-4 mb-4 px-3 apartment-col" data-apartment-id="{{ $apartment->id }}"
+                                data-apartment-sponsor-expiration="{{ $apartment->sponsor_expiration }}"
                                 onclick="selectApartment(this)">
                                 <div class="card">
                                     <div class="card-header text-center">
@@ -55,7 +60,8 @@
                                     <strong class="text-center w-100 d-inline-block">{{ $sponsor->tier }}</strong>
                                     <p>{{ $sponsor->hours }} hours for {{ $sponsor->price }}$</p>
                                 </label>
-                                <input type="radio" name="selected_sponsor" id="sponsor-{{ $sponsor->id }}">
+                                <input type="radio" name="selected_sponsor" id="sponsor-{{ $sponsor->id }}"
+                                    value="{{ $sponsor->id }}" data-sponsor-hours="{{ $sponsor->hours }}">
                             </div>
                         @endforeach
                     </div>
@@ -82,18 +88,30 @@
 
     <script>
         function selectApartment(element) {
-            //quando parte la funzione recupera tutti gli .apartment-col e togligli la classe selected
+            // Rimuovi la classe selected a tutti gli appartamenti
             let apartmentCols = document.querySelectorAll('.apartment-col');
             apartmentCols.forEach(function(apartmentCol) {
                 apartmentCol.classList.remove('selected');
             });
 
-            //aggiungi la classe selected a quello cliccato
+            // Aggiungi la classe a quello cliccato
             element.classList.add('selected');
 
-            // metti il valore di data-apartment-id all'input nascosto
+            // Assegna il valore all'hidden dell'appartamento
             let apartmentId = element.getAttribute('data-apartment-id');
             document.getElementById('selected_apartment').value = apartmentId;
+
+            // Assegna il valore all'hidden dello scadere dello sponsor
+            let apartmentSponsorExpiration = element.getAttribute('data-apartment-sponsor-expiration');
+            document.getElementById('apartment_sponsor_expiration').value = apartmentSponsorExpiration;
         }
+
+        //Qui ascolti se viene cambiato l'input hidden dello sponsor, e se viene cambiato prende le sue ore
+        document.querySelectorAll('input[name="selected_sponsor"]').forEach(function(input) {
+            input.addEventListener('change', function() {
+                let sponsorHours = this.getAttribute('data-sponsor-hours');
+                document.getElementById('sponsor_hours').value = sponsorHours;
+            });
+        });
     </script>
 @endsection
