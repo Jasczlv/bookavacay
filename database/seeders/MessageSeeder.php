@@ -24,7 +24,6 @@ class MessageSeeder extends Seeder
             $new_message = new Message();
 
             $new_message->sender_email = $faker->email();
-            $new_message->sender_name = $faker->name();
             $new_message->content = $faker->text();
             $new_message->apartment_id = $apartment_ids[floor($i / 2)];
 
