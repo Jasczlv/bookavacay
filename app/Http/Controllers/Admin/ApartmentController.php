@@ -15,6 +15,8 @@ use App\Models\User;
 use App\Models\View;
 use Illuminate\Http\Request;
 use Carbon\Carbon;
+use Braintree\Gateway;
+use Illuminate\Support\Facades\Session;
 
 class ApartmentController extends Controller
 {
@@ -191,7 +193,14 @@ class ApartmentController extends Controller
             }
         }
 
-        return view('admin.apartments.sponsors', compact('sponsors', 'apartments'));
+        $clientToken = $this->generateClientToken();
+
+        Session::put('clientToken', $clientToken);
+
+        return view('admin.apartments.sponsors', [
+            'apartments' => $apartments,
+            'sponsors' => $sponsors,
+        ]);
     }
     public function new_sponsor(Request $request)
     {
@@ -220,4 +229,19 @@ class ApartmentController extends Controller
 
         return redirect()->route('admin.apartments.index')->with('success', 'Sponsor added successfully.');
     }
+
+    public function generateClientToken()
+    {
+        $gateway = new Gateway([
+            'environment' => env('BRAINTREE_ENVIRONMENT'),
+            'merchantId' => env('BRAINTREE_MERCHANT_ID'),
+            'publicKey' => env('BRAINTREE_PUBLIC_KEY'),
+            'privateKey' => env('BRAINTREE_PRIVATE_KEY')
+        ]);
+
+        $clientToken = $gateway->clientToken()->generate();
+
+        return $clientToken;
+    }
+
 }
