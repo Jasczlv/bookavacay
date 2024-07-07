@@ -19,14 +19,13 @@ class ApartmentController extends Controller
      */
     public function index(Request $request)
     {
-        $per_page = $request->perPage ?? 6;
         $now = Carbon::now();
 
         $apartments = Apartment::with('sponsors', 'services')
             ->whereHas('sponsors', function ($query) use ($now) {
                 $query->where('exp_date', '>', $now);
             })
-            ->paginate($per_page);
+            ->paginate(6);
 
 
         return response()->json([
