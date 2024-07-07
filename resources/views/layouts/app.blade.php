@@ -24,6 +24,10 @@
     <script src="https://api.tomtom.com/maps-sdk-for-web/cdn/plugins/SearchBox/3.1.3-public-preview.0/SearchBox-web.js">
     </script>
 
+    {{-- Braintree --}}
+    <script src="https://js.braintreegateway.com/web/dropin/1.32.0/js/dropin.min.js"></script>
+
+
     {{-- Runtime asincrono --}}
     <script src="https://cdn.jsdelivr.net/npm/regenerator-runtime/runtime.js"></script>
 

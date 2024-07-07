@@ -37,6 +37,8 @@ Route::middleware(['auth', 'verified'])
 
         // custom pages routes
         Route::get('apartments/sponsors', [ApartmentController::class, 'sponsors'])->name('apartments.sponsors');
+        Route::put('apartments/new_sponsor', [ApartmentController::class, 'new_sponsor'])->name('apartments.new_sponsor');
+        Route::get('apartments/{apartment}/generate-client-token', [ApartmentController::class, 'generateClientToken'])->name('apartments.generate-client-token');
         Route::get('apartments/{apartment}/statistics', [ApartmentController::class, 'statistics'])->name('apartments.statistics');
         Route::get('apartments/{apartment}/messages', [ApartmentController::class, 'messages'])->name('apartments.messages');
 

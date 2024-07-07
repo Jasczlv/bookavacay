@@ -17,17 +17,17 @@ class SponsorSeeder extends Seeder
         $sponsors =
             [
                 [
-                    'tier' => 'standard',
+                    'tier' => 'Standard',
                     'hours' => 24,
                     'price' => 2.99
                 ],
                 [
-                    'tier' => 'plus',
+                    'tier' => 'Plus',
                     'hours' => 72,
                     'price' => 5.99
                 ],
                 [
-                    'tier' => 'premium',
+                    'tier' => 'Premium',
                     'hours' => 144,
                     'price' => 9.99
                 ]
