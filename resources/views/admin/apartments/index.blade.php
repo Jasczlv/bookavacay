@@ -11,9 +11,11 @@ $id = 0;
         <div class="d-flex justify-content-between align-items-center">
             <a type="button" class="btn btn-primary mt-2 mb-3" href="{{ route('admin.apartments.create') }}">Add a new
                 apartment</a>
-            <a type="button" class="btn btn-primary mt-2 mb-3" href="{{ route('admin.apartments.sponsors') }}">Sponsor an
-                apartment</a>
 
+            @if (count($user->apartments))
+                <a type="button" class="btn btn-primary mt-2 mb-3" href="{{ route('admin.apartments.sponsors') }}">Sponsor an
+                    apartment</a>
+            @endif
 
             {{-- Users search input --}}
             <form action="{{ route('admin.apartments.search') }}" method="GET">

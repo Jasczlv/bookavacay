@@ -23,6 +23,7 @@ class ApartmentController extends Controller
      */
     public function index(Request $request)
     {
+        $user = $request->user();
         $apartments = Apartment::where('user_id', $request->user()->id)->get();
 
         //api json response
@@ -30,7 +31,7 @@ class ApartmentController extends Controller
             $apartments = Apartment::all();
             return response()->json($apartments);
         }
-        return view('admin.apartments.index', compact('apartments'));
+        return view('admin.apartments.index', compact('apartments', 'user'));
     }
 
     /**
@@ -171,6 +172,28 @@ class ApartmentController extends Controller
     {
         $apartments = Apartment::where('user_id', $request->user()->id)->get();
         $sponsors = Sponsor::all();
+
+        //Cicliamo ogni appartamento posseduto dall'utente
+        foreach ($apartments as $apartment) {
+            //Ci salviamo in una variabile l'appartamento sponsorizzato se
+            $apartmentWithSponsors = Apartment::with([
+                'sponsors' => function ($query) {
+                    $query->where('exp_date', '>', now())   //lo sponsor scade nel futuro
+                        ->orderBy('exp_date', 'desc')   //in ordine decrescente
+                        ->take(1);  //prendiamo il primo
+                }
+            ])
+                ->findOrFail($apartment->id);//Questo serve a dirgli di cercare solo relazioni corrispondenti all'appartamento che stiamo ciclando adesso con il suo ID
+
+            //Se ne ha trovato uno gli mettiamo la proprieta' sponsor_expiration uguale all'exp_date dello sponsor che ha trovato
+            if ($apartmentWithSponsors->sponsors->isNotEmpty()) {
+                $latestSponsor = $apartmentWithSponsors->sponsors->first();
+                $apartment->sponsor_expiration = $latestSponsor->pivot->exp_date;
+                //Se no nada
+            } else {
+                $apartment->sponsor_expiration = null;
+            }
+        }
 
         return view('admin.apartments.sponsors', compact('sponsors', 'apartments'));
     }
