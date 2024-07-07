@@ -14,6 +14,7 @@ use App\Models\Sponsor;
 use App\Models\User;
 use App\Models\View;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class ApartmentController extends Controller
 {
@@ -145,10 +146,16 @@ class ApartmentController extends Controller
 
         return view('admin.apartments.index', compact('apartments'));
     }
-
     public function messages(Apartment $apartment, Message $message, Request $request)
     {
-        $messages = Message::where('apartment_id', $apartment->id)->get();
+        $messages = Message::where('apartment_id', $apartment->id)
+            ->orderBy('created_at', 'desc')
+            ->get()
+            ->map(function ($message) {
+                $message->formatted_date = Carbon::parse($message->created_at)->format('Y-m-d');
+                $message->formatted_time = Carbon::parse($message->created_at)->format('H:i:s');
+                return $message;
+            });
 
         return view('admin.apartments.messages', compact('messages', 'apartment'));
     }
