@@ -8,6 +8,7 @@ use App\Http\Requests\StoreApartmentRequest;
 use App\Http\Requests\UpdateApartmentRequest;
 use App\Models\Message;
 use App\Models\Service;
+use App\Models\View;
 use Carbon\Carbon;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
@@ -54,7 +55,7 @@ class ApartmentController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show($id)
+    public function show($id, Request $request)
     {
 
         $apartment = Apartment::with('services', 'sponsors')->find($id);
@@ -64,6 +65,25 @@ class ApartmentController extends Controller
                 'success' => false,
                 'message' => 'Apartment not found',
             ], 404);
+        }
+
+        //Calcola che giorno e' oggi
+        $today = Carbon::today();
+        //Recupera l'IP dalla richiesta
+        $ipAddress = $request->ip();
+
+        //Controlla se c'e` una visualizzazione con questo ip e questo appartamento oggi
+        $existingView = View::where('apartment_id', $apartment->id)
+            ->where('ip_address', $ipAddress)
+            ->whereDate('created_at', $today)
+            ->first();
+
+        //Se non c'e` crea la visualizzazione
+        if (!$existingView) {
+            View::create([
+                'apartment_id' => $apartment->id,
+                'ip_address' => $ipAddress,
+            ]);
         }
 
         return response()->json([
