@@ -179,20 +179,16 @@ class ApartmentController extends Controller
                 'December'
             ];
 
-        $monthlyViews =
-            [
+        $monthlyViews = [];
 
-            ];
-
-        $apartmentViews = View::where('apartment_id', $apartment->id)->get();
-
-
-
-        $thisMonthViews = View::whereMonth('created_at', Carbon::JANUARY)->where('apartment_id', $apartment->id)->get();
-        dd($thisMonthViews);
-
-
-        dd($monthlyViews);
+        foreach ($months as $index => $month) {
+            //Recuperi numero del mese
+            $monthNumber = $index + 1;
+            //Guardi quante views su questo appartamento sono successe nel mese con quel numero
+            $views = View::where('apartment_id', $apartment->id)->whereMonth('created_at', $monthNumber)->count();
+            //Pusci il valore all'array
+            $monthlyViews[] = $views;
+        }
 
         $chartjs = app()->chartjs
             ->name('lineChartTest')
@@ -208,7 +204,7 @@ class ApartmentController extends Controller
                     "pointBackgroundColor" => "rgba(38, 185, 154, 0.7)",
                     "pointHoverBackgroundColor" => "#fff",
                     "pointHoverBorderColor" => "rgba(220,220,220,1)",
-                    "data" => [65, 59, 80, 81, 56, 55, 40],
+                    "data" => $monthlyViews,
                     "fill" => true,
                 ],
             ])
