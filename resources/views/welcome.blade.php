@@ -6,8 +6,14 @@
                 BookaVacay editor
             </h1>
 
-            <p class="col-md-8 fs-4">Welcome to the BookaVacay editor, here you can manage all the site data and create new ones.</p>
+            <p class="col-md-8 fs-4">Welcome to the BookaVacay editor, here you can manage all the site data and create new
+                ones.</p>
         </div>
     </div>
-
 @endsection
+
+<style scoped>
+    .jumbotron {
+        height: 100%;
+    }
+</style>

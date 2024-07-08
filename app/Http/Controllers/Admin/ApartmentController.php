@@ -163,7 +163,54 @@ class ApartmentController extends Controller
     {
         $statistics = View::where('apartment_id', $apartment->id)->get();
 
-        return view('admin.apartments.statistics', compact('statistics', 'apartment'));
+        $months =
+            [
+                'January',
+                'February',
+                'March',
+                'April',
+                'May',
+                'June',
+                'July',
+                'August',
+                'September',
+                'October',
+                'November',
+                'December'
+            ];
+
+        $monthlyViews = [];
+
+        foreach ($months as $index => $month) {
+            //Recuperi numero del mese
+            $monthNumber = $index + 1;
+            //Guardi quante views su questo appartamento sono successe nel mese con quel numero
+            $views = View::where('apartment_id', $apartment->id)->whereMonth('created_at', $monthNumber)->count();
+            //Pusci il valore all'array
+            $monthlyViews[] = $views;
+        }
+
+        $chartjs = app()->chartjs
+            ->name('lineChartTest')
+            ->type('line')
+            ->size(['width' => 400, 'height' => 200])
+            ->labels($months)
+            ->datasets([
+                [
+                    "label" => "Monthly Apartment Views",
+                    'backgroundColor' => "#FFB44066",
+                    'borderColor' => "#F7851D",
+                    "pointBorderColor" => "#2889B6",
+                    "pointBackgroundColor" => "#95CFE9",
+                    "pointHoverBackgroundColor" => "#fff",
+                    "pointHoverBorderColor" => "rgba(220,220,220,1)",
+                    "data" => $monthlyViews,
+                    "fill" => true,
+                ],
+            ])
+            ->options([]);
+
+        return view('admin.apartments.statistics', compact('statistics', 'apartment', 'chartjs'));
     }
 
     public function sponsors(Apartment $apartment, Sponsor $sponsor, Request $request)
