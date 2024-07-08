@@ -163,7 +163,58 @@ class ApartmentController extends Controller
     {
         $statistics = View::where('apartment_id', $apartment->id)->get();
 
-        return view('admin.apartments.statistics', compact('statistics', 'apartment'));
+        $months =
+            [
+                'January',
+                'February',
+                'March',
+                'April',
+                'May',
+                'June',
+                'July',
+                'August',
+                'September',
+                'October',
+                'November',
+                'December'
+            ];
+
+        $monthlyViews =
+            [
+
+            ];
+
+        $apartmentViews = View::where('apartment_id', $apartment->id)->get();
+
+
+
+        $thisMonthViews = View::whereMonth('created_at', Carbon::JANUARY)->where('apartment_id', $apartment->id)->get();
+        dd($thisMonthViews);
+
+
+        dd($monthlyViews);
+
+        $chartjs = app()->chartjs
+            ->name('lineChartTest')
+            ->type('line')
+            ->size(['width' => 400, 'height' => 200])
+            ->labels($months)
+            ->datasets([
+                [
+                    "label" => "Monthly Apartment Views",
+                    'backgroundColor' => "rgba(38, 185, 154, 0.31)",
+                    'borderColor' => "rgba(38, 185, 154, 0.7)",
+                    "pointBorderColor" => "rgba(38, 185, 154, 0.7)",
+                    "pointBackgroundColor" => "rgba(38, 185, 154, 0.7)",
+                    "pointHoverBackgroundColor" => "#fff",
+                    "pointHoverBorderColor" => "rgba(220,220,220,1)",
+                    "data" => [65, 59, 80, 81, 56, 55, 40],
+                    "fill" => true,
+                ],
+            ])
+            ->options([]);
+
+        return view('admin.apartments.statistics', compact('statistics', 'apartment', 'chartjs'));
     }
 
     public function sponsors(Apartment $apartment, Sponsor $sponsor, Request $request)
