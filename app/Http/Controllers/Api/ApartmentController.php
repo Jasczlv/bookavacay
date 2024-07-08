@@ -74,7 +74,7 @@ class ApartmentController extends Controller
 
         //Controlla se c'e` una visualizzazione con questo ip e questo appartamento oggi
         $existingView = View::where('apartment_id', $apartment->id)
-            ->where('ip_address', $ipAddress)
+            ->where('ip', $ipAddress)
             ->whereDate('created_at', $today)
             ->first();
 
@@ -82,7 +82,7 @@ class ApartmentController extends Controller
         if (!$existingView) {
             View::create([
                 'apartment_id' => $apartment->id,
-                'ip_address' => $ipAddress,
+                'ip' => $ipAddress,
             ]);
         }
 
