@@ -9,9 +9,9 @@
                     to
                     Apartments</a>
                 <div class="row">
-                    <p>Placeholder statistics</p>
+                    <h2 class="text-center">{{ $apartment->title }} statistics</h2>
                     <div class="col-auto">
-                        {{ count($statistics) }}
+                        <p>Total views: {{ count($statistics) }}</p>
                     </div>
                 </div>
 
