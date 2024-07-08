@@ -198,10 +198,10 @@ class ApartmentController extends Controller
             ->datasets([
                 [
                     "label" => "Monthly Apartment Views",
-                    'backgroundColor' => "rgba(38, 185, 154, 0.31)",
-                    'borderColor' => "rgba(38, 185, 154, 0.7)",
-                    "pointBorderColor" => "rgba(38, 185, 154, 0.7)",
-                    "pointBackgroundColor" => "rgba(38, 185, 154, 0.7)",
+                    'backgroundColor' => "#FFB44066",
+                    'borderColor' => "#F7851D",
+                    "pointBorderColor" => "#2889B6",
+                    "pointBackgroundColor" => "#95CFE9",
                     "pointHoverBackgroundColor" => "#fff",
                     "pointHoverBorderColor" => "rgba(220,220,220,1)",
                     "data" => $monthlyViews,
