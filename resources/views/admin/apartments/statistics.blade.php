@@ -10,5 +10,14 @@
                 {{ count($statistics) }}
             </div>
         </div>
+
+        <div style="width: 800px;"><canvas id="acquisitions"></canvas></div>
+
+
+        <div style="width:75%;">
+            {!! $chartjs->render() !!}
+        </div>
+
+
     </div>
 @endsection

@@ -28,7 +28,7 @@
     <script src="https://js.braintreegateway.com/web/dropin/1.32.0/js/dropin.min.js"></script>
 
     {{-- Chart.js --}}
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js"></script>
+    {{--     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/4.4.1/chart.min.js"></script> --}}
 
     {{-- Runtime asincrono --}}
     <script src="https://cdn.jsdelivr.net/npm/regenerator-runtime/runtime.js"></script>
