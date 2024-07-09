@@ -90,7 +90,6 @@ class ApartmentController extends Controller
             'success' => true,
             'apartment' => $apartment,
         ]);
-
     }
 
     /**
@@ -122,8 +121,6 @@ class ApartmentController extends Controller
      */
     public function search(Request $request)
     {
-
-
         function getDistanceBetweenPointsNew($latitude1, $longitude1, $latitude2, $longitude2, $unit = 'kilometers')
         {
             $theta = $longitude1 - $longitude2;
@@ -138,12 +135,9 @@ class ApartmentController extends Controller
                     $distance = $distance * 1.609344;
             }
             return (round($distance, 2));
-        }
-        ;
+        };
 
-
-
-        //Validazione latitude e longitudine
+        // Validazione latitude e longitudine
         $request->validate([
             'latitude' => 'required|numeric',
             'longitude' => 'required|numeric',
@@ -175,17 +169,14 @@ class ApartmentController extends Controller
         // Dichiarazione array di appartamenti filtrati
         $filteredApartments = [];
 
-
-
-
-        //Ciclo gli appartamenti per controllare se aggiungerli all'array di filtrati
+        // Ciclo gli appartamenti per controllare se aggiungerli all'array di filtrati
         foreach ($apartments as $apartment) {
             $lat2 = $apartment->latitude;
             $lon2 = $apartment->longitude;
 
-            $distance = getDistanceBetweenPointsNew($user_lat, $user_lon, $lat2, $lon2, $unit = 'kilometers');
+            $distance = getDistanceBetweenPointsNew($user_lat, $user_lon, $lat2, $lon2, 'kilometers');
 
-            //Controllare se nella richiesta e' stato inviato il campo distance
+            // Controllare se nella richiesta e' stato inviato il campo distance
             if ($request->distance) {
                 $request_distance = $request->distance;
                 if ($distance <= $request_distance) {
@@ -200,48 +191,34 @@ class ApartmentController extends Controller
             }
         }
 
-
-        //Se nella richiesta ci sono letti, allora filteredApartments lo cicliamo, e ogni appartamento che NON supera il controllo viene tolto dall'array
-
+        // Filtrare per numero di letti
         if ($request->beds) {
             $filteredApartments = array_filter($filteredApartments, function ($apartment) use ($request) {
                 return $apartment->beds >= $request->beds;
             });
         }
 
+        // Filtrare per numero di stanze
         if ($request->rooms) {
             $filteredApartments = array_filter($filteredApartments, function ($apartment) use ($request) {
                 return $apartment->rooms >= $request->rooms;
             });
         }
 
-        if ($request->services) {
-
-            if (is_array($request->services)) {
-                $service_ids = $request->services;
-
-                // Filter apartments
-                foreach ($service_ids as $service_id) {
-                    $filteredApartments = array_filter($filteredApartments, function ($apartment) use ($service_id) {
-                        // Extract service IDs from apartment services collection
-                        $apartment_services_ids = $apartment->services->pluck('id')->toArray();
-
-                        return in_array($service_id, $apartment_services_ids);
-                    });
+        // Filtro servizi
+        $selectedServices = $request->input('selectedServices', []);
+        if (!empty($selectedServices)) {
+            $filteredApartments = array_filter($filteredApartments, function ($apartment) use ($selectedServices) {
+                $apartment_service_ids = $apartment->services->pluck('id')->toArray();
+                foreach ($selectedServices as $service_id) {
+                    if (!in_array($service_id, $apartment_service_ids)) {
+                        return false;
+                    }
                 }
-            } else {
-
-                $service_ids = $request->services;
-
-                // Filter apartments
-                $filteredApartments = array_filter($filteredApartments, function ($apartment) use ($service_ids) {
-                    // Extract service IDs from apartment services collection
-                    $apartment_services_ids = $apartment->services->pluck('id')->toArray();
-
-                    return in_array($service_ids, $apartment_services_ids);
-                });
-            }
+                return true;
+            });
         }
+
         usort($filteredApartments, function ($a, $b) {
             // Controllo se A ha uno sponsors
             $aHasActiveSponsor = $a->sponsors()->wherePivot('exp_date', '>', now())->exists();
@@ -254,7 +231,7 @@ class ApartmentController extends Controller
             } elseif (!$aHasActiveSponsor && $bHasActiveSponsor) {
                 return 1;
             } else {
-                //Altrimenti mettili in ordine di distanza
+                // Altrimenti mettili in ordine di distanza
                 return $a->distance - $b->distance;
             }
         });
@@ -278,6 +255,7 @@ class ApartmentController extends Controller
         ]);
     }
 
+
     //Recupero dei servizi nella pagina di ricerca avanzata
     public function services(Request $request)
     {
@@ -288,7 +266,6 @@ class ApartmentController extends Controller
             'success' => true,
             'services' => $services,
         ]);
-
     }
 
     public function message(Request $request)
@@ -323,6 +300,4 @@ class ApartmentController extends Controller
             ], 500);
         }
     }
-
-
 }
