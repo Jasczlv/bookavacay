@@ -9,6 +9,7 @@
                     to
                     Apartments</a>
                 <div class="row flex-column justify-content-center align-items-center py-3">
+                    <h2 class="text-center mb-5">Messaggi inviati a {{ $apartment->title }}</h2>
                     @foreach ($messages as $message)
                         <div class="col-12 mb-5">
                             <div class="card">

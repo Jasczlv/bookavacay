@@ -56,19 +56,19 @@
                             <div class="py-4 w-100">
                                 <div class="row w-100 justify-content-center">
                                     <div class="col-auto">
-                                        <label for="latitude">Latitude: </label>
-                                        <input type="text" name="latitude" id="latitude" readonly required
+                                        {{-- <label for="latitude">Latitude: </label> --}}
+                                        <input type="hidden" name="latitude" id="latitude" readonly required
                                             value="{{ old('latitude', $apartment->latitude) }}">
                                     </div>
                                     <div class="col-auto">
-                                        <label for="longitude">Longitude: </label>
-                                        <input type="text" name="longitude" id="longitude" readonly required
+                                        {{-- <label for="longitude">Longitude: </label> --}}
+                                        <input type="hidden" name="longitude" id="longitude" readonly required
                                             value="{{ old('longitude', $apartment->longitude) }}">
                                     </div>
                                     <div class="col-auto">
                                         <label for="address">Address: </label>
-                                        <input type="text" name="address" id="address" readonly required
-                                            value="{{ old('address', $apartment->address) }}">
+                                        <input style="width: 400px" type="text" name="address" id="address" readonly
+                                            required value="{{ old('address', $apartment->address) }}">
                                     </div>
                                 </div>
                             </div>
@@ -197,17 +197,19 @@
     <script>
         // Function to initialize the map and search functionality
         function initializeMap() {
+            let longitude = document.getElementById('longitude').value
+            let latitude = document.getElementById('latitude').value
             if (typeof tt !== 'undefined' && typeof tt.map !== 'undefined' && typeof tt.services !== 'undefined') {
                 var map = tt.map({
                     key: 'VtdGJcQDaomboK5S3kbxFvhtbupZjoK0',
                     container: 'map',
-                    center: [0, 0],
+                    center: [longitude, latitude],
                     zoom: 15
                 });
 
                 var marker = new tt.Marker({
                     draggable: true
-                }).setLngLat([0, 0]).addTo(map);
+                }).setLngLat([longitude, latitude]).addTo(map);
 
                 marker.on('dragend', function() {
                     var lngLat = marker.getLngLat();
@@ -225,7 +227,7 @@
                     });
                 });
 
-                if (navigator.geolocation) {
+                /* if (navigator.geolocation) {
                     navigator.geolocation.getCurrentPosition(function(position) {
                         var userLocation = [position.coords.longitude, position.coords.latitude];
                         map.setCenter(userLocation);
@@ -243,7 +245,7 @@
                             console.error('Reverse geocode error:', error);
                         });
                     });
-                }
+                } */
 
                 var searchBoxOptions = {
                     searchOptions: {

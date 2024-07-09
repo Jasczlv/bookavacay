@@ -34,16 +34,16 @@
                     <div class="py-4 w-100">
                         <div class="row w-100 justify-content-center">
                             <div class="col-auto">
-                                <label for="latitude">Latitude: </label>
-                                <input type="text" name="latitude" id="latitude" readonly required>
+                                {{-- <label for="latitude">Latitude: </label> --}}
+                                <input type="hidden" name="latitude" id="latitude" readonly required>
                             </div>
                             <div class="col-auto">
-                                <label for="longitude">Longitude: </label>
-                                <input type="text" name="longitude" id="longitude" readonly required>
+                                {{-- <label for="longitude">Longitude: </label> --}}
+                                <input type="hidden" name="longitude" id="longitude" readonly required>
                             </div>
                             <div class="col-auto">
                                 <label for="address">Address: </label>
-                                <input type="text" name="address" id="address" readonly required>
+                                <input style="width: 400px" type="text" name="address" id="address" readonly required>
                             </div>
                         </div>
                     </div>
@@ -57,31 +57,31 @@
                         <div class="mb-3 col-4 p-2">
                             <label for="title" class="form-label">Apartment Title*</label>
                             <input type="text" name="title" class="form-control" id="title" placeholder="Title"
-                                value="{{ old('title', 'Test') }}" required>
+                                value="{{ old('title') }}" required>
                         </div>
 
                         <div class="mb-3 col-4 p-2">
                             <label for="rooms" class="form-label">Number of rooms*</label>
                             <input type="number" name="rooms" class="form-control" id="rooms" placeholder="4"
-                                value="{{ old('rooms', 6) }}" required>
+                                value="{{ old('rooms') }}" required>
                         </div>
 
                         <div class="mb-3 col-4 p-2">
                             <label for="beds" class="form-label">Number of beds*</label>
                             <input type="number" name="beds" class="form-control" id="beds" placeholder="2"
-                                value="{{ old('beds', 2) }}" required>
+                                value="{{ old('beds') }}" required>
                         </div>
 
                         <div class="mb-3 col-4 p-2">
                             <label for="bathrooms" class="form-label">Number of bathrooms*</label>
                             <input type="number" name="bathrooms" class="form-control" id="bathrooms" placeholder="1"
-                                value="{{ old('bathrooms', 2) }}" required>
+                                value="{{ old('bathrooms') }}" required>
                         </div>
 
                         <div class="mb-3 col-4 p-2">
                             <label for="sqr_mt" class="form-label">Square meters*</label>
                             <input type="number" name="sqr_mt" class="form-control" id="sqr_mt" placeholder="60"
-                                value="{{ old('sqr_mt', 120) }}" required>
+                                value="{{ old('sqr_mt') }}" required>
                         </div>
 
                         {{-- IMAGE --}}
