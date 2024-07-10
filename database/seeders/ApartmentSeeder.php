@@ -159,7 +159,7 @@ class ApartmentSeeder extends Seeder
 
         $service_ids = Service::all()->pluck('id')->all();
 
-        foreach ($apartments as $apartment) {
+        foreach ($apartments as $index => $apartment) {
 
 
             $new_apartment = new Apartment();
@@ -184,8 +184,11 @@ class ApartmentSeeder extends Seeder
             $sponsor = $sponsors->random();
             $exp_date = Carbon::now()->addHours($sponsor->hours);
 
-            $new_apartment->sponsors()->attach($sponsor->id, ['exp_date' => $exp_date]);
+            if ($index % 2) {
+                $new_apartment->sponsors()->attach($sponsor->id, ['exp_date' => $exp_date]);
+            }
         }
+
     }
 }
 
