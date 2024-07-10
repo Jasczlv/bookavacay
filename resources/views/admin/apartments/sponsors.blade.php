@@ -11,7 +11,7 @@
             </div>
 
             {{-- Inizio form --}}
-            <form id="payment-form" action="{{ route('admin.apartments.new_sponsor') }}" method="POST">
+            <form id="sponsor-form" action="{{ route('admin.apartments.new_sponsor') }}" method="POST">
                 @csrf
                 @method('PUT')
 
@@ -19,6 +19,7 @@
                 <input type="hidden" name="selected_apartment" id="selected_apartment" value="">
                 <input type="hidden" name="apartment_sponsor_expiration" id="apartment_sponsor_expiration" value="">
                 <input type="hidden" name="sponsor_hours" id="sponsor_hours" value="">
+                <input type="hidden" name="payment_method_nonce" id="payment_method_nonce" value="">
 
                 {{-- Selezione dell'appartamento --}}
                 <div class="col-auto">
@@ -67,27 +68,22 @@
                     </div>
                 </div>
 
-                {{-- Pagamento --}}
-                <div class="col-auto text-center mb-5">
-                    <h3>Payment</h3>
-                    <div class="row justify-content-center">
-                        <div class="col-auto">
-                            <div id="dropin-container"></div>
-                        </div>
-                    </div>
-
-                    {{-- Pulsante di pagamento --}}
-                    <div class="col-auto text-center mb-3">
-                        <button id="payment-btn" class="btn btn-primary">Pay Now</button>
-                    </div>
-                </div>
-
-                <div class="col-auto text-center mb-3">
-                    <button id="submit-btn" class="btn btn-warning"
-                        @if (!isset($paymentSuccessful) || !$paymentSuccessful) disabled @endif>Submit</button>
-                </div>
-
             </form>
+            {{-- Pagamento --}}
+            <div class="col-auto text-center mb-5">
+                <h3>Payment</h3>
+                <div class="row justify-content-center">
+                    <div class="col-auto">
+                        <div id="dropin-container"></div>
+                    </div>
+                </div>
+
+
+                {{-- Pulsante di pagamento --}}
+                <div class="col-auto text-center mb-3">
+                    <button id="payment-btn" class="btn btn-primary" disabled>Pay Now</button>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -119,6 +115,8 @@
             // Assegna il valore all'input nascosto della scadenza dello sponsor
             let apartmentSponsorExpiration = element.getAttribute('data-apartment-sponsor-expiration');
             document.getElementById('apartment_sponsor_expiration').value = apartmentSponsorExpiration;
+
+            checkEnablePaymentButton();
         }
 
         // Ascolta il cambio dell'input nascosto dello sponsor selezionato
@@ -127,11 +125,29 @@
                 let sponsorHours = this.getAttribute('data-sponsor-hours');
                 document.getElementById('sponsor_hours').value = sponsorHours;
 
-                // Abilita/disabilita il pulsante di invio in base alla selezione del metodo di pagamento
-                let submitBtn = document.getElementById('submit-btn');
-                submitBtn.disabled = !isPaymentMethodSelected();
+                checkEnablePaymentButton();
             });
         });
+
+        //Funzione che abilita il pulsante solo quando sono selezionati appartamento e sponsor
+        function checkEnablePaymentButton() {
+            let selectedApartment = document.getElementById('selected_apartment').value;
+            let sponsorHours = document.getElementById('sponsor_hours').value;
+
+            if (selectedApartment && sponsorHours) {
+                document.getElementById('payment-btn').removeAttribute('disabled');
+            } else {
+                document.getElementById('payment-btn').setAttribute('disabled', 'disabled');
+            }
+        }
+
+        //Funzione che restituisce i valori di appartamento e ore per valutare se sono selezionati quando si paga
+        function isReadyForPayment() {
+            let selectedApartment = document.getElementById('selected_apartment').value;
+            let sponsorHours = document.getElementById('sponsor_hours').value;
+
+            return selectedApartment && sponsorHours;
+        }
 
         // Inizializzazione di Braintree Drop-in
         let clientToken = "{{ session('clientToken') }}"; // Recupera il token del client dalla sessione
@@ -145,9 +161,9 @@
                 return;
             }
 
-            let paymentForm = document.querySelector('#payment-form');
+            let sponsorForm = document.getElementById('sponsor-form');
             let paymentBtn = document.getElementById('payment-btn');
-            let submitBtn = document.getElementById('submit-btn');
+
 
             // Funzione per verificare se il nonce del metodo di pagamento è presente, non ho capito bene cosa sia
             function isPaymentMethodSelected() {
@@ -159,6 +175,13 @@
             paymentBtn.addEventListener('click', function(event) {
                 event.preventDefault();
 
+                //Controlliamo se hanno fatto qualche magheggio! Nello specifico, se i valori non sono settati allora da' un errore
+                if (!isReadyForPayment()) {
+                    console.error(
+                        'Cannot proceed with payment. Please select an apartment and sponsor tier.');
+                    return;
+                }
+
                 instance.requestPaymentMethod(function(requestPaymentMethodErr, payload) {
                     if (requestPaymentMethodErr) {
                         console.error('Errore nella richiesta del metodo di pagamento:',
@@ -166,34 +189,21 @@
                         return;
                     }
 
+
+
                     // Opzionalmente, mostra un messaggio di successo
                     console.log('Nonce del metodo di pagamento:', payload.nonce);
                     alert('Pagamento effettuato con successo!'); // Alert opzionale per il test
 
-                    // Abilita il pulsante di invio dopo il pagamento riuscito
-                    submitBtn.disabled = false;
-
                     // Aggiorna l'input nascosto del nonce nel form
                     document.getElementById('payment_method_nonce').value = payload.nonce;
+
+                    //Settiamo il nonce
+                    document.getElementById('payment_method_nonce').value = payload.nonce;
+
+                    //Mandiamo il form
+                    sponsorForm.submit()
                 });
-            });
-
-            // Event listener per il submit del form
-            paymentForm.addEventListener('submit', function(event) {
-                // Verifica se il nonce del metodo di pagamento è presente prima di consentire l'invio del form
-                if (!isPaymentMethodSelected()) {
-                    event.preventDefault();
-                    alert('Completa prima il pagamento.');
-                }
-            });
-
-            // Disabilita il submit del form inizialmente
-            submitBtn.disabled = true;
-
-            // Ascolta i cambiamenti nel form di Braintree drop-in
-            document.getElementById('dropin-container').addEventListener('change', function(event) {
-                // Abilita/disabilita il pulsante di invio in base alla selezione del metodo di pagamento
-                submitBtn.disabled = !isPaymentMethodSelected();
             });
         });
     </script>

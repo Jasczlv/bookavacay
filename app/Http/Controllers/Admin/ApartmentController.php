@@ -237,7 +237,7 @@ class ApartmentController extends Controller
         //Cicliamo ogni appartamento posseduto dall'utente
         foreach ($apartments as $apartment) {
             //Ci salviamo in una variabile l'appartamento sponsorizzato se
-            $apartmentWithSponsors = Apartment::with([
+            $apartmentWithActiveSponsors = Apartment::with([
                 'sponsors' => function ($query) {
                     $query->where('exp_date', '>', now())   //lo sponsor scade nel futuro
                         ->orderBy('exp_date', 'desc')   //in ordine decrescente
@@ -247,8 +247,8 @@ class ApartmentController extends Controller
                 ->findOrFail($apartment->id);//Questo serve a dirgli di cercare solo relazioni corrispondenti all'appartamento che stiamo ciclando adesso con il suo ID
 
             //Se ne ha trovato uno gli mettiamo la proprieta' sponsor_expiration uguale all'exp_date dello sponsor che ha trovato
-            if ($apartmentWithSponsors->sponsors->isNotEmpty()) {
-                $latestSponsor = $apartmentWithSponsors->sponsors->first();
+            if ($apartmentWithActiveSponsors->sponsors->isNotEmpty()) {
+                $latestSponsor = $apartmentWithActiveSponsors->sponsors->first();
                 $apartment->sponsor_expiration = $latestSponsor->pivot->exp_date;
                 //Se no nada
             } else {
@@ -267,6 +267,15 @@ class ApartmentController extends Controller
     }
     public function new_sponsor(Request $request)
     {
+        //Validazione
+        $request->validate([
+            'selected_apartment' => 'required|exists:apartments,id',
+            'selected_sponsor' => 'required|exists:sponsors,id',
+            'sponsor_hours' => 'required|integer',
+            'payment_method_nonce' => 'required|string',
+        ]);
+
+
         //recupero tutti i parametri passati dal form
         $apartmentId = $request->input('selected_apartment');
         $apartmentSponsorExpiration = $request->input('apartment_sponsor_expiration');
