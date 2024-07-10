@@ -299,7 +299,7 @@ class ApartmentController extends Controller
             'exp_date' => $newExpirationDate,
         ]);
 
-        return redirect()->route('admin.apartments.index')->with('success', 'Sponsor added successfully.');
+        return redirect()->route('admin.apartments.index')->with('newSponsor', $apartment);
     }
 
     public function generateClientToken()

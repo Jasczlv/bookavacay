@@ -159,4 +159,34 @@ $id = 0;
             });
         </script>
     @endif
+
+    {{-- Modale sponsor --}}
+
+    @if (session('newSponsor'))
+        <!-- Modal -->
+        <div class="modal fade" id="sponsorModal" tabindex="-1" aria-labelledby="sponsorModalLabel" aria-hidden="true"
+            data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="sponsorModalLabel">Apartment sponsored Successfully</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Thanks for sponsoring {{ $apartment->title }}!
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+    @endif
+
+    @if (session('newSponsor'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                $('#sponsorModal').modal('show');
+            });
+        </script>
+    @endif
 @endsection

@@ -193,7 +193,6 @@
 
                     // Opzionalmente, mostra un messaggio di successo
                     console.log('Nonce del metodo di pagamento:', payload.nonce);
-                    alert('Pagamento effettuato con successo!'); // Alert opzionale per il test
 
                     // Aggiorna l'input nascosto del nonce nel form
                     document.getElementById('payment_method_nonce').value = payload.nonce;
