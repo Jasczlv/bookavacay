@@ -30,6 +30,9 @@
     {{-- Runtime asincrono --}}
     <script src="https://cdn.jsdelivr.net/npm/regenerator-runtime/runtime.js"></script>
 
+    {{-- JQuery --}}
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
     <!-- Usando Vite -->
     @vite(['resources/js/app.js', 'resources/scss/app.scss'])
 </head>
