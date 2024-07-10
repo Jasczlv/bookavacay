@@ -135,7 +135,8 @@ class ApartmentController extends Controller
                     $distance = $distance * 1.609344;
             }
             return (round($distance, 2));
-        };
+        }
+        ;
 
         // Validazione latitude e longitudine
         $request->validate([
