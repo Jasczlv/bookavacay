@@ -129,4 +129,34 @@ $id = 0;
         </table>
 
     </div>
+
+
+
+    @if (session('newApartment'))
+        <!-- Modal -->
+        <div class="modal fade" id="createdModal" tabindex="-1" aria-labelledby="createdModalLabel" aria-hidden="true"
+            data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="createdModalLabel">Appartment created Successfully</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Thanks for adding your appartment!
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
+                    </div>
+                </div>
+            </div>
+    @endif
+
+    @if (session('newApartment'))
+        <script>
+            document.addEventListener('DOMContentLoaded', function() {
+                $('#createdModal').modal('show');
+            });
+        </script>
+    @endif
 @endsection
