@@ -163,33 +163,39 @@ class ApartmentController extends Controller
     {
         $statistics = View::where('apartment_id', $apartment->id)->get();
 
-        $months =
-            [
-                'January',
-                'February',
-                'March',
-                'April',
-                'May',
-                'June',
-                'July',
-                'August',
-                'September',
-                'October',
-                'November',
-                'December'
-            ];
-
+        //Dichiariamo gli array vuoti per i mesi
+        $months = [];
         $monthlyViews = [];
 
-        foreach ($months as $index => $month) {
-            //Recuperi numero del mese
-            $monthNumber = $index + 1;
-            //Guardi quante views su questo appartamento sono successe nel mese con quel numero
-            $views = View::where('apartment_id', $apartment->id)->whereMonth('created_at', $monthNumber)->count();
-            //Pusci il valore all'array
-            $monthlyViews[] = $views;
+        //Recuperiamo mese ed anno corrente
+        $currentMonth = (int) date('m');
+        $currentYear = (int) date('Y');
+
+        //Ora iteriamo 12 volte a ritroso
+        for ($i = 0; $i < 12; $i++) {
+
+            $month = $currentMonth - $i;
+            $year = $currentYear;
+
+            //Se il mese viene negativo, diminuiamo l'anno di 1 e aumentiamo il mese di 12
+            if ($month < 1) {
+                $month += 12;
+                $year--;
+            }
+
+            //Recuperiamo il nome del mese.'F' serve per il formato, in questo caso ti da il Full name.  mktime e' il formato, che ti chiede ore(0), minuti(0), secondi(0), mese($month), e giorno. Ho messo un numero a caso per il giorno
+            $monthName = date('F', mktime(0, 0, 0, $month, 10));
+            array_unshift($months, $monthName); //Aggiunge all'inizio dell'array invece che in fondo
+
+            //Recuperiamo le visite per quel mese e le mettiamo nell'array
+            $views = View::where('apartment_id', $apartment->id)
+                ->whereYear('created_at', $year)
+                ->whereMonth('created_at', $month)
+                ->count();
+            array_unshift($monthlyViews, $views);
         }
 
+        //Creiamo il grafico con i dati precedenti
         $chartjs = app()->chartjs
             ->name('lineChartTest')
             ->type('line')
@@ -208,10 +214,20 @@ class ApartmentController extends Controller
                     "fill" => true,
                 ],
             ])
-            ->options([]);
+            ->options([
+                'scales' => [
+                    'y' => [
+                        'beginAtZero' => true,
+                        'min' => 0,
+                        'max' => 50,
+                    ],
+                ],
+            ]);
 
         return view('admin.apartments.statistics', compact('statistics', 'apartment', 'chartjs'));
     }
+
+
 
     public function sponsors(Apartment $apartment, Sponsor $sponsor, Request $request)
     {
