@@ -73,7 +73,7 @@ class ApartmentController extends Controller
                 $new_apartment->services()->attach($service_id);
             }
         }
-        return redirect()->route('admin.apartments.index', $new_apartment);
+        return redirect()->route('admin.apartments.index', $new_apartment)->with('newApartment', $new_apartment);
     }
 
     /**
@@ -244,7 +244,7 @@ class ApartmentController extends Controller
                         ->take(1);  //prendiamo il primo
                 }
             ])
-                ->findOrFail($apartment->id);//Questo serve a dirgli di cercare solo relazioni corrispondenti all'appartamento che stiamo ciclando adesso con il suo ID
+                ->findOrFail($apartment->id); //Questo serve a dirgli di cercare solo relazioni corrispondenti all'appartamento che stiamo ciclando adesso con il suo ID
 
             //Se ne ha trovato uno gli mettiamo la proprieta' sponsor_expiration uguale all'exp_date dello sponsor che ha trovato
             if ($apartmentWithSponsors->sponsors->isNotEmpty()) {
@@ -274,7 +274,7 @@ class ApartmentController extends Controller
         $selectedSponsorHours = (int) $request->input('sponsor_hours');
 
         //trovo l'appartamento con l'id
-        $apartment = Apartment::where('id', $apartmentId)->with('sponsors')->first();//Se usi get ti da' un array
+        $apartment = Apartment::where('id', $apartmentId)->with('sponsors')->first(); //Se usi get ti da' un array
 
         //calcoliamo la nuova data di scadenza
         if ($apartmentSponsorExpiration) {
@@ -306,5 +306,4 @@ class ApartmentController extends Controller
 
         return $clientToken;
     }
-
 }
