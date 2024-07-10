@@ -139,11 +139,11 @@ $id = 0;
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h1 class="modal-title fs-5" id="createdModalLabel">Appartment created Successfully</h1>
+                        <h1 class="modal-title fs-5" id="createdModalLabel">Apartment created Successfully</h1>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body">
-                        Thanks for adding your appartment!
+                        Thanks for adding your apartment!
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-warning" data-bs-dismiss="modal">Close</button>
