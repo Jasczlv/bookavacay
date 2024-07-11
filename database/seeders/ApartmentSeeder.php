@@ -19,7 +19,7 @@ class ApartmentSeeder extends Seeder
     public function run(Faker $faker): void
     {
         /* Lista degli appartamenti creati a mano con dati reali */
-        $apartments =
+        $bolognaApartments =
             [
                 [
                     "title" => 'Stone Mountain Cabin',
@@ -153,13 +153,701 @@ class ApartmentSeeder extends Seeder
                 ],
             ];
 
+        // New apartments for Milan
+        $milanApartments =
+            [
+                [
+                    "title" => 'Milan Apartment 1',
+                    "rooms" => '3',
+                    'beds' => '2',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '70',
+                    'address' => 'Via Monte Napoleone, 20121 Milano MI',
+                    'latitude' => '45.4689',
+                    'longitude' => '9.1946',
+                    'image' => 'milan_apartment_img_1.jpg',
+                    'visible' => 1,
+                    'user_id' => '6'
+                ],
+                [
+                    "title" => 'Milan Apartment 2',
+                    "rooms" => '2',
+                    'beds' => '1',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '50',
+                    'address' => 'Corso Buenos Aires, 20124 Milano MI',
+                    'latitude' => '45.4788',
+                    'longitude' => '9.2043',
+                    'image' => 'milan_apartment_img_2.jpg',
+                    'visible' => 1,
+                    'user_id' => '6'
+                ],
+                [
+                    "title" => 'Milan Apartment 3',
+                    "rooms" => '4',
+                    'beds' => '3',
+                    'bathrooms' => '2',
+                    'sqr_mt' => '90',
+                    'address' => 'Via della Moscova, 20121 Milano MI',
+                    'latitude' => '45.4753',
+                    'longitude' => '9.1925',
+                    'image' => 'milan_apartment_img_3.jpg',
+                    'visible' => 1,
+                    'user_id' => '7'
+                ],
+                [
+                    "title" => 'Milan Apartment 4',
+                    "rooms" => '3',
+                    'beds' => '2',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '65',
+                    'address' => 'Viale Bligny, 20136 Milano MI',
+                    'latitude' => '45.4538',
+                    'longitude' => '9.1918',
+                    'image' => 'milan_apartment_img_4.jpg',
+                    'visible' => 1,
+                    'user_id' => '7'
+                ],
+                [
+                    "title" => 'Milan Apartment 5',
+                    "rooms" => '5',
+                    'beds' => '4',
+                    'bathrooms' => '3',
+                    'sqr_mt' => '110',
+                    'address' => 'Via Torino, 20123 Milano MI',
+                    'latitude' => '45.4636',
+                    'longitude' => '9.1853',
+                    'image' => 'milan_apartment_img_5.jpg',
+                    'visible' => 1,
+                    'user_id' => '8'
+                ],
+                [
+                    "title" => 'Milan Apartment 6',
+                    "rooms" => '2',
+                    'beds' => '1',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '55',
+                    'address' => 'Via Dante, 20121 Milano MI',
+                    'latitude' => '45.4656',
+                    'longitude' => '9.1858',
+                    'image' => 'milan_apartment_img_6.jpg',
+                    'visible' => 1,
+                    'user_id' => '8'
+                ],
+                [
+                    "title" => 'Milan Apartment 7',
+                    "rooms" => '3',
+                    'beds' => '2',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '75',
+                    'address' => 'Via Savona, 20144 Milano MI',
+                    'latitude' => '45.4550',
+                    'longitude' => '9.1652',
+                    'image' => 'milan_apartment_img_7.jpg',
+                    'visible' => 1,
+                    'user_id' => '9'
+                ],
+                [
+                    "title" => 'Milan Apartment 8',
+                    "rooms" => '4',
+                    'beds' => '3',
+                    'bathrooms' => '2',
+                    'sqr_mt' => '95',
+                    'address' => 'Via Tortona, 20144 Milano MI',
+                    'latitude' => '45.4555',
+                    'longitude' => '9.1675',
+                    'image' => 'milan_apartment_img_8.jpg',
+                    'visible' => 1,
+                    'user_id' => '9'
+                ],
+                [
+                    "title" => 'Milan Apartment 9',
+                    "rooms" => '3',
+                    'beds' => '2',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '80',
+                    'address' => 'Via Broletto, 20121 Milano MI',
+                    'latitude' => '45.4653',
+                    'longitude' => '9.1871',
+                    'image' => 'milan_apartment_img_9.jpg',
+                    'visible' => 1,
+                    'user_id' => '10'
+                ],
+                [
+                    "title" => 'Milan Apartment 10',
+                    "rooms" => '2',
+                    'beds' => '1',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '60',
+                    'address' => 'Via Meravigli, 20123 Milano MI',
+                    'latitude' => '45.4650',
+                    'longitude' => '9.1854',
+                    'image' => 'milan_apartment_img_10.jpg',
+                    'visible' => 1,
+                    'user_id' => '10'
+                ]
+            ];
+
+        // New apartments for Rome
+        $romeApartments =
+            [
+                [
+                    "title" => 'Rome Apartment 1',
+                    "rooms" => '3',
+                    'beds' => '2',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '70',
+                    'address' => 'Via del Corso, 00187 Roma RM',
+                    'latitude' => '41.9031',
+                    'longitude' => '12.4797',
+                    'image' => 'rome_apartment_img_1.jpg',
+                    'visible' => 1,
+                    'user_id' => '11'
+                ],
+                [
+                    "title" => 'Rome Apartment 2',
+                    "rooms" => '2',
+                    'beds' => '1',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '50',
+                    'address' => 'Via dei Fori Imperiali, 00184 Roma RM',
+                    'latitude' => '41.8946',
+                    'longitude' => '12.4853',
+                    'image' => 'rome_apartment_img_2.jpg',
+                    'visible' => 1,
+                    'user_id' => '11'
+                ],
+                [
+                    "title" => 'Rome Apartment 3',
+                    "rooms" => '4',
+                    'beds' => '3',
+                    'bathrooms' => '2',
+                    'sqr_mt' => '90',
+                    'address' => 'Via Veneto, 00187 Roma RM',
+                    'latitude' => '41.9055',
+                    'longitude' => '12.4939',
+                    'image' => 'rome_apartment_img_3.jpg',
+                    'visible' => 1,
+                    'user_id' => '12'
+                ],
+                [
+                    "title" => 'Rome Apartment 4',
+                    "rooms" => '3',
+                    'beds' => '2',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '65',
+                    'address' => 'Via della Conciliazione, 00193 Roma RM',
+                    'latitude' => '41.9029',
+                    'longitude' => '12.4583',
+                    'image' => 'rome_apartment_img_4.jpg',
+                    'visible' => 1,
+                    'user_id' => '12'
+                ],
+                [
+                    "title" => 'Rome Apartment 5',
+                    "rooms" => '5',
+                    'beds' => '4',
+                    'bathrooms' => '3',
+                    'sqr_mt' => '110',
+                    'address' => 'Piazza Navona, 00186 Roma RM',
+                    'latitude' => '41.8989',
+                    'longitude' => '12.4733',
+                    'image' => 'rome_apartment_img_5.jpg',
+                    'visible' => 1,
+                    'user_id' => '13'
+                ],
+                [
+                    "title" => 'Rome Apartment 6',
+                    "rooms" => '2',
+                    'beds' => '1',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '55',
+                    'address' => 'Via del Tritone, 00187 Roma RM',
+                    'latitude' => '41.9034',
+                    'longitude' => '12.4901',
+                    'image' => 'rome_apartment_img_6.jpg',
+                    'visible' => 1,
+                    'user_id' => '13'
+                ],
+                [
+                    "title" => 'Rome Apartment 7',
+                    "rooms" => '3',
+                    'beds' => '2',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '75',
+                    'address' => 'Via Cassia, 00189 Roma RM',
+                    'latitude' => '41.9404',
+                    'longitude' => '12.4435',
+                    'image' => 'rome_apartment_img_7.jpg',
+                    'visible' => 1,
+                    'user_id' => '14'
+                ],
+                [
+                    "title" => 'Rome Apartment 8',
+                    "rooms" => '4',
+                    'beds' => '3',
+                    'bathrooms' => '2',
+                    'sqr_mt' => '95',
+                    'address' => 'Via Aurelia, 00165 Roma RM',
+                    'latitude' => '41.8984',
+                    'longitude' => '12.4438',
+                    'image' => 'rome_apartment_img_8.jpg',
+                    'visible' => 1,
+                    'user_id' => '14'
+                ],
+                [
+                    "title" => 'Rome Apartment 9',
+                    "rooms" => '3',
+                    'beds' => '2',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '80',
+                    'address' => 'Via Flaminia, 00197 Roma RM',
+                    'latitude' => '41.9250',
+                    'longitude' => '12.4794',
+                    'image' => 'rome_apartment_img_9.jpg',
+                    'visible' => 1,
+                    'user_id' => '15'
+                ],
+                [
+                    "title" => 'Rome Apartment 10',
+                    "rooms" => '2',
+                    'beds' => '1',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '60',
+                    'address' => 'Via Appia Antica, 00179 Roma RM',
+                    'latitude' => '41.8563',
+                    'longitude' => '12.5287',
+                    'image' => 'rome_apartment_img_10.jpg',
+                    'visible' => 1,
+                    'user_id' => '15'
+                ]
+            ];
+
+        // New apartments for Naples
+        $naplesApartments =
+            [
+                [
+                    "title" => 'Naples Apartment 1',
+                    "rooms" => '3',
+                    'beds' => '2',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '70',
+                    'address' => 'Via Toledo, 80134 Napoli NA',
+                    'latitude' => '40.8354',
+                    'longitude' => '14.2504',
+                    'image' => 'naples_apartment_img_1.jpg',
+                    'visible' => 1,
+                    'user_id' => '16'
+                ],
+                [
+                    "title" => 'Naples Apartment 2',
+                    "rooms" => '2',
+                    'beds' => '1',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '50',
+                    'address' => 'Viale Colli Aminei, 80131 Napoli NA',
+                    'latitude' => '40.8637',
+                    'longitude' => '14.2495',
+                    'image' => 'naples_apartment_img_2.jpg',
+                    'visible' => 1,
+                    'user_id' => '16'
+                ],
+                [
+                    "title" => 'Naples Apartment 3',
+                    "rooms" => '4',
+                    'beds' => '3',
+                    'bathrooms' => '2',
+                    'sqr_mt' => '90',
+                    'address' => 'Via dei Mille, 80121 Napoli NA',
+                    'latitude' => '40.8409',
+                    'longitude' => '14.2503',
+                    'image' => 'naples_apartment_img_3.jpg',
+                    'visible' => 1,
+                    'user_id' => '17'
+                ],
+                [
+                    "title" => 'Naples Apartment 4',
+                    "rooms" => '3',
+                    'beds' => '2',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '65',
+                    'address' => 'Via Caracciolo, 80122 Napoli NA',
+                    'latitude' => '40.8311',
+                    'longitude' => '14.2355',
+                    'image' => 'naples_apartment_img_4.jpg',
+                    'visible' => 1,
+                    'user_id' => '17'
+                ],
+                [
+                    "title" => 'Naples Apartment 5',
+                    "rooms" => '5',
+                    'beds' => '4',
+                    'bathrooms' => '3',
+                    'sqr_mt' => '110',
+                    'address' => 'Via Chiaia, 80121 Napoli NA',
+                    'latitude' => '40.8316',
+                    'longitude' => '14.2426',
+                    'image' => 'naples_apartment_img_5.jpg',
+                    'visible' => 1,
+                    'user_id' => '18'
+                ],
+                [
+                    "title" => 'Naples Apartment 6',
+                    "rooms" => '2',
+                    'beds' => '1',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '55',
+                    'address' => 'Via San Gregorio Armeno, 80138 Napoli NA',
+                    'latitude' => '40.8500',
+                    'longitude' => '14.2533',
+                    'image' => 'naples_apartment_img_6.jpg',
+                    'visible' => 1,
+                    'user_id' => '18'
+                ],
+                [
+                    "title" => 'Naples Apartment 7',
+                    "rooms" => '3',
+                    'beds' => '2',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '75',
+                    'address' => 'Via Roma, 80133 Napoli NA',
+                    'latitude' => '40.8478',
+                    'longitude' => '14.2550',
+                    'image' => 'naples_apartment_img_7.jpg',
+                    'visible' => 1,
+                    'user_id' => '19'
+                ],
+                [
+                    "title" => 'Naples Apartment 8',
+                    "rooms" => '4',
+                    'beds' => '3',
+                    'bathrooms' => '2',
+                    'sqr_mt' => '95',
+                    'address' => 'Via Toledo, 80135 Napoli NA',
+                    'latitude' => '40.8405',
+                    'longitude' => '14.2507',
+                    'image' => 'naples_apartment_img_8.jpg',
+                    'visible' => 1,
+                    'user_id' => '19'
+                ],
+                [
+                    "title" => 'Naples Apartment 9',
+                    "rooms" => '3',
+                    'beds' => '2',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '80',
+                    'address' => 'Via Partenope, 80121 Napoli NA',
+                    'latitude' => '40.8315',
+                    'longitude' => '14.2502',
+                    'image' => 'naples_apartment_img_9.jpg',
+                    'visible' => 1,
+                    'user_id' => '20'
+                ],
+                [
+                    "title" => 'Naples Apartment 10',
+                    "rooms" => '2',
+                    'beds' => '1',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '60',
+                    'address' => 'Via Benedetto Croce, 80134 Napoli NA',
+                    'latitude' => '40.8371',
+                    'longitude' => '14.2490',
+                    'image' => 'naples_apartment_img_10.jpg',
+                    'visible' => 1,
+                    'user_id' => '20'
+                ]
+            ];
+
+        // New apartments for Florence
+        $florenceApartments =
+            [
+                [
+                    "title" => 'Florence Apartment 1',
+                    "rooms" => '3',
+                    'beds' => '2',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '70',
+                    'address' => 'Piazza della Signoria, 50122 Firenze FI',
+                    'latitude' => '43.7696',
+                    'longitude' => '11.2558',
+                    'image' => 'florence_apartment_img_1.jpg',
+                    'visible' => 1,
+                    'user_id' => '21'
+                ],
+                [
+                    "title" => 'Florence Apartment 2',
+                    "rooms" => '2',
+                    'beds' => '1',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '50',
+                    'address' => 'Via dei Calzaiuoli, 50122 Firenze FI',
+                    'latitude' => '43.7703',
+                    'longitude' => '11.2543',
+                    'image' => 'florence_apartment_img_2.jpg',
+                    'visible' => 1,
+                    'user_id' => '21'
+                ],
+                [
+                    "title" => 'Florence Apartment 3',
+                    "rooms" => '4',
+                    'beds' => '3',
+                    'bathrooms' => '2',
+                    'sqr_mt' => '90',
+                    'address' => 'Piazza del Duomo, 50122 Firenze FI',
+                    'latitude' => '43.7730',
+                    'longitude' => '11.2555',
+                    'image' => 'florence_apartment_img_3.jpg',
+                    'visible' => 1,
+                    'user_id' => '22'
+                ],
+                [
+                    "title" => 'Florence Apartment 4',
+                    "rooms" => '3',
+                    'beds' => '2',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '65',
+                    'address' => 'Via de\' Tornabuoni, 50123 Firenze FI',
+                    'latitude' => '43.7683',
+                    'longitude' => '11.2534',
+                    'image' => 'florence_apartment_img_4.jpg',
+                    'visible' => 1,
+                    'user_id' => '22'
+                ],
+                [
+                    "title" => 'Florence Apartment 5',
+                    "rooms" => '5',
+                    'beds' => '4',
+                    'bathrooms' => '3',
+                    'sqr_mt' => '110',
+                    'address' => 'Piazza Santa Croce, 50122 Firenze FI',
+                    'latitude' => '43.7682',
+                    'longitude' => '11.2607',
+                    'image' => 'florence_apartment_img_5.jpg',
+                    'visible' => 1,
+                    'user_id' => '23'
+                ],
+                [
+                    "title" => 'Florence Apartment 6',
+                    "rooms" => '2',
+                    'beds' => '1',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '55',
+                    'address' => 'Piazza della Repubblica, 50123 Firenze FI',
+                    'latitude' => '43.7764',
+                    'longitude' => '11.2494',
+                    'image' => 'florence_apartment_img_6.jpg',
+                    'visible' => 1,
+                    'user_id' => '23'
+                ],
+                [
+                    "title" => 'Florence Apartment 7',
+                    "rooms" => '3',
+                    'beds' => '2',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '75',
+                    'address' => 'Piazza Santo Spirito, 50125 Firenze FI',
+                    'latitude' => '43.7666',
+                    'longitude' => '11.2488',
+                    'image' => 'florence_apartment_img_7.jpg',
+                    'visible' => 1,
+                    'user_id' => '24'
+                ],
+                [
+                    "title" => 'Florence Apartment 8',
+                    "rooms" => '4',
+                    'beds' => '3',
+                    'bathrooms' => '2',
+                    'sqr_mt' => '95',
+                    'address' => 'Piazza Pitti, 50125 Firenze FI',
+                    'latitude' => '43.7670',
+                    'longitude' => '11.2489',
+                    'image' => 'florence_apartment_img_8.jpg',
+                    'visible' => 1,
+                    'user_id' => '24'
+                ],
+                [
+                    "title" => 'Florence Apartment 9',
+                    "rooms" => '3',
+                    'beds' => '2',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '80',
+                    'address' => 'Via de\' Cerretani, 50123 Firenze FI',
+                    'latitude' => '43.7737',
+                    'longitude' => '11.2490',
+                    'image' => 'florence_apartment_img_9.jpg',
+                    'visible' => 1,
+                    'user_id' => '25'
+                ],
+                [
+                    "title" => 'Florence Apartment 10',
+                    "rooms" => '2',
+                    'beds' => '1',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '60',
+                    'address' => 'Via Maggio, 50125 Firenze FI',
+                    'latitude' => '43.7653',
+                    'longitude' => '11.2469',
+                    'image' => 'florence_apartment_img_10.jpg',
+                    'visible' => 1,
+                    'user_id' => '25'
+                ]
+            ];
+
+        // New apartments for Turin
+        $turinApartments =
+            [
+                [
+                    "title" => 'Turin Apartment 1',
+                    "rooms" => '3',
+                    'beds' => '2',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '70',
+                    'address' => 'Via Po, 10123 Torino TO',
+                    'latitude' => '45.0705',
+                    'longitude' => '7.6823',
+                    'image' => 'turin_apartment_img_1.jpg',
+                    'visible' => 1,
+                    'user_id' => '26'
+                ],
+                [
+                    "title" => 'Turin Apartment 2',
+                    "rooms" => '2',
+                    'beds' => '1',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '50',
+                    'address' => 'Via Garibaldi, 10122 Torino TO',
+                    'latitude' => '45.0672',
+                    'longitude' => '7.6826',
+                    'image' => 'turin_apartment_img_2.jpg',
+                    'visible' => 1,
+                    'user_id' => '26'
+                ],
+                [
+                    "title" => 'Turin Apartment 3',
+                    "rooms" => '4',
+                    'beds' => '3',
+                    'bathrooms' => '2',
+                    'sqr_mt' => '90',
+                    'address' => 'Via Roma, 10121 Torino TO',
+                    'latitude' => '45.0706',
+                    'longitude' => '7.6872',
+                    'image' => 'turin_apartment_img_3.jpg',
+                    'visible' => 1,
+                    'user_id' => '27'
+                ],
+                [
+                    "title" => 'Turin Apartment 4',
+                    "rooms" => '3',
+                    'beds' => '2',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '65',
+                    'address' => 'Via Po, 10124 Torino TO',
+                    'latitude' => '45.0664',
+                    'longitude' => '7.6877',
+                    'image' => 'turin_apartment_img_4.jpg',
+                    'visible' => 1,
+                    'user_id' => '27'
+                ],
+                [
+                    "title" => 'Turin Apartment 5',
+                    "rooms" => '5',
+                    'beds' => '4',
+                    'bathrooms' => '3',
+                    'sqr_mt' => '110',
+                    'address' => 'Piazza Vittorio Veneto, 10123 Torino TO',
+                    'latitude' => '45.0707',
+                    'longitude' => '7.6843',
+                    'image' => 'turin_apartment_img_5.jpg',
+                    'visible' => 1,
+                    'user_id' => '28'
+                ],
+                [
+                    "title" => 'Turin Apartment 6',
+                    "rooms" => '2',
+                    'beds' => '1',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '55',
+                    'address' => 'Corso Vittorio Emanuele II, 10123 Torino TO',
+                    'latitude' => '45.0736',
+                    'longitude' => '7.6841',
+                    'image' => 'turin_apartment_img_6.jpg',
+                    'visible' => 1,
+                    'user_id' => '28'
+                ],
+                [
+                    "title" => 'Turin Apartment 7',
+                    "rooms" => '3',
+                    'beds' => '2',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '75',
+                    'address' => 'Via Milano, 10122 Torino TO',
+                    'latitude' => '45.0699',
+                    'longitude' => '7.6902',
+                    'image' => 'turin_apartment_img_7.jpg',
+                    'visible' => 1,
+                    'user_id' => '29'
+                ],
+                [
+                    "title" => 'Turin Apartment 8',
+                    "rooms" => '4',
+                    'beds' => '3',
+                    'bathrooms' => '2',
+                    'sqr_mt' => '95',
+                    'address' => 'Via Pietro Micca, 10121 Torino TO',
+                    'latitude' => '45.0694',
+                    'longitude' => '7.6825',
+                    'image' => 'turin_apartment_img_8.jpg',
+                    'visible' => 1,
+                    'user_id' => '29'
+                ],
+                [
+                    "title" => 'Turin Apartment 9',
+                    "rooms" => '3',
+                    'beds' => '2',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '80',
+                    'address' => 'Via Po, 10125 Torino TO',
+                    'latitude' => '45.0643',
+                    'longitude' => '7.6835',
+                    'image' => 'turin_apartment_img_9.jpg',
+                    'visible' => 1,
+                    'user_id' => '30'
+                ],
+                [
+                    "title" => 'Turin Apartment 10',
+                    "rooms" => '2',
+                    'beds' => '1',
+                    'bathrooms' => '1',
+                    'sqr_mt' => '60',
+                    'address' => 'Corso Regina Margherita, 10123 Torino TO',
+                    'latitude' => '45.0605',
+                    'longitude' => '7.6843',
+                    'image' => 'turin_apartment_img_10.jpg',
+                    'visible' => 1,
+                    'user_id' => '30'
+                ]
+            ];
+
+        //Uniamo gli array
+        $allApartments = array_merge(
+            $bolognaApartments,
+            $milanApartments,
+            $romeApartments,
+            $naplesApartments,
+            $florenceApartments,
+            $turinApartments
+        );
+
+        /* shuffle($allApartments); */
+        //Volendo si possono mescolare per non averli sempre nello stesso ordine
+
         $user_ids = User::all()->pluck('id')->all();
 
         $sponsors = Sponsor::all();
 
         $service_ids = Service::all()->pluck('id')->all();
 
-        foreach ($apartments as $index => $apartment) {
+        foreach ($allApartments as $index => $apartment) {
 
 
             $new_apartment = new Apartment();

@@ -18,7 +18,7 @@ class ViewSeeder extends Seeder
 
         $apartment_ids = Apartment::all()->pluck('id')->all();
 
-        for ($i = 0; $i < 2000; $i++) {
+        for ($i = 0; $i < 10000; $i++) {
 
             $new_view = new View();
 
