@@ -157,8 +157,8 @@ class ApartmentSeeder extends Seeder
         $milanApartments =
             [
                 [
-                    "title" => 'Milan Apartment 1',
-                    "rooms" => '3',
+                    "title" => 'Studio apartment with Duomo view',
+                    "rooms" => '1',
                     'beds' => '2',
                     'bathrooms' => '1',
                     'sqr_mt' => '70',
@@ -170,7 +170,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '6'
                 ],
                 [
-                    "title" => 'Milan Apartment 2',
+                    "title" => 'Apartment with triple exposure and concierge',
                     "rooms" => '2',
                     'beds' => '1',
                     'bathrooms' => '1',
@@ -183,7 +183,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '6'
                 ],
                 [
-                    "title" => 'Milan Apartment 3',
+                    "title" => 'Convenient structure with nearby subway',
                     "rooms" => '4',
                     'beds' => '3',
                     'bathrooms' => '2',
@@ -196,7 +196,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '7'
                 ],
                 [
-                    "title" => 'Milan Apartment 4',
+                    "title" => 'Room in the heart of Milan',
                     "rooms" => '3',
                     'beds' => '2',
                     'bathrooms' => '1',
@@ -209,7 +209,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '7'
                 ],
                 [
-                    "title" => 'Milan Apartment 5',
+                    "title" => 'Perfect house to live in Via Torino to the fullest',
                     "rooms" => '5',
                     'beds' => '4',
                     'bathrooms' => '3',
@@ -222,11 +222,11 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '8'
                 ],
                 [
-                    "title" => 'Milan Apartment 6',
+                    "title" => 'Bauscia apartment',
                     "rooms" => '2',
                     'beds' => '1',
                     'bathrooms' => '1',
-                    'sqr_mt' => '55',
+                    'sqr_mt' => '75',
                     'address' => 'Via Dante, 20121 Milano MI',
                     'latitude' => '45.4656',
                     'longitude' => '9.1858',
@@ -235,11 +235,11 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '8'
                 ],
                 [
-                    "title" => 'Milan Apartment 7',
+                    "title" => '20 square meters of luxury',
                     "rooms" => '3',
                     'beds' => '2',
                     'bathrooms' => '1',
-                    'sqr_mt' => '75',
+                    'sqr_mt' => '20',
                     'address' => 'Via Savona, 20144 Milano MI',
                     'latitude' => '45.4550',
                     'longitude' => '9.1652',
@@ -248,7 +248,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '9'
                 ],
                 [
-                    "title" => 'Milan Apartment 8',
+                    "title" => 'Accommodation with Madunina view',
                     "rooms" => '4',
                     'beds' => '3',
                     'bathrooms' => '2',
@@ -261,7 +261,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '9'
                 ],
                 [
-                    "title" => 'Milan Apartment 9',
+                    "title" => 'Comfortable old house',
                     "rooms" => '3',
                     'beds' => '2',
                     'bathrooms' => '1',
@@ -274,11 +274,11 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '10'
                 ],
                 [
-                    "title" => 'Milan Apartment 10',
-                    "rooms" => '2',
+                    "title" => 'Single room to share with two roommates',
+                    "rooms" => '1',
                     'beds' => '1',
                     'bathrooms' => '1',
-                    'sqr_mt' => '60',
+                    'sqr_mt' => '40',
                     'address' => 'Via Meravigli, 20123 Milano MI',
                     'latitude' => '45.4650',
                     'longitude' => '9.1854',
@@ -292,7 +292,7 @@ class ApartmentSeeder extends Seeder
         $romeApartments =
             [
                 [
-                    "title" => 'Rome Apartment 1',
+                    "title" => 'Home to experience ancient Rome',
                     "rooms" => '3',
                     'beds' => '2',
                     'bathrooms' => '1',
@@ -305,7 +305,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '11'
                 ],
                 [
-                    "title" => 'Rome Apartment 2',
+                    "title" => 'Apartment near the Imperial Forums',
                     "rooms" => '2',
                     'beds' => '1',
                     'bathrooms' => '1',
@@ -318,7 +318,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '11'
                 ],
                 [
-                    "title" => 'Rome Apartment 3',
+                    "title" => 'Anvedi che appartamentino',
                     "rooms" => '4',
                     'beds' => '3',
                     'bathrooms' => '2',
@@ -331,7 +331,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '12'
                 ],
                 [
-                    "title" => 'Rome Apartment 4',
+                    "title" => 'Convenient accommodation for remote working',
                     "rooms" => '3',
                     'beds' => '2',
                     'bathrooms' => '1',
@@ -344,11 +344,11 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '12'
                 ],
                 [
-                    "title" => 'Rome Apartment 5',
+                    "title" => 'Small but characteristic house',
                     "rooms" => '5',
                     'beds' => '4',
                     'bathrooms' => '3',
-                    'sqr_mt' => '110',
+                    'sqr_mt' => '30',
                     'address' => 'Piazza Navona, 00186 Roma RM',
                     'latitude' => '41.8989',
                     'longitude' => '12.4733',
@@ -357,7 +357,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '13'
                 ],
                 [
-                    "title" => 'Rome Apartment 6',
+                    "title" => 'Renovated villa',
                     "rooms" => '2',
                     'beds' => '1',
                     'bathrooms' => '1',
@@ -370,7 +370,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '13'
                 ],
                 [
-                    "title" => 'Rome Apartment 7',
+                    "title" => 'Perfect apartment for a romantic weekend',
                     "rooms" => '3',
                     'beds' => '2',
                     'bathrooms' => '1',
@@ -383,7 +383,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '14'
                 ],
                 [
-                    "title" => 'Rome Apartment 8',
+                    "title" => 'Typical Roman house with suggestive view',
                     "rooms" => '4',
                     'beds' => '3',
                     'bathrooms' => '2',
@@ -396,7 +396,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '14'
                 ],
                 [
-                    "title" => 'Rome Apartment 9',
+                    "title" => 'Modern accommodation with garden',
                     "rooms" => '3',
                     'beds' => '2',
                     'bathrooms' => '1',
@@ -409,7 +409,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '15'
                 ],
                 [
-                    "title" => 'Rome Apartment 10',
+                    "title" => 'Apartment with strategic location',
                     "rooms" => '2',
                     'beds' => '1',
                     'bathrooms' => '1',
@@ -427,7 +427,7 @@ class ApartmentSeeder extends Seeder
         $naplesApartments =
             [
                 [
-                    "title" => 'Naples Apartment 1',
+                    "title" => 'Neo-baroque house',
                     "rooms" => '3',
                     'beds' => '2',
                     'bathrooms' => '1',
@@ -440,7 +440,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '16'
                 ],
                 [
-                    "title" => 'Naples Apartment 2',
+                    "title" => 'Vintage apartment with various options',
                     "rooms" => '2',
                     'beds' => '1',
                     'bathrooms' => '1',
@@ -453,7 +453,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '16'
                 ],
                 [
-                    "title" => 'Naples Apartment 3',
+                    "title" => 'Stay in full Neapolitan spirit',
                     "rooms" => '4',
                     'beds' => '3',
                     'bathrooms' => '2',
@@ -466,7 +466,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '17'
                 ],
                 [
-                    "title" => 'Naples Apartment 4',
+                    "title" => 'The garden of lovers',
                     "rooms" => '3',
                     'beds' => '2',
                     'bathrooms' => '1',
@@ -479,7 +479,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '17'
                 ],
                 [
-                    "title" => 'Naples Apartment 5',
+                    "title" => 'Here you will cry twice',
                     "rooms" => '5',
                     'beds' => '4',
                     'bathrooms' => '3',
@@ -492,7 +492,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '18'
                 ],
                 [
-                    "title" => 'Naples Apartment 6',
+                    "title" => 'Bijou villa',
                     "rooms" => '2',
                     'beds' => '1',
                     'bathrooms' => '1',
@@ -505,7 +505,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '18'
                 ],
                 [
-                    "title" => 'Naples Apartment 7',
+                    "title" => 'House sun and sea',
                     "rooms" => '3',
                     'beds' => '2',
                     'bathrooms' => '1',
@@ -518,7 +518,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '19'
                 ],
                 [
-                    "title" => 'Naples Apartment 8',
+                    "title" => 'O\' sole mio',
                     "rooms" => '4',
                     'beds' => '3',
                     'bathrooms' => '2',
@@ -531,7 +531,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '19'
                 ],
                 [
-                    "title" => 'Naples Apartment 9',
+                    "title" => 'Modern and relaxing apartment',
                     "rooms" => '3',
                     'beds' => '2',
                     'bathrooms' => '1',
@@ -544,7 +544,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '20'
                 ],
                 [
-                    "title" => 'Naples Apartment 10',
+                    "title" => 'Dream house',
                     "rooms" => '2',
                     'beds' => '1',
                     'bathrooms' => '1',
@@ -562,7 +562,7 @@ class ApartmentSeeder extends Seeder
         $florenceApartments =
             [
                 [
-                    "title" => 'Florence Apartment 1',
+                    "title" => 'The Florentine house par excellence',
                     "rooms" => '3',
                     'beds' => '2',
                     'bathrooms' => '1',
@@ -575,7 +575,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '21'
                 ],
                 [
-                    "title" => 'Florence Apartment 2',
+                    "title" => 'The house of the truffle',
                     "rooms" => '2',
                     'beds' => '1',
                     'bathrooms' => '1',
@@ -588,7 +588,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '21'
                 ],
                 [
-                    "title" => 'Florence Apartment 3',
+                    "title" => 'Dante\'s hiding place',
                     "rooms" => '4',
                     'beds' => '3',
                     'bathrooms' => '2',
@@ -601,7 +601,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '22'
                 ],
                 [
-                    "title" => 'Florence Apartment 4',
+                    "title" => 'House on the bridge',
                     "rooms" => '3',
                     'beds' => '2',
                     'bathrooms' => '1',
@@ -614,7 +614,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '22'
                 ],
                 [
-                    "title" => 'Florence Apartment 5',
+                    "title" => 'Brightly lit house full of positive energy',
                     "rooms" => '5',
                     'beds' => '4',
                     'bathrooms' => '3',
@@ -627,7 +627,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '23'
                 ],
                 [
-                    "title" => 'Florence Apartment 6',
+                    "title" => 'Modern accommodation',
                     "rooms" => '2',
                     'beds' => '1',
                     'bathrooms' => '1',
@@ -640,7 +640,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '23'
                 ],
                 [
-                    "title" => 'Florence Apartment 7',
+                    "title" => 'Study for smart work',
                     "rooms" => '3',
                     'beds' => '2',
                     'bathrooms' => '1',
@@ -653,7 +653,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '24'
                 ],
                 [
-                    "title" => 'Florence Apartment 8',
+                    "title" => 'House of serenity',
                     "rooms" => '4',
                     'beds' => '3',
                     'bathrooms' => '2',
@@ -666,7 +666,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '24'
                 ],
                 [
-                    "title" => 'Florence Apartment 9',
+                    "title" => 'We eat well here',
                     "rooms" => '3',
                     'beds' => '2',
                     'bathrooms' => '1',
@@ -679,7 +679,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '25'
                 ],
                 [
-                    "title" => 'Florence Apartment 10',
+                    "title" => 'The small hill of Florence',
                     "rooms" => '2',
                     'beds' => '1',
                     'bathrooms' => '1',
@@ -697,7 +697,7 @@ class ApartmentSeeder extends Seeder
         $turinApartments =
             [
                 [
-                    "title" => 'Turin Apartment 1',
+                    "title" => 'Apartment Belin',
                     "rooms" => '3',
                     'beds' => '2',
                     'bathrooms' => '1',
@@ -710,7 +710,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '26'
                 ],
                 [
-                    "title" => 'Turin Apartment 2',
+                    "title" => 'House overlooking the Mole',
                     "rooms" => '2',
                     'beds' => '1',
                     'bathrooms' => '1',
@@ -723,7 +723,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '26'
                 ],
                 [
-                    "title" => 'Turin Apartment 3',
+                    "title" => 'Vintage room with a welcoming mood',
                     "rooms" => '4',
                     'beds' => '3',
                     'bathrooms' => '2',
@@ -736,7 +736,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '27'
                 ],
                 [
-                    "title" => 'Turin Apartment 4',
+                    "title" => 'Gran Torino apartment',
                     "rooms" => '3',
                     'beds' => '2',
                     'bathrooms' => '1',
@@ -749,7 +749,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '27'
                 ],
                 [
-                    "title" => 'Turin Apartment 5',
+                    "title" => 'The house of Vermouth',
                     "rooms" => '5',
                     'beds' => '4',
                     'bathrooms' => '3',
@@ -762,7 +762,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '28'
                 ],
                 [
-                    "title" => 'Turin Apartment 6',
+                    "title" => 'Alessandro\'s house with dirty sink',
                     "rooms" => '2',
                     'beds' => '1',
                     'bathrooms' => '1',
@@ -775,7 +775,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '28'
                 ],
                 [
-                    "title" => 'Turin Apartment 7',
+                    "title" => 'Home automation apartment with latest technologies',
                     "rooms" => '3',
                     'beds' => '2',
                     'bathrooms' => '1',
@@ -788,7 +788,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '29'
                 ],
                 [
-                    "title" => 'Turin Apartment 8',
+                    "title" => 'Room with study area',
                     "rooms" => '4',
                     'beds' => '3',
                     'bathrooms' => '2',
@@ -801,7 +801,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '29'
                 ],
                 [
-                    "title" => 'Turin Apartment 9',
+                    "title" => 'Apartment with park view',
                     "rooms" => '3',
                     'beds' => '2',
                     'bathrooms' => '1',
@@ -814,7 +814,7 @@ class ApartmentSeeder extends Seeder
                     'user_id' => '30'
                 ],
                 [
-                    "title" => 'Turin Apartment 10',
+                    "title" => 'Shabby chic house',
                     "rooms" => '2',
                     'beds' => '1',
                     'bathrooms' => '1',
