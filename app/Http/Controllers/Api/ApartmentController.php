@@ -253,6 +253,7 @@ class ApartmentController extends Controller
         return response()->json([
             'success' => true,
             'apartments' => $paginatedApartments,
+            'totalresults' => $filteredApartments
         ]);
     }
 
