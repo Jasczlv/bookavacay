@@ -39,7 +39,7 @@ $id = 0;
                     <th>Title</th>
                     <th>Address</th>
                     <th>Visibility</th>
-                    <th>Sponsor</th>
+                    <th>Sponsor Expire</th>
                     <th>{{-- fill --}}</th>
                     <th>{{-- fill --}}</th>
                     <th>{{-- fill --}}</th>
