@@ -64,10 +64,15 @@ $id = 0;
                         <td>
                             @php
                                 $currentDate = now();
-                                $sponsorship = $apartment->sponsors()->where('exp_date', '>', $currentDate)->first();
+                                $sponsorship = $apartment
+                                    ->sponsors()
+                                    ->where('exp_date', '>', $currentDate)
+                                    ->orderBy('exp_date', 'desc')
+                                    ->first();
+
                             @endphp
                             @if ($sponsorship)
-                                {{ $sponsorship->pivot->exp_date }}
+                                Until {{ $sponsorship->pivot->exp_date }}
                             @else
                                 Not Sponsored
                             @endif

@@ -163,57 +163,165 @@ class ApartmentController extends Controller
     {
         $statistics = View::where('apartment_id', $apartment->id)->get();
 
-        //Dichiariamo gli array vuoti per i mesi
+        // Dichiariamo gli array vuoti per i mesi
         $months = [];
         $monthlyViews = [];
+        $otherApartmentsViews = [];
+        $monthlyAverageViews = [];
 
-        //Recuperiamo mese ed anno corrente
+        // Recuperiamo mese ed anno corrente
         $currentMonth = (int) date('m');
         $currentYear = (int) date('Y');
 
-        //Ora iteriamo 12 volte a ritroso
-        for ($i = 0; $i < 12; $i++) {
+        // Recuperiamo tutti gli appartamenti dello stesso proprietario
+        $userApartments = $apartment->user->apartments;
 
+        // Inizializziamo l'array per memorizzare le visite per ogni appartamento
+        foreach ($userApartments as $userApartment) {
+            if ($userApartment->id !== $apartment->id) {
+                $otherApartmentsViews[$userApartment->title] = [];
+            }
+        }
+
+        // Funzione per calcolare la distanza
+        function getDistanceBetweenPointsNew($latitude1, $longitude1, $latitude2, $longitude2, $unit = 'kilometers')
+        {
+            $theta = $longitude1 - $longitude2;
+            $distance = (sin(deg2rad($latitude1)) * sin(deg2rad($latitude2))) + (cos(deg2rad($latitude1)) * cos(deg2rad($latitude2)) * cos(deg2rad($theta)));
+            $distance = acos($distance);
+            $distance = rad2deg($distance);
+            $distance = $distance * 60 * 1.1515;
+            switch ($unit) {
+                case 'miles':
+                    break;
+                case 'kilometers':
+                    $distance = $distance * 1.609344;
+            }
+            return (round($distance, 2));
+        }
+
+        // Recuperiamo tutti gli appartamenti entro 30 km
+        $nearbyApartments = Apartment::all()->filter(function ($otherApartment) use ($apartment) {
+            return getDistanceBetweenPointsNew(
+                $apartment->latitude,
+                $apartment->longitude,
+                $otherApartment->latitude,
+                $otherApartment->longitude
+            ) <= 30;
+        });
+
+        // Ora iteriamo 12 volte a ritroso
+        for ($i = 0; $i < 12; $i++) {
             $month = $currentMonth - $i;
             $year = $currentYear;
 
-            //Se il mese viene negativo, diminuiamo l'anno di 1 e aumentiamo il mese di 12
+            // Se il mese viene negativo, diminuiamo l'anno di 1 e aumentiamo il mese di 12
             if ($month < 1) {
                 $month += 12;
                 $year--;
             }
 
-            //Recuperiamo il nome del mese.'F' serve per il formato, in questo caso ti da il Full name.  mktime e' il formato, che ti chiede ore(0), minuti(0), secondi(0), mese($month), e giorno. Ho messo un numero a caso per il giorno
+            // Recuperiamo il nome del mese.'F' serve per il formato, in questo caso ti da il Full name. mktime e' il formato, che ti chiede ore(0), minuti(0), secondi(0), mese($month), e giorno. Ho messo un numero a caso per il giorno
             $monthName = date('F', mktime(0, 0, 0, $month, 10));
-            array_unshift($months, $monthName); //Aggiunge all'inizio dell'array invece che in fondo
+            array_unshift($months, $monthName); // Aggiunge all'inizio dell'array invece che in fondo
 
-            //Recuperiamo le visite per quel mese e le mettiamo nell'array
+            // Recuperiamo le visite per quel mese e le mettiamo nell'array
             $views = View::where('apartment_id', $apartment->id)
                 ->whereYear('created_at', $year)
                 ->whereMonth('created_at', $month)
                 ->count();
             array_unshift($monthlyViews, $views);
+
+            // Recuperiamo le visite per gli altri appartamenti dello stesso proprietario
+            foreach ($userApartments as $userApartment) {
+                if ($userApartment->id !== $apartment->id) {
+                    $viewsOtherApartment = View::where('apartment_id', $userApartment->id)
+                        ->whereYear('created_at', $year)
+                        ->whereMonth('created_at', $month)
+                        ->count();
+                    array_unshift($otherApartmentsViews[$userApartment->title], $viewsOtherApartment);
+                }
+            }
+
+            // Recuperiamo le visite totali per gli appartamenti entro 30 km
+            $totalViews = View::whereIn('apartment_id', $nearbyApartments->pluck('id'))
+                ->whereYear('created_at', $year)
+                ->whereMonth('created_at', $month)
+                ->count();
+
+            // Calcoliamo la media delle visite per gli appartamenti entro 30 km
+            $averageViews = $nearbyApartments->count() > 0 ? $totalViews / $nearbyApartments->count() : 0;
+            array_unshift($monthlyAverageViews, $averageViews);
         }
 
-        //Creiamo il grafico con i dati precedenti
+        // Calcoliamo il mese con il massimo di visualizzazioni
+        $highestViews = max($monthlyViews);
+        $highestMonth = $months[array_search($highestViews, $monthlyViews)];
+
+        // Escludiamo il mese corrente per trovare il mese con il minimo di visualizzazioni
+        $filteredMonthlyViews = array_slice($monthlyViews, 0, -1); // Escludiamo l'ultimo elemento (mese corrente)
+        $filteredMonths = array_slice($months, 0, -1); // Escludiamo l'ultimo elemento (mese corrente)
+
+        $lowestViews = min($filteredMonthlyViews);
+        $lowestMonth = $filteredMonths[array_search($lowestViews, $filteredMonthlyViews)];
+
+        // Calcoliamo il ranking dell'appartamento nell'area di 30km
+        $totalViewsForCurrentApartment = View::where('apartment_id', $apartment->id)->count();
+        $nearbyApartmentsSorted = $nearbyApartments->sortByDesc(function ($apartment) {
+            return View::where('apartment_id', $apartment->id)->count();
+        });
+        $ranking = $nearbyApartmentsSorted->pluck('id')->search($apartment->id) + 1;
+
+        // Creiamo gli array dei dataset per il grafico
+        $datasets = [
+            [
+                "label" => "Monthly Apartment Views",
+                'backgroundColor' => "#FFB44066",
+                'borderColor' => "#F7851D",
+                "pointBorderColor" => "#2889B6",
+                "pointBackgroundColor" => "#95CFE9",
+                "pointHoverBackgroundColor" => "#fff",
+                "pointHoverBorderColor" => "rgba(220,220,220,1)",
+                "data" => $monthlyViews,
+                "fill" => true,
+            ],
+            [
+                "label" => "Average Views (Within 30km)",
+                'backgroundColor' => "#6666FF66",
+                'borderColor' => "#1D1DF7",
+                "pointBorderColor" => "#8928B6",
+                "pointBackgroundColor" => "#CF95E9",
+                "pointHoverBackgroundColor" => "#fff",
+                "pointHoverBorderColor" => "rgba(220,220,220,1)",
+                "data" => $monthlyAverageViews,
+                "fill" => true,
+            ]
+        ];
+
+        // Aggiungiamo i dataset per ogni altro appartamento
+        foreach ($userApartments as $userApartment) {
+            if ($userApartment->id !== $apartment->id) {
+                $datasets[] = [
+                    "label" => "Views for " . $userApartment->title,
+                    'backgroundColor' => "#" . substr(md5($userApartment->title), 0, 6) . "66", // Unique color based on title
+                    'borderColor' => "#" . substr(md5($userApartment->title), 0, 6),
+                    "pointBorderColor" => "#B68928",
+                    "pointBackgroundColor" => "#E9CF95",
+                    "pointHoverBackgroundColor" => "#fff",
+                    "pointHoverBorderColor" => "rgba(220,220,220,1)",
+                    "data" => $otherApartmentsViews[$userApartment->title],
+                    "fill" => true,
+                ];
+            }
+        }
+
+        // Creiamo il grafico con i dati precedenti
         $chartjs = app()->chartjs
             ->name('lineChartTest')
             ->type('line')
             ->size(['width' => 400, 'height' => 200])
             ->labels($months)
-            ->datasets([
-                [
-                    "label" => "Monthly Apartment Views",
-                    'backgroundColor' => "#FFB44066",
-                    'borderColor' => "#F7851D",
-                    "pointBorderColor" => "#2889B6",
-                    "pointBackgroundColor" => "#95CFE9",
-                    "pointHoverBackgroundColor" => "#fff",
-                    "pointHoverBorderColor" => "rgba(220,220,220,1)",
-                    "data" => $monthlyViews,
-                    "fill" => true,
-                ],
-            ])
+            ->datasets($datasets)
             ->options([
                 'scales' => [
                     'y' => [
@@ -224,8 +332,9 @@ class ApartmentController extends Controller
                 ],
             ]);
 
-        return view('admin.apartments.statistics', compact('statistics', 'apartment', 'chartjs'));
+        return view('admin.apartments.statistics', compact('statistics', 'apartment', 'chartjs', 'highestMonth', 'lowestMonth', 'ranking'));
     }
+
 
 
 

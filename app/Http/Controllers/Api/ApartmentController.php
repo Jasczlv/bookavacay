@@ -24,6 +24,7 @@ class ApartmentController extends Controller
         $now = Carbon::now();
 
         $apartments = Apartment::with('sponsors', 'services')
+            ->where('visible', true)
             ->whereHas('sponsors', function ($query) use ($now) {
                 $query->where('exp_date', '>', $now);
             })
@@ -58,7 +59,8 @@ class ApartmentController extends Controller
     public function show($id, Request $request)
     {
 
-        $apartment = Apartment::with('services', 'sponsors')->find($id);
+        $apartment = Apartment::with('services', 'sponsors')
+            ->where('visible', true)->find($id);
 
         if (!$apartment) {
             return response()->json([
@@ -157,7 +159,8 @@ class ApartmentController extends Controller
         }
 
         // Recuperare tutti gli appartamenti con le loro relazioni
-        $apartments = Apartment::with('services', 'sponsors')->get();
+        $apartments = Apartment::with('services', 'sponsors')
+            ->where('visible', true)->get();
 
         // Se non trova nessun appartamento da questa risposta
         if ($apartments->isEmpty()) {
