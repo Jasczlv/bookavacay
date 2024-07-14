@@ -51,16 +51,14 @@
     </section>
 @endsection
 
-@section('additional-styles')
-    <style scoped>
-        .highlight-header {
-            background-color: #F7851D;
-        }
 
-        .highlight-body {
-            background-color: #FFB440;
-            /* var(--light--orange) */
-            color: black;
-        }
-    </style>
-@endsection
+<style scoped>
+    .highlight-header {
+        background-color: #F7851D !important;
+    }
+
+    .highlight-body {
+        background-color: #FFB440 !important;
+        color: black !important;
+    }
+</style>
