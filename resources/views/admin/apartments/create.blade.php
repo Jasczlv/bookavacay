@@ -43,7 +43,8 @@
                             </div>
                             <div class="col-auto">
                                 <label for="address">Address: </label>
-                                <input style="width: 400px" type="text" name="address" id="address" readonly required>
+                                <input style="max-width: 400px" type="text" name="address" id="address" readonly
+                                    required>
                             </div>
                         </div>
                     </div>
@@ -118,7 +119,7 @@
                                 <div class="accordion-body">
                                     <div class="row">
                                         @foreach ($services as $service)
-                                            <div class="col-2">
+                                            <div class="col-auto">
                                                 <label for="{{ $service->name }}">{{ $service->name }}</label>
                                                 <input type="checkbox" name="services[]" id="{{ $service->name }}"
                                                     value="{{ $service->id }}">
