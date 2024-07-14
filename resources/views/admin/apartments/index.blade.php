@@ -8,7 +8,7 @@ $id = 0;
         <h1 class="mt-4">Apartments</h1>
     </div>
     <div class="container">
-        <div class="d-flex justify-content-between align-items-center">
+        <div class="d-flex justify-content-between align-items-center sponsor-sec">
             <a type="button" class="btn btn-primary mt-2 mb-3" href="{{ route('admin.apartments.create') }}">Add a new
                 apartment</a>
 
@@ -40,28 +40,29 @@ $id = 0;
                     <th>Address</th>
                     <th>Visibility</th>
                     <th>Sponsor Expire</th>
-                    <th>{{-- fill --}}</th>
-                    <th>{{-- fill --}}</th>
-                    <th>{{-- fill --}}</th>
-                    <th>{{-- fill --}}</th>
+                    {{-- <th></th>
+                        <th></th>
+                        <th></th>
+                        <th></th> --}}
                 </tr>
             </thead>
             <tbody>
                 @foreach ($apartments as $apartment)
                     <tr>
-                        <td><img src="{{ Vite::asset('storage/app/public/images/' . $apartment->image) }}" alt=""
+                        <td class="label-td" data-label="Image"><img
+                                src="{{ Vite::asset('storage/app/public/images/' . $apartment->image) }}" alt=""
                                 style="max-width: 300px"></td>
-                        <td><a class="btn-link"
+                        <td class="label-td" data-label="Title"><a class="btn-link"
                                 href="{{ route('admin.apartments.show', $apartment) }}">{{ $apartment->title }}</a></td>
-                        <td>{{ $apartment->address }}</td>
-                        <td>
+                        <td class="label-td" data-label="Address">{{ $apartment->address }}</td>
+                        <td class="label-td" data-label="Visibility">
                             @if ($apartment->visible == true)
                                 Visible
                             @else
                                 Hidden
                             @endif
                         </td>
-                        <td>
+                        <td class="label-td" data-label="Sponsor Expire">
                             @php
                                 $currentDate = now();
                                 $sponsorship = $apartment
@@ -69,7 +70,6 @@ $id = 0;
                                     ->where('exp_date', '>', $currentDate)
                                     ->orderBy('exp_date', 'desc')
                                     ->first();
-
                             @endphp
                             @if ($sponsorship)
                                 Until {{ $sponsorship->pivot->exp_date }}
@@ -77,62 +77,46 @@ $id = 0;
                                 Not Sponsored
                             @endif
                         </td>
-                        {{-- MESSAGES --}}
-                        <td>
-                            <a type="button" class="btn btn-success"
+                        <td class="d-flex flex-column gap-3" data-label="Messages"><a type="button" class="btn btn-success"
                                 href="{{ route('admin.apartments.messages', $apartment) }}">Messages</a>
-                        </td>
-                        {{-- STATISTICS --}}
-                        <td>
                             <a type="button" class="btn btn-info"
                                 href="{{ route('admin.apartments.statistics', $apartment) }}">Statistics</a>
-                        </td>
-                        {{-- EDIT --}}
-                        <td>
                             <a type="button" class="btn btn-warning"
                                 href="{{ route('admin.apartments.edit', $apartment) }}">Edit</a>
-                        </td>
-                        {{-- DELETE --}}
-                        <td>
                             <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                data-bs-target="#apartment{{ $apartment->id }}">
-                                Delete
-                            </button>
-                            {{-- MODAL --}}
-                            <div class="modal fade" id="apartment{{ $apartment->id }}"
-                                aria-labelledby="apartmentLabel{{ $apartment->id }}" aria-hidden="true">
-                                <div class="modal-dialog">
-                                    <div class="modal-content">
-                                        <div class="modal-header">
-                                            <h1 class="modal-title fs-5" id="apartmentLabel{{ $apartment->id }}">Delete
-                                                apartment</h1>
-                                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                                aria-label="Close"></button>
-                                        </div>
-                                        <div class="modal-body">
-                                            Are you sure to delete this apartment?
-                                        </div>
-                                        <div class="modal-footer">
-                                            <button type="button" class="btn btn-secondary"
-                                                data-bs-dismiss="modal">Close</button>
-                                            <form action="{{ route('admin.apartments.destroy', $apartment) }}"
-                                                method="POST">
-                                                @method('DELETE')
-                                                @csrf
+                                data-bs-target="#apartment{{ $apartment->id }}">Delete</button>
+                        </td>
 
-                                                <button class="btn btn-link link-danger">Delete</button>
-
-                                            </form>
-                                        </div>
+                        <div class="modal fade" id="apartment{{ $apartment->id }}"
+                            aria-labelledby="apartmentLabel{{ $apartment->id }}" aria-hidden="true">
+                            <div class="modal-dialog">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <h1 class="modal-title fs-5" id="apartmentLabel{{ $apartment->id }}">Delete
+                                            apartment</h1>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        Are you sure to delete this apartment?
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-secondary"
+                                            data-bs-dismiss="modal">Close</button>
+                                        <form action="{{ route('admin.apartments.destroy', $apartment) }}" method="POST">
+                                            @method('DELETE')
+                                            @csrf
+                                            <button class="btn btn-link link-danger">Delete</button>
+                                        </form>
                                     </div>
                                 </div>
                             </div>
+                        </div>
                         </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
-
     </div>
 
 
@@ -195,3 +179,77 @@ $id = 0;
         </script>
     @endif
 @endsection
+
+
+<style scoped>
+    .list-group-item {
+        border: none !important;
+    }
+
+    /* Ensure the container has horizontal scrolling */
+    .table-responsive {
+        /* overflow-x: auto; */
+        -webkit-overflow-scrolling: touch;
+        /* Smooth scrolling for iOS */
+    }
+
+    /* Style the table to be 100% width and collapse borders */
+    .table {
+        width: 100%;
+        border-collapse: collapse;
+    }
+
+    /* Ensure images are responsive */
+    .table img {
+        max-width: 100%;
+        height: auto;
+    }
+
+    /* Hide table headers and style table rows for small screens */
+    @media screen and (max-width: 960px) {
+        .table thead {
+            display: none;
+        }
+
+        .table tbody,
+        .table tr,
+        .table td {
+            display: block;
+            width: 100%;
+        }
+
+        .table tr {
+            margin-bottom: 15px;
+        }
+
+        .table td {
+            text-align: right;
+            padding-left: 50%;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: normal;
+            /* Ensure text wraps */
+        }
+
+        .label-td:before {
+            content: attr(data-label);
+            /* position: absolute; */
+            /* left: 0; */
+            width: 50%;
+            padding-left: 15px;
+            padding-bottom: .5rem;
+            font-weight: bold;
+            text-align: left;
+        }
+
+        .btn {
+            width: 100%;
+            margin-bottom: 10px;
+        }
+
+        .sponsor-sec {
+            flex-direction: column;
+        }
+    }
+</style>
