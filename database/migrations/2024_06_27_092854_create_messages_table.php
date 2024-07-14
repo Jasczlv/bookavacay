@@ -15,6 +15,7 @@ return new class extends Migration {
             $table->timestamps();
             $table->string('sender_email', 100);
             $table->text('content');
+            $table->boolean('notification')->default(true);
         });
     }
 

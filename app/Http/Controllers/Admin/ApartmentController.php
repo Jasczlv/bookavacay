@@ -26,13 +26,18 @@ class ApartmentController extends Controller
     public function index(Request $request)
     {
         $user = $request->user();
-        $apartments = Apartment::where('user_id', $request->user()->id)->get();
+        $apartments = Apartment::where('user_id', $user->id)->get()->map(function ($apartment) {
+            $apartment->unread_messages_count = Message::where('apartment_id', $apartment->id)
+                ->where('notification', true)
+                ->count();
+            return $apartment;
+        });
 
         //api json response
         if ($request->wantsJson()) {
-            $apartments = Apartment::all();
             return response()->json($apartments);
         }
+
         return view('admin.apartments.index', compact('apartments', 'user'));
     }
 
@@ -148,6 +153,7 @@ class ApartmentController extends Controller
     public function messages(Apartment $apartment, Message $message, Request $request)
     {
         $messages = Message::where('apartment_id', $apartment->id)
+            ->where('notification', false)
             ->orderBy('created_at', 'desc')
             ->get()
             ->map(function ($message) {
@@ -156,8 +162,27 @@ class ApartmentController extends Controller
                 return $message;
             });
 
-        return view('admin.apartments.messages', compact('messages', 'apartment'));
+        $notifications = Message::where('apartment_id', $apartment->id)
+            ->where('notification', true)
+            ->orderBy('created_at', 'desc')
+            ->get();
+
+        foreach ($notifications as $notification) {
+            $notification->notification = false;
+            $notification->save();
+        }
+
+        // Format the notifications after saving
+        $notifications = $notifications->map(function ($message) {
+            $message->formatted_date = Carbon::parse($message->created_at)->format('Y-m-d');
+            $message->formatted_time = Carbon::parse($message->created_at)->format('H:i:s');
+            return $message;
+        });
+
+        return view('admin.apartments.messages', compact('messages', 'apartment', 'notifications'));
     }
+
+
 
     public function statistics(Apartment $apartment, View $view, Request $request)
     {

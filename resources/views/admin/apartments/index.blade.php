@@ -30,7 +30,6 @@ $id = 0;
         </div>
     </div>
 
-
     <div class="container">
         <table class="table">
             <thead>
@@ -40,10 +39,7 @@ $id = 0;
                     <th>Address</th>
                     <th>Visibility</th>
                     <th>Sponsor Expire</th>
-                    {{-- <th></th>
-                        <th></th>
-                        <th></th>
-                        <th></th> --}}
+                    <th>Actions</th>
                 </tr>
             </thead>
             <tbody>
@@ -52,8 +48,10 @@ $id = 0;
                         <td class="label-td" data-label="Image"><img
                                 src="{{ Vite::asset('storage/app/public/images/' . $apartment->image) }}" alt=""
                                 style="max-width: 300px"></td>
-                        <td class="label-td" data-label="Title"><a class="btn-link"
-                                href="{{ route('admin.apartments.show', $apartment) }}">{{ $apartment->title }}</a></td>
+                        <td class="label-td" data-label="Title">
+                            <a class="btn-link"
+                                href="{{ route('admin.apartments.show', $apartment) }}">{{ $apartment->title }}</a>
+                        </td>
                         <td class="label-td" data-label="Address">{{ $apartment->address }}</td>
                         <td class="label-td" data-label="Visibility">
                             @if ($apartment->visible == true)
@@ -77,8 +75,18 @@ $id = 0;
                                 Not Sponsored
                             @endif
                         </td>
-                        <td class="d-flex flex-column gap-3" data-label="Messages"><a type="button" class="btn btn-success"
-                                href="{{ route('admin.apartments.messages', $apartment) }}">Messages</a>
+                        <td class="d-flex flex-column gap-3" data-label="Messages">
+                            <a type="button" class="btn btn-success position-relative"
+                                href="{{ route('admin.apartments.messages', $apartment) }}">
+                                Messages
+                                @if ($apartment->unread_messages_count > 0)
+                                    <span
+                                        class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                        {{ $apartment->unread_messages_count }}
+                                        <span class="visually-hidden">unread messages</span>
+                                    </span>
+                                @endif
+                            </a>
                             <a type="button" class="btn btn-info"
                                 href="{{ route('admin.apartments.statistics', $apartment) }}">Statistics</a>
                             <a type="button" class="btn btn-warning"
@@ -112,14 +120,11 @@ $id = 0;
                                 </div>
                             </div>
                         </div>
-                        </td>
                     </tr>
                 @endforeach
             </tbody>
         </table>
     </div>
-
-
 
     @if (session('newApartment'))
         <!-- Modal -->
@@ -179,7 +184,6 @@ $id = 0;
         </script>
     @endif
 @endsection
-
 
 <style scoped>
     .list-group-item {
@@ -253,3 +257,18 @@ $id = 0;
         }
     }
 </style>
+
+
+
+@section('additional-styles')
+    <style scoped>
+        .card-header.highlight {
+            background-color: var(--orange, #F7851D);
+        }
+
+        .card-body.highlight {
+            background-color: var(--light--orange, #FFB440);
+            color: black;
+        }
+    </style>
+@endsection

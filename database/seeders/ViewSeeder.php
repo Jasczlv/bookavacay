@@ -24,7 +24,8 @@ class ViewSeeder extends Seeder
 
             $new_view->ip = $faker->ipv4();
             $new_view->apartment_id = $faker->randomElement($apartment_ids);
-            $new_view->created_at = $faker->dateTimeBetween('-1 year', 'now');
+            $new_view->created_at = $faker->dateTimeBetween('-1 year', 'yesterday');
+
 
             $new_view->save();
 

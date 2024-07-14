@@ -13,6 +13,7 @@ class Message extends Model
         'apartment_id',
         'sender_email',
         'content',
+        'notification'
     ];
     public function apartment()
     {
