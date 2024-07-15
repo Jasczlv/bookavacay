@@ -80,24 +80,27 @@ $id = 0;
                                     Not Sponsored
                                 @endif
                             </td>
-                            <td class="d-flex flex-column gap-3" data-label="Messages">
-                                <a type="button" class="btn btn-success position-relative"
-                                    href="{{ route('admin.apartments.messages', $apartment) }}">
-                                    Messages
-                                    @if ($apartment->unread_messages_count > 0)
-                                        <span
-                                            class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                                            {{ $apartment->unread_messages_count }}
-                                            <span class="visually-hidden">unread messages</span>
-                                        </span>
-                                    @endif
-                                </a>
-                                <a type="button" class="btn btn-info"
-                                    href="{{ route('admin.apartments.statistics', $apartment) }}">Statistics</a>
-                                <a type="button" class="btn btn-warning"
-                                    href="{{ route('admin.apartments.edit', $apartment) }}">Edit</a>
-                                <button type="button" class="btn btn-danger" data-bs-toggle="modal"
-                                    data-bs-target="#apartment{{ $apartment->id }}">Delete</button>
+                            <td class="label-td">
+
+                                <div class="d-flex flex-column gap-3" data-label="Messages">
+                                    <a type="button" class="btn btn-success position-relative"
+                                        href="{{ route('admin.apartments.messages', $apartment) }}">
+                                        Messages
+                                        @if ($apartment->unread_messages_count > 0)
+                                            <span
+                                                class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                                                {{ $apartment->unread_messages_count }}
+                                                <span class="visually-hidden">unread messages</span>
+                                            </span>
+                                        @endif
+                                    </a>
+                                    <a type="button" class="btn btn-info"
+                                        href="{{ route('admin.apartments.statistics', $apartment) }}">Statistics</a>
+                                    <a type="button" class="btn btn-warning"
+                                        href="{{ route('admin.apartments.edit', $apartment) }}">Edit</a>
+                                    <button type="button" class="btn btn-danger" data-bs-toggle="modal"
+                                        data-bs-target="#apartment{{ $apartment->id }}">Delete</button>
+                                </div>
                             </td>
 
                             <div class="modal fade" id="apartment{{ $apartment->id }}"
